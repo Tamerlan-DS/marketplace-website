@@ -1,0 +1,27 @@
+from django.db import models
+from .company import Company
+
+
+class CompanyFiles(models.Model):
+    company = models.OneToOneField(Company,
+                                   on_delete=models.CASCADE,
+                                   )
+    picture = models.ImageField(upload_to='company_files/pictures')
+    banner = models.ImageField(upload_to='company_files/banners')
+
+
+class File(models.Model):
+    company_files = models.ForeignKey(CompanyFiles,
+                                      on_delete=models.CASCADE,
+                                      related_name='files',
+                                      )
+    file = models.FileField(upload_to='company_files/files')
+    note = models.CharField(max_length=255, blank=True)
+
+
+class Image(models.Model):
+    company_files = models.ForeignKey(CompanyFiles,
+                                      on_delete=models.CASCADE,
+                                      related_name='images',
+                                      )
+    image = models.ImageField(upload_to='company_files/images')
