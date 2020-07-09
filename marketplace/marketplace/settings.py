@@ -24,7 +24,7 @@ SECRET_KEY = 'k9(=yffp1@@-p6d9nxl)e8orn6ip9+o%gth4q&7=x9ypko$6vt'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['topbuild.beget.tech']
 
 # Application definition
 
