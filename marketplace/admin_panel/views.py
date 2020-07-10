@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from .froms import *
+from company.helper import *
 
 
 # Create your views here.
@@ -25,7 +27,17 @@ def companyEditView(request):
     return render(request, 'admin_panel/admin-company-edit.html', context=context)
 
 def companyAddView(request):
+    if request.method == 'POST':
+        form = CompanyRegisterForm(data=request.POST)
+        if form.is_valid():
+            user = form.register(request)
+            # create_company(user, "asd")
+            # print("HELLO")
+    else:
+        form = CompanyRegisterForm()
+
     context = {
+        'form': form,
     }
     return render(request, 'admin_panel/admin-company-add.html', context=context)
 
