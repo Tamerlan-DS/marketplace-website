@@ -6,8 +6,8 @@ class CompanyFiles(models.Model):
     company = models.OneToOneField(Company,
                                    on_delete=models.CASCADE,
                                    )
-    picture = models.ImageField(upload_to='company_files/pictures')
-    banner = models.ImageField(upload_to='company_files/banners')
+    picture = models.ImageField(upload_to='company_files/pictures', blank=True)
+    banner = models.ImageField(upload_to='company_files/banners', blank=True)
 
 
 class File(models.Model):

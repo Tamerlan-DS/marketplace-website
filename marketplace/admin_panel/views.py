@@ -30,7 +30,6 @@ def companyEditView(request):
 
 def companyAddView(request):
     if request.method == 'POST':
-        print(request.POST)
         username = request.POST['username']
         name = request.POST['name']
         password = request.POST['password']
@@ -45,6 +44,7 @@ def companyAddView(request):
             except User.DoesNotExist:
                 user = User.objects.create_user(username=username, password=password)
                 user.save()
+                create_company(user, name)
                 context = {
                     'error': 0,
                 }
