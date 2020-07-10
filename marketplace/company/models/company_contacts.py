@@ -6,6 +6,7 @@ from django.core.validators import RegexValidator
 class CompanyContacts(models.Model):
     company = models.OneToOneField(Company,
                                    on_delete=models.CASCADE,
+                                   related_name='contacts',
                                    )
 
 

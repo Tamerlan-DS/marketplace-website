@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from company.helper import *
-
+from company.models import Company
 
 # Create your views here.
 def adminPanelView(request):
@@ -11,7 +11,9 @@ def adminPanelView(request):
 
 
 def companyView(request):
+    companies = Company.objects.all()
     context = {
+        'companies': companies,
     }
     return render(request, 'admin_panel/admin-companies.html', context=context)
 
