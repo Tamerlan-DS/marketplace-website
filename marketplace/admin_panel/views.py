@@ -2,6 +2,11 @@ from django.shortcuts import render
 
 
 # Create your views here.
+def adminPanelView(request):
+    context = {
+    }
+    return render(request, 'admin_panel/index.html', context=context)
+
 def companyView(request):
     context = {
     }
