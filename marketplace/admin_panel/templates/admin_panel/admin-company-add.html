@@ -275,12 +275,13 @@
 
                                                         <form action="{% url 'company-add' %}" method="POST">
                                                              {% csrf_token %}
+                                                            {{ error   }}
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="form-group">
                                                                         <div class="controls">
                                                                             <label>Логин</label>
-                                                                            <input type="text" class="form-control" name = "login" placeholder="Логин" value="" required data-validation-required-message="This login field is required">
+                                                                            <input type="text" class="form-control" name = "username" placeholder="Логин" value="" required data-validation-required-message="This login field is required">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -304,7 +305,7 @@
                                                                     <div class="form-group">
                                                                         <div class="controls">
                                                                             <label>Подтверждение пароля</label>
-                                                                            <input type="password" class="form-control "  name = "repassword" placeholder="Подтверждение пароля" value="" required data-validation-required-message="This password field is required">
+                                                                            <input type="password" class="form-control "  name = "re_password" placeholder="Подтверждение пароля" value="" required data-validation-required-message="This password field is required">
                                                                         </div>
                                                                     </div>
                                                                 </div>

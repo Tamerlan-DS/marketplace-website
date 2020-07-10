@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import *
+from django.contrib.auth.models import User
 from company.helper import *
 
 
@@ -8,6 +8,7 @@ def adminPanelView(request):
     context = {
     }
     return render(request, 'admin_panel/index.html', context=context)
+
 
 def companyView(request):
     context = {
@@ -26,18 +27,36 @@ def companyEditView(request):
     }
     return render(request, 'admin_panel/admin-company-edit.html', context=context)
 
+
 def companyAddView(request):
     if request.method == 'POST':
-        form = CompanyRegisterForm(data=request.POST)
-        if form.is_valid():
-            user = form.register(request)
-            # create_company(user, "asd")
-            # print("HELLO")
+        print(request.POST)
+        username = request.POST['username']
+        name = request.POST['name']
+        password = request.POST['password']
+        re_password = request.POST['re_password']
+        if password == re_password:
+            try:
+                user = User.objects.get(username=username)
+                context = {
+                    'error': 1,
+                }
+                return render(request, 'admin_panel/admin-company-add.html', context=context)
+            except User.DoesNotExist:
+                user = User.objects.create_user(username=username, password=password)
+                user.save()
+                context = {
+                    'error': 0,
+                }
+                return render(request, 'admin_panel/admin-company-add.html', context=context)
+        else:
+            context = {
+                'error': 2,
+            }
+            return render(request, 'admin_panel/admin-company-add.html', context=context)
     else:
-        form = CompanyRegisterForm()
-
+        pass
     context = {
-        'form': form,
     }
     return render(request, 'admin_panel/admin-company-add.html', context=context)
 
@@ -76,6 +95,7 @@ def employeeEditView(request):
     context = {
     }
     return render(request, 'admin_panel/admin-sotrud.html', context=context)
+
 
 def userListView(request):
     context = {
