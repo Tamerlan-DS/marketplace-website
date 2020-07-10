@@ -273,174 +273,43 @@
                                                 <div class="tab-content">
                                                     <div role="tabpanel" class="tab-pane active" id="account-vertical-general" aria-labelledby="account-pill-general" aria-expanded="true">
 
-                                                        <form novalidate>
+                                                        <form action="{% url 'company-add' %}" method="POST">
+                                                             {% csrf_token %}
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="form-group">
                                                                         <div class="controls">
                                                                             <label>Логин</label>
-                                                                            <input type="text" class="form-control" placeholder="Логин" value="" required data-validation-required-message="This username field is required">
+                                                                            <input type="text" class="form-control" name = "login" placeholder="Логин" value="" required data-validation-required-message="This login field is required">
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-12">
                                                                     <div class="form-group">
                                                                         <div class="controls">
-                                                                            <label>Название</label>
-                                                                            <input type="text" class="form-control" placeholder="Название" value="" required data-validation-required-message="This name field is required">
+                                                                            <label>Название компании</label>
+                                                                            <input type="text" class="form-control" name = "name" placeholder="Название" value="" required data-validation-required-message="This name field is required">
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-12">
                                                                     <div class="form-group">
                                                                         <div class="controls">
-                                                                            <label>Password</label>
-                                                                            <input type="password" class="form-control" placeholder="Password" value="" required data-validation-required-message="This email field is required">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-
-                                                                <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
-                                                                    <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
-                                                                    <button type="reset" class="btn btn-light mb-1">Закрыть</button>
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <div class="tab-pane fade " id="account-vertical-password" role="tabpanel" aria-labelledby="account-pill-password" aria-expanded="false">
-                                                        <form novalidate>
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <div class="controls">
-                                                                            <label>Старый пароль</label>
-                                                                            <input type="password" class="form-control" required placeholder="Старый пароль" data-validation-required-message="This old password field is required">
+                                                                            <label>Пароль</label>
+                                                                            <input type="password" class="form-control "  name = "password" placeholder="Пароль" value="" required data-validation-required-message="This password field is required">
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-12">
                                                                     <div class="form-group">
                                                                         <div class="controls">
-                                                                            <label>Новый пароль</label>
-                                                                            <input type="password" name="password" class="form-control" placeholder="Новый пароль" required data-validation-required-message="The password field is required" minlength="6">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <div class="controls">
-                                                                            <label>Повторите новый пароль</label>
-                                                                            <input type="password" name="con-password" class="form-control" required data-validation-match-match="password" placeholder="Повторите новый пароль" data-validation-required-message="The Confirm password field is required" minlength="6">
+                                                                            <label>Подтверждение пароля</label>
+                                                                            <input type="password" class="form-control "  name = "repassword" placeholder="Подтверждение пароля" value="" required data-validation-required-message="This password field is required">
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
-                                                                    <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
-                                                                    <button type="reset" class="btn btn-light mb-1">Закрыть</button>
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <div class="tab-pane fade" id="account-vertical-info" role="tabpanel" aria-labelledby="account-pill-info" aria-expanded="false">
-                                                        <form novalidate>
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Описание</label>
-                                                                        <textarea class="form-control" id="accountTextarea" rows="3" placeholder="Описание..."></textarea>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Категория</label>
-                                                                        <select class="form-control" id="accountSelect">
-                                                                            <option>Категория 1</option>
-                                                                            <option>Категория 2</option>
-                                                                            <option>Категория 3</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Характеристики</label>
-                                                                        <select class="form-control" id="languageselect2" multiple="multiple">
-                                                                            <option value="English" selected>English</option>
-                                                                            <option value="Spanish">Spanish</option>
-                                                                            <option value="French">French</option>
-                                                                            <option value="Russian">Russian</option>
-                                                                            <option value="German">German</option>
-                                                                            <option value="Arabic" selected>Arabic</option>
-                                                                            <option value="Sanskrit">Sanskrit</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <div class="controls">
-                                                                            <label>Телефон</label>
-                                                                            <input type="text" class="form-control" required placeholder="Phone number" value="(+656) 254 2568" data-validation-required-message="This phone number field is required">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <div class="controls">
-                                                                            <label>Телефон</label>
-                                                                            <input type="text" class="form-control" required placeholder="Phone number" value="(+656) 254 2568" data-validation-required-message="This phone number field is required">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <div class="controls">
-                                                                            <label>Телефон</label>
-                                                                            <input type="text" class="form-control" required placeholder="Phone number" value="(+656) 254 2568" data-validation-required-message="This phone number field is required">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Сайт</label>
-                                                                        <input type="text" class="form-control" placeholder="Сайт">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Почта для получения заявок</label>
-                                                                        <input type="text" class="form-control" placeholder="Почта для получения заявок">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Город</label>
-                                                                        <select class="form-control" id="musicselect2">
-                                                                            <option value="Rock">Rock</option>
-                                                                            <option value="Jazz" selected>Jazz</option>
-                                                                            <option value="Disco">Disco</option>
-                                                                            <option value="Pop">Pop</option>
-                                                                            <option value="Techno">Techno</option>
-                                                                            <option value="Folk" selected>Folk</option>
-                                                                            <option value="Hip hop">Hip hop</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label>Адрес</label>
-                                                                        <input type="text" class="form-control" placeholder="Адрес">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Favourite movies</label>
-                                                                        <select class="form-control" id="moviesselect2" multiple="multiple">
-                                                                            <option value="The Dark Knight" selected>The Dark Knight
-                                                                            </option>
-                                                                            <option value="Harry Potter" selected>Harry Potter</option>
-                                                                            <option value="Airplane!">Airplane!</option>
-                                                                            <option value="Perl Harbour">Perl Harbour</option>
-                                                                            <option value="Spider Man">Spider Man</option>
-                                                                            <option value="Iron Man" selected>Iron Man</option>
-                                                                            <option value="Avatar">Avatar</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
-                                                                    <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
+                                                                    <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Отправить</button>
                                                                     <button type="reset" class="btn btn-light mb-1">Закрыть</button>
                                                                 </div>
                                                             </div>
@@ -452,7 +321,7 @@
                                                             <div class="col-12">
                                                                 <div class="media">
                                                                     <a href="javascript: void(0);">
-                                                                        <img src="../../../admin_panel/app-assets/images/portrait/small/avatar-s-16.jpg" class="rounded mr-75" alt="profile image" width="64" height="64">
+                                                                        <img src="{% static 'admin_panel/app-assets/images/portrait/small/avatar-s-16.jpg' %}" class="rounded mr-75" alt="profile image" width="64" height="64">
                                                                     </a>
                                                                     <div class="media-body mt-25">
                                                                         <div class="col-12 px-0 d-flex flex-sm-row flex-column justify-content-start">

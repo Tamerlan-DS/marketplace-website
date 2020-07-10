@@ -4,6 +4,7 @@ from .forms import *
 
 # Create your views here.
 def sandboxView(request):
+    print(request.POST)
     if request.method == 'POST':
         form = CompanyRegisterForm(data=request.POST)
         if form.is_valid():

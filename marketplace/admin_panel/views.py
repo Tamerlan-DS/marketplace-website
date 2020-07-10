@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .froms import *
+from .forms import *
 from company.helper import *
 
 
