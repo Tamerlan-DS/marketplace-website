@@ -89,7 +89,7 @@
     <div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
         <div class="navbar-header">
             <ul class="nav navbar-nav flex-row">
-                <li class="nav-item mr-auto"><a class="navbar-brand" href="html/ltr/vertical-menu-template-semi-dark/index.html">
+                <li class="nav-item mr-auto"><a class="navbar-brand" href="{% url 'panel' %}">
                         <div class="brand-logo"><img class="logo" src="{% static 'admin_panel/app-assets/images/logo/logo.png' %}" /></div>
                         <h2 class="brand-text mb-0">FACTUM</h2>
                     </a></li>
@@ -101,13 +101,13 @@
             <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" data-icon-style="lines">
 
 
-                <li class=" nav-item"><a href="page-account-settings.html"><i class="menu-livicon" data-icon="desktop"></i><span class="menu-title" data-i18n="Dashboard">Главная</span></a>
+                <li class="active nav-item"><a href="{% url 'panel' %}"><i class="menu" data-icon="desktop"></i><span class="menu-title" data-i18n="Dashboard">Главная</span></a>
                 </li>
                <li class=" nav-item"><a href="#"><i class="menu" data-icon="users"></i><span class="menu-title" data-i18n="User">Компании</span></a>
                     <ul class="menu-content">
-                        <li><a href="admin-companies.html"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Список компаний</span></a>
+                        <li><a href="{% url 'companies' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Список компаний</span></a>
                         </li>
-                        <li><a href="admin-company-category.html"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Категории компаний</span></a>
+                        <li><a href="{% url 'company-category' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Категории компаний</span></a>
                         </li>
 
                     </ul>
@@ -116,9 +116,9 @@
                 <li class=" navigation-header"><span>Страницы</span>
                 </li>
 
-                <li class=" nav-item"><a href="page-account-settings.html"><i class="menu-livicon" data-icon="wrench"></i><span class="menu-title" data-i18n="Account Settings">Настройки аккаунта</span></a>
+                <li class=" nav-item"><a href="page-account-settings.html"><i class="menu" data-icon="wrench"></i><span class="menu-title" data-i18n="Account Settings">Настройки аккаунта</span></a>
                 </li>
-                <li class=" nav-item"><a href="#"><i class="menu-livicon" data-icon="users"></i><span class="menu-title" data-i18n="User">Пользователи</span></a>
+                <li class=" nav-item"><a href="#"><i class="menu" data-icon="users"></i><span class="menu-title" data-i18n="User">Пользователи</span></a>
                     <ul class="menu-content">
                         <li><a href="page-users-list.html"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Список сотрудников</span></a>
                         </li>

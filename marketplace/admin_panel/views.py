@@ -24,6 +24,11 @@ def companyEditView(request):
     }
     return render(request, 'admin_panel/admin-company-edit.html', context=context)
 
+def companyAddView(request):
+    context = {
+    }
+    return render(request, 'admin_panel/admin-company-add.html', context=context)
+
 
 def companyCategoryEditView(request):
     context = {
