@@ -8,4 +8,5 @@ urlpatterns = [
     path('company-add', companyAddView, name='company-add'),
     path('company-category', companyCategoryView, name='company-category'),
     path('company-category-edit', companyCategoryEditView, name='company-category-edit'),
+    path('users-list', userListView, name='user-list-View'),
 ]

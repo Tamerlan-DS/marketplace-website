@@ -65,3 +65,7 @@ def employeeEditView(request):
     }
     return render(request, 'admin_panel/admin-sotrud.html', context=context)
 
+def userListView(request):
+    context = {
+    }
+    return render(request, 'admin_panel/page-users-list.html', context=context)
