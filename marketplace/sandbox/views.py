@@ -7,7 +7,7 @@ def sandboxView(request):
     if request.method == 'POST':
         form = CompanyRegisterForm(data=request.POST)
         if form.is_valid():
-            return redirect('panelg')
+            return redirect('panel')
     else:
         form = CompanyRegisterForm()
 
