@@ -1,10 +1,17 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .forms import *
 
 
 # Create your views here.
 def sandboxView(request):
+    if request.method == 'POST':
+        form = CompanyRegisterForm(data=request.POST)
+        if form.is_valid():
+            return redirect('panelg')
+    else:
+        form = CompanyRegisterForm()
+
     context = {
-        'name': 's',
-        '123': 'asd'
+        'form': form,
     }
     return render(request, 'sandbox/index.html', context=context)
