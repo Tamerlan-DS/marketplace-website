@@ -1,11 +1,4 @@
 {% load static %}
-
-{% for company in companies %}
-    <p>
-    {{ company.info.name }}
-    </p>
-{% endfor %}
-
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
@@ -283,43 +276,26 @@
                                                     <th>id</th>
                                                     <th>Логин</th>
                                                     <th>Имя</th>
-                                                    <th>Дата рег.</th>
+                                                    <th>Description</th>
                                                     <th>Категория</th>
                                                     <th>Статус</th>
                                                     <th>Править</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>300</td>
-                                                    <td><a href="../../../html/ltr/vertical-menu-template-semi-dark/admin-sotrud-view.html">dean3004</a>
+                                                  {% for company in companies %}
+                                                  <tr>
+                                                    <td>{{ company.pk }}</td>
+                                                    <td><a href="{% url 'panel' %}">{{ company.owner }}</a>
                                                     </td>
-                                                    <td>Dean Stanley</td>
-                                                    <td>30/04/2019</td>
+                                                    <td>{{ company.info.name }}</td>
+                                                    <td>{{ company.info.description }}</td>
                                                     <td>Кровля</td>
-                                                    <td><span class="badge badge-light-success">Активный</span></td>
-                                                    <td><a href="../../../html/ltr/vertical-menu-template-semi-dark/admin-sotrud-edit.html"><i class="bx bx-edit-alt"></i></a></td>
+                                                    <td><span class="badge badge-light-success">{{ company.status }}</span></td>
+                                                    <td><a href="{% url 'company-edit' %}"><i class="bx bx-edit-alt"></i></a></td>
+
                                                 </tr>
-                                                <tr>
-                                                    <td>300</td>
-                                                    <td><a href="../../../html/ltr/vertical-menu-template-semi-dark/admin-sotrud-view.html">dean3004</a>
-                                                    </td>
-                                                    <td>Dean Stanley</td>
-                                                    <td>30/04/2019</td>
-                                                    <td>Двери</td>
-                                                    <td><span class="badge badge-light-danger">Удаленный</span></td>
-                                                    <td><a href="../../../html/ltr/vertical-menu-template-semi-dark/admin-sotrud-edit.html"><i class="bx bx-edit-alt"></i></a></td>
-                                                </tr>
-                                                <tr>
-                                                    <td>300</td>
-                                                    <td><a href="../../../html/ltr/vertical-menu-template-semi-dark/admin-sotrud-view.html">dean3004</a>
-                                                    </td>
-                                                    <td>Dean Stanley</td>
-                                                    <td>30/04/2019</td>
-                                                    <td>Двери</td>
-                                                    <td><span class="badge badge-light-warning">На рассмотрении</span></td>
-                                                    <td><a href="../../../html/ltr/vertical-menu-template-semi-dark/admin-sotrud-edit.html"><i class="bx bx-edit-alt"></i></a></td>
-                                                </tr>
+   {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
