@@ -1,4 +1,11 @@
 {% load static %}
+
+{% for company in companies %}
+    <p>
+    {{ company.info.name }}
+    </p>
+{% endfor %}
+
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->

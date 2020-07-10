@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from company.helper import *
-
+from company.models import Company
 
 # Create your views here.
 def adminPanelView(request):
@@ -11,7 +11,9 @@ def adminPanelView(request):
 
 
 def companyView(request):
+    companies = Company.objects.all()
     context = {
+        'companies': companies,
     }
     return render(request, 'admin_panel/admin-companies.html', context=context)
 
@@ -30,7 +32,6 @@ def companyEditView(request):
 
 def companyAddView(request):
     if request.method == 'POST':
-        print(request.POST)
         username = request.POST['username']
         name = request.POST['name']
         password = request.POST['password']
@@ -45,6 +46,7 @@ def companyAddView(request):
             except User.DoesNotExist:
                 user = User.objects.create_user(username=username, password=password)
                 user.save()
+                create_company(user, name)
                 context = {
                     'error': 0,
                 }

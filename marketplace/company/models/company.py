@@ -6,6 +6,7 @@ class Company(models.Model):
     class StatusChoices(models.TextChoices):
         PENDING = 'PENDING', 'pending'
         ACCEPTED = 'ACCEPTED', 'accepted'
+        CLOSED = 'CLOSED', 'closed'
 
     owner = models.OneToOneField(User,
                                  on_delete=models.CASCADE,
