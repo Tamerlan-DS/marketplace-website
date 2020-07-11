@@ -5,6 +5,8 @@ def create_company(owner, name):
     company = Company.objects.create(owner=owner)
     company.save()
     create_company_info(company, name)
+    create_company_contacts(company)
+    create_company_files(company)
 
 
 def create_company_info(company, name):
