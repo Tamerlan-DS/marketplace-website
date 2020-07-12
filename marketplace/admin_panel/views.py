@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from company.helper import *
 from company.models import Company
 
+
 # Create your views here.
 def adminPanelView(request):
     context = {
@@ -36,30 +37,27 @@ def companyAddView(request):
         name = request.POST['name']
         password = request.POST['password']
         re_password = request.POST['re_password']
+        context = {
+            'username': username,
+            'name': name,
+        }
         if password == re_password:
             try:
                 user = User.objects.get(username=username)
-                context = {
-                    'error': 1,
-                }
+                context['error'] = 1
                 return render(request, 'admin_panel/admin-company-add.html', context=context)
             except User.DoesNotExist:
                 user = User.objects.create_user(username=username, password=password)
                 user.save()
                 create_company(user, name)
-                context = {
-                    'error': 0,
-                }
+                context['error'] = 0
                 return render(request, 'admin_panel/admin-company-add.html', context=context)
         else:
-            context = {
-                'error': 2,
-            }
+            context['error'] = 2
             return render(request, 'admin_panel/admin-company-add.html', context=context)
     else:
-        pass
-    context = {
-    }
+        context = {
+        }
     return render(request, 'admin_panel/admin-company-add.html', context=context)
 
 
