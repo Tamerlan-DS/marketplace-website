@@ -226,8 +226,6 @@
                             </li>
                             <li><a href="{% url 'company-add' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="Edit">Добавить</span></a>
                             </li>
-                            <li><a href="{% url 'company-edit' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="Edit">Изменить</span></a>
-                            </li>
                         </ul>
                     </li>
             </ul>
@@ -292,7 +290,7 @@
                                                     <td>{{ company.info.description }}</td>
                                                     <td>Кровля</td>
                                                     <td><span class="badge badge-light-success">{{ company.status }}</span></td>
-                                                    <td><a href="{% url 'company-edt' company.pk %}"><i class="bx bx-edit-alt"></i></a></td>
+                                                    <td><a href="{% url 'company-edit' company.pk %}"><i class="bx bx-edit-alt"></i></a></td>
 
                                                 </tr>
    {% endfor %}
