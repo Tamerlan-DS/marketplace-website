@@ -30,6 +30,16 @@ def companyEditView(request, company_id):
     context = {
         'company': company,
     }
+    if request.method == 'POST':
+        name = request.POST['name']
+        short_description = request.POST['short_description']
+        description = request.POST['description']
+        company.name = name
+        company.short_description = short_description
+        company.description = description
+        company.save()
+    else:
+        pass
     return render(request, 'admin_panel/admin-company-edit.html', context=context)
 
 
