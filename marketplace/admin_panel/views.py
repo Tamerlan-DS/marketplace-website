@@ -1,5 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
+from django.contrib.auth import login, logout, authenticate
 from company.helper import *
 from company.models import Company
 
@@ -82,9 +83,22 @@ def companyCategoryEditView(request):
 
 
 def loginView(request):
-    context = {
-    }
-    return render(request, 'admin_panel/admin-login.html', context=context)
+    if request.user.is_authenticated:
+        return redirect('panel')
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(username=username, password=password)
+        if user:
+            login(request, user)
+            return redirect('panel')
+
+    return render(request, 'admin_panel/admin-login.html')
+
+
+def logoutView(request):
+    logout(request)
+    return redirect('login')
 
 
 def forgotPasswordView(request):
