@@ -56,16 +56,8 @@ def companyAddView(request):
             context['error'] = 2
             return render(request, 'admin_panel/admin-company-add.html', context=context)
     else:
-<<<<<<< HEAD
-        pass
-    context = {
-        'username': 'ynsm',
-        'name': 'Dias',
-    }
-=======
         context = {
         }
->>>>>>> eaad9f53514c7cbf2c0fa97af4ef3e2948cdad49
     return render(request, 'admin_panel/admin-company-add.html', context=context)
 
 
