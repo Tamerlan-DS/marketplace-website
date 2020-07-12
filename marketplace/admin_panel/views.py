@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.models import User
 from company.helper import *
 from company.models import Company
@@ -25,8 +25,10 @@ def companyCategoryView(request):
     return render(request, 'admin_panel/admin-company-category.html', context=context)
 
 
-def companyEditView(request):
+def companyEditView(request, company_id):
+    company = get_object_or_404(Company, pk=company_id)
     context = {
+        'company': company,
     }
     return render(request, 'admin_panel/admin-company-edit.html', context=context)
 
