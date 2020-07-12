@@ -294,33 +294,23 @@
                                             <div class="card-body">
                                                 <div class="tab-content">
                                                     <div role="tabpanel" class="tab-pane active" id="account-vertical-general" aria-labelledby="account-pill-general" aria-expanded="true">
-                                                        
-                                                        <form novalidate>
+                                                        <form action="'{% url 'company-edt' company.pk %}'">
                                                             <div class="row">
+
                                                                 <div class="col-12">
                                                                     <div class="form-group">
-                                                                        <label>Статус</label>
-                                                                        <select class="form-control" id="accountSelect">
-                                                                            <option selected>Активный</option>
-                                                                            <option>Удаленный</option>
-                                                                            <option>На рассмотрении</option>
-                                                                        </select>
+                                                                        <div class="controls">
+                                                                            <label>Название</label>
+                                                                            <input type="text" class="form-control" placeholder="Название" value="{{name}}" required data-validation-required-message="This name field is required">
+                                                                        </div>
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="col-12">
                                                                     <div class="form-group">
                                                                         <div class="controls">
-                                                                            <label>Название</label>
-                                                                            <input type="text" class="form-control" placeholder="Название" value="" required data-validation-required-message="This name field is required">
-                                                                        </div>
-                                                                    </div>
-
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <div class="controls">
                                                                             <label>Описание</label>
-                                                                            <input type="text" class="form-control" placeholder="Описание" value="" required data-validation-required-message="This discription field is required">
+                                                                            <input type="text" class="form-control" placeholder="Описание" value="{{description}}" required data-validation-required-message="This discription field is required">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -329,17 +319,16 @@
                                                                     <div class="form-group">
                                                                         <div class="controls">
                                                                             <label>Краткое описание</label>
-                                                                            <input type="text" class="form-control" placeholder="Краткое описание" value="" required data-validation-required-message="This short discription field is required">
+                                                                            <input type="text" class="form-control" placeholder="Краткое описание" value="{{short_description}}" required data-validation-required-message="This short discription field is required">
                                                                         </div>
                                                                     </div>
                                                                 </div>
-                                                                        </div>
+
                                                                 <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                                                                     <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
                                                                     <button type="reset" class="btn btn-light mb-1">Закрыть</button>
                                                                 </div>
-                                                            </div>
-
+                                                        </div>
                                                         </form>
                                                     </div>
                                                     <div class="tab-pane fade " id="account-vertical-password" role="tabpanel" aria-labelledby="account-pill-password" aria-expanded="false">

@@ -292,7 +292,7 @@
                                                     <td>{{ company.info.description }}</td>
                                                     <td>Кровля</td>
                                                     <td><span class="badge badge-light-success">{{ company.status }}</span></td>
-                                                    <td><a href="{% url 'company-edit' %}"><i class="bx bx-edit-alt"></i></a></td>
+                                                    <td><a href="{% url 'company-edt' company.pk %}"><i class="bx bx-edit-alt"></i></a></td>
 
                                                 </tr>
    {% endfor %}
