@@ -1,8 +1,8 @@
-marketplace/marketplace/__pycache__/settings.cpython-38.pyc
 marketplace/media
 .idea/
+
 # Byte-compiled / optimized / DLL files
-pycache/
+__pycache__/
 *.py[cod]
 *$py.class
 
