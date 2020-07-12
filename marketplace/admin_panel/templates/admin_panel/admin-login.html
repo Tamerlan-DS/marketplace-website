@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
@@ -10,30 +11,30 @@
     <meta name="keywords" content="admin template, Frest admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
     <title>Login Page - Frest - Bootstrap HTML admin template</title>
-    <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
-    <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
+    <link rel="apple-touch-icon" href="{% static 'admin_panel/app-assets/images/ico/apple-icon-120.png' %}">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static 'admin_panel/app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/app-assets/vendors/css/vendors.min.css' %}">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/bootstrap-extended.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/colors.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/components.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/themes/dark-layout.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/themes/semi-dark-layout.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/app-assets/css/bootstrap.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/app-assets/css/bootstrap-extended.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/app-assets/css/colors.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/app-assets/css/components.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/app-assets/css/themes/dark-layout.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/app-assets/css/themes/semi-dark-layout.css' %}">
     <!-- END: Theme CSS-->
 
     <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/core/menu/menu-types/vertical-menu.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/pages/authentication.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/app-assets/css/core/menu/menu-types/vertical-menu.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/app-assets/css/pages/authentication.css' %}">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
-    <link rel="stylesheet" type="text/css" href="../../../assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/assets/css/style.css' %}">
     <!-- END: Custom CSS-->
 
 </head>
@@ -66,14 +67,11 @@
                                             <div class="card-body">
                                                 <form action="index.html">
                                                     <div class="form-group mb-50">
-                                                        <label class="text-bold-600" for="exampleInputEmail1">Email </label>
-                                                        <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email "></div>
+                                                        <label class="text-bold-600" for="exampleInputEmail1"> Username</label>
+                                                        <input type="email" class="form-control"  name = "username" id="exampleInputEmail1" placeholder="Username "></div>
                                                     <div class="form-group">
                                                         <label class="text-bold-600" for="exampleInputPassword1">Пароль</label>
-                                                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Пароль">
-                                                    </div>
-                                                    <div class="form-group d-flex flex-md-row flex-column justify-content-between align-items-center">
-                                                        <div class="text-right"><a href="auth-forgot-password.html" class="card-link"><small>Забыли пароль?</small></a></div>
+                                                        <input type="password" class="form-control" name = "password" id="exampleInputPassword1" placeholder="Пароль">
                                                     </div>
                                                     <button type="submit" class="btn btn-primary glow w-100 position-relative">Войти<i id="icon-arrow" class="bx bx-right-arrow-alt"></i></button>
                                                 </form>
@@ -85,7 +83,7 @@
                                 <!-- right section image -->
                                 <div class="col-md-6 d-md-block d-none text-center align-self-center p-3">
                                     <div class="card-content">
-                                        <img class="img-fluid" src="../../../app-assets/images/pages/login.png" alt="branding logo">
+                                        <img class="img-fluid" src="{% static 'admin_panel/app-assets/images/pages/login.png' %}" alt="branding logo">
                                     </div>
                                 </div>
                             </div>
@@ -101,21 +99,21 @@
 
 
     <!-- BEGIN: Vendor JS-->
-    <script src="../../../app-assets/vendors/js/vendors.min.js"></script>
-    <script src="../../../app-assets/fonts/LivIconsEvo/js/LivIconsEvo.tools.js"></script>
-    <script src="../../../app-assets/fonts/LivIconsEvo/js/LivIconsEvo.defaults.js"></script>
-    <script src="../../../app-assets/fonts/LivIconsEvo/js/LivIconsEvo.min.js"></script>
+    <script src="{% static 'admin_panel/app-assets/vendors/js/vendors.min.js' %}"></script>
+    <script src="{% static 'admin_panel/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.tools.js' %}"></script>
+    <script src="{% static 'admin_panel/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.defaults.js' %}"></script>
+    <script src="{% static 'admin_panel/app-assets/fonts/LivIconsEvo/js/LivIconsEvo.min.js' %}"></script>
     <!-- BEGIN Vendor JS-->
 
     <!-- BEGIN: Page Vendor JS-->
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
-    <script src="../../../app-assets/js/scripts/configs/vertical-menu-dark.js"></script>
-    <script src="../../../app-assets/js/core/app-menu.js"></script>
-    <script src="../../../app-assets/js/core/app.js"></script>
-    <script src="../../../app-assets/js/scripts/components.js"></script>
-    <script src="../../../app-assets/js/scripts/footer.js"></script>
+    <script src="{% static 'admin_panel/app-assets/js/scripts/configs/vertical-menu-dark.js' %}"></script>
+    <script src="{% static 'admin_panel/app-assets/js/core/app-menu.js' %}"></script>
+    <script src="{% static 'admin_panel/app-assets/js/core/app.js' %}"></script>
+    <script src="{% static 'admin_panel/app-assets/js/scripts/components.js' %}"></script>
+    <script src="{% static 'admin_panel/app-assets/js/scripts/footer.js' %}"></script>
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
