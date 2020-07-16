@@ -6,7 +6,7 @@ from ..models import Card
 def employeesView(request):
     cards = Card.objects.all()
     context = {
-        'users': cards,
+        'cards': cards,
     }
     return render(request, 'admin_panel/admin-sotrud.html', context=context)
 
