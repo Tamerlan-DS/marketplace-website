@@ -593,7 +593,7 @@
       debug: false,
       fallbackLng: "en",
       backend: {
-        loadPath: "../../../app-assets/data/locales/{{lng}}.json"
+        loadPath: "static/admin_panel/app-assets/data/locales/{{lng}}.json"
       },
       returnObjects: true
     },
