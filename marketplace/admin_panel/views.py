@@ -113,8 +113,10 @@ def resetPasswordView(request):
     return render(request, 'admin_panel/admin-reset-password.html', context=context)
 
 
-def employeesView(request, ):
+def employeesView(request):
+    users = User.objects.all()
     context = {
+        'users': users,
     }
     return render(request, 'admin_panel/admin-sotrud.html', context=context)
 
@@ -125,7 +127,7 @@ def employeeAddView(request):
     return render(request, 'admin_panel/admin-sotrud-add.html', context=context)
 
 
-def employeeEditView(request):
+def employeeEditView(request, employee_id):
     context = {
     }
     return render(request, 'admin_panel/admin-sotrud-edit.html', context=context)
