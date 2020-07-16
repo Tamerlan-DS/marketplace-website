@@ -92,16 +92,16 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                              {% for user in users %}
+                                              {% for card in cards %}
                                                 <tr>
-                                                    <td>{{ user.pk }}</td>
-                                                    <td><a href="">{{ user.username }}</a>
+                                                    <td>{{ card.pk }}</td>
+                                                    <td><a href="">{{ card.owner.username }}</a>
                                                     </td>
-                                                    <td>{{ user.first_name }}</td>
-                                                    <td>{{ user.date_joined }}</td>
-                                                    <td>{{ user.card.role }}</td>
-                                                    <td><span class="badge badge-light-success">{{ user.status }}</span></td>
-                                                    <td><a href="{% url 'employee-edit' user.pk %}"><i class="bx bx-edit-alt"></i></a></td>
+                                                    <td>{{ card.owner.first_name }}</td>
+                                                    <td>{{ card.owner.date_joined }}</td>
+                                                    <td>{{ card.role }}</td>
+                                                    <td><span class="badge badge-light-success">{{ card.status }}</span></td>
+                                                    <td><a href="{% url 'employee-edit' card.pk %}"><i class="bx bx-edit-alt"></i></a></td>
                                                 </tr>
                                                {% endfor %}
                                             </tbody>
