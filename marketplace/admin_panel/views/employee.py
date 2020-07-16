@@ -44,12 +44,12 @@ def employeeAddView(request):
                 )
                 user.save()
                 card = Card(owner=user)
-                if role == 0:
+                if role == '0':
                     card.role = Card.RoleChoices.MODERATOR
                 else:
                     card.role = Card.RoleChoices.ADMINISTRATOR
 
-                if status == 0:
+                if status == '0':
                     card.status = Card.StatusChoices.ACTIVE
                 else:
                     card.status = Card.StatusChoices.DELETED
