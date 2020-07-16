@@ -99,7 +99,7 @@
                                                     </td>
                                                     <td>{{ user.name }}</td>
                                                     <td>{{ user.owner.date_joined }}</td>
-                                                    <td>{{ user.role }}</td>
+                                                    <td>{{ user.card.role }}</td>
                                                     <td><span class="badge badge-light-success">{{ user.status }}</span></td>
                                                     <td><a href="{% url 'employee-edit' user.pk %}"><i class="bx bx-edit-alt"></i></a></td>
                                                 </tr>
