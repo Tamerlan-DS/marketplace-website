@@ -68,7 +68,18 @@
 
                                                         <form action="{% url 'company-add' %}" method="POST">
                                                              {% csrf_token %}
-                                                            {{ error }}
+
+                                            {% if error %}
+
+                                                 {% if error == 0 %}
+                                                 <p>Вы успешно зарегистрировались</p>
+                                                 {% elif error == 1 %}
+                                                 <p>Такой пользователь уже существтует</p>
+                                                 {% elif error == 2 %}
+                                                 <p></p>
+
+                                            {% endif %}
+                                            {% endif %}
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="form-group">
