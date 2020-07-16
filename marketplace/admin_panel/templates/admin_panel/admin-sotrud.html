@@ -100,7 +100,13 @@
                                                     <td>{{ card.owner.first_name }}</td>
                                                     <td>{{ card.owner.date_joined }}</td>
                                                     <td>{{ card.role }}</td>
+
+                                                    {% if card.status == card.StatusChoices.ACTIVE %}
                                                     <td><span class="badge badge-light-success">{{ card.status }}</span></td>
+                                                    {% else %}
+                                                    <td><span class="badge badge-light-danger">{{ card.status }}</span></td>
+                                                    {% endif %}
+
                                                     <td><a href="{% url 'employee-edit' card.pk %}"><i class="bx bx-edit-alt"></i></a></td>
                                                 </tr>
                                                {% endfor %}
