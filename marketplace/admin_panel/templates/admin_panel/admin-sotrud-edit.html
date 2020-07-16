@@ -9,15 +9,19 @@
     <meta name="description" content="Frest admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Frest admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Account Settings - Frest - Bootstrap HTML admin template</title>
+    <title>Users Edit - Frest - Bootstrap HTML admin template</title>
     <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
     <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
     <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700" rel="stylesheet">
 
     <!-- BEGIN: Vendor CSS-->
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/vendors.min.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/plugins/forms/validation/form-validation.css">
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/forms/select/select2.min.css">
     <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/pickers/pickadate/pickadate.css">
+    
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/vendors/css/extensions/sweetalert2.min.css">
     <!-- END: Vendor CSS-->
 
     <!-- BEGIN: Theme CSS-->
@@ -31,7 +35,7 @@
 
     <!-- BEGIN: Page CSS-->
     <link rel="stylesheet" type="text/css" href="../../../app-assets/css/core/menu/menu-types/vertical-menu.css">
-    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/plugins/forms/validation/form-validation.css">
+    <link rel="stylesheet" type="text/css" href="../../../app-assets/css/pages/page-users.css">
     <!-- END: Page CSS-->
 
     <!-- BEGIN: Custom CSS-->
@@ -198,9 +202,13 @@
                                 <li class="dropdown-menu-footer"><a class="dropdown-item p-50 text-primary justify-content-center" href="javascript:void(0)">Read all notifications</a></li>
                             </ul>
                         </li>
-         {% block content %}
-                {% include 'admin_panel/loginFORM.html' %}
-                        {% endblock %}
+                        <li class="dropdown dropdown-user nav-item"><a class="dropdown-toggle nav-link dropdown-user-link" href="#" data-toggle="dropdown">
+                                <div class="user-nav d-sm-flex d-none"><span class="user-name">John Doe</span><span class="user-status text-muted">Available</span></div><span><img class="round" src="../../../app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="40" width="40"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right pb-0"><a class="dropdown-item" href="page-user-profile.html"><i class="bx bx-user mr-50"></i> Edit Profile</a><a class="dropdown-item" href="app-email.html"><i class="bx bx-envelope mr-50"></i> My Inbox</a><a class="dropdown-item" href="app-todo.html"><i class="bx bx-check-square mr-50"></i> Task</a><a class="dropdown-item" href="app-chat.html"><i class="bx bx-message mr-50"></i> Chats</a>
+                                <div class="dropdown-divider mb-0"></div><a class="dropdown-item" href="auth-login.html"><i class="bx bx-power-off mr-50"></i> Logout</a>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -399,7 +407,7 @@
                 </li>
                 <li class=" nav-item"><a href="page-search.html"><i class="menu-livicon" data-icon="search"></i><span class="menu-title" data-i18n="Search">Search</span></a>
                 </li>
-                <li class="active nav-item"><a href="page-account-settings.html"><i class="menu-livicon" data-icon="wrench"></i><span class="menu-title" data-i18n="Account Settings">Account Settings</span></a>
+                <li class=" nav-item"><a href="page-account-settings.html"><i class="menu-livicon" data-icon="wrench"></i><span class="menu-title" data-i18n="Account Settings">Account Settings</span></a>
                 </li>
                 <li class=" nav-item"><a href="#"><i class="menu-livicon" data-icon="users"></i><span class="menu-title" data-i18n="User">User</span></a>
                     <ul class="menu-content">
@@ -407,7 +415,7 @@
                         </li>
                         <li><a href="page-users-view.html"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="View">View</span></a>
                         </li>
-                        <li><a href="page-users-edit.html"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="Edit">Edit</span></a>
+                        <li class="active"><a href="page-users-edit.html"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="Edit">Edit</span></a>
                         </li>
                     </ul>
                 </li>
@@ -531,420 +539,91 @@
         <div class="content-overlay"></div>
         <div class="content-wrapper">
             <div class="content-header row">
-                <div class="content-header-left col-12 mb-2 mt-1">
-                    <div class="row breadcrumbs-top">
-                        <div class="col-12">
-                            <h5 class="content-header-title float-left pr-1 mb-0">Account Settings</h5>
-                            <div class="breadcrumb-wrapper col-12">
-                                <ol class="breadcrumb p-0 mb-0">
-                                    <li class="breadcrumb-item"><a href="index.html"><i class="bx bx-home-alt"></i></a>
-                                    </li>
-                                    <li class="breadcrumb-item"><a href="#">Pages</a>
-                                    </li>
-                                    <li class="breadcrumb-item active"> Account Settings
-                                    </li>
-                                </ol>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="content-body">
-                <!-- account setting page start -->
-                <section id="page-account-settings">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="row">
-                                <!-- left menu section -->
-                                <div class="col-md-3 mb-2 mb-md-0 pills-stacked">
-                                    <ul class="nav nav-pills flex-column">
-                                        <li class="nav-item">
-                                            <a class="nav-link d-flex align-items-center active" id="account-pill-general" data-toggle="pill" href="#account-vertical-general" aria-expanded="true">
-                                                <i class="bx bx-cog"></i>
-                                                <span>General</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link d-flex align-items-center" id="account-pill-password" data-toggle="pill" href="#account-vertical-password" aria-expanded="false">
-                                                <i class="bx bx-lock"></i>
-                                                <span>Change Password</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link d-flex align-items-center" id="account-pill-info" data-toggle="pill" href="#account-vertical-info" aria-expanded="false">
-                                                <i class="bx bx-info-circle"></i>
-                                                <span>Info</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link d-flex align-items-center" id="account-pill-social" data-toggle="pill" href="#account-vertical-social" aria-expanded="false">
-                                                <i class="bx bxl-twitch"></i>
-                                                <span>Social links</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link d-flex align-items-center" id="account-pill-connections" data-toggle="pill" href="#account-vertical-connections" aria-expanded="false">
-                                                <i class="bx bx-link"></i>
-                                                <span>Connections</span>
-                                            </a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link d-flex align-items-center" id="account-pill-notifications" data-toggle="pill" href="#account-vertical-notifications" aria-expanded="false">
-                                                <i class="bx bx-bell"></i>
-                                                <span>Notifications</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <!-- right content section -->
-                                <div class="col-md-9">
-                                    <div class="card">
-                                        <div class="card-content">
-                                            <div class="card-body">
-                                                <div class="tab-content">
-                                                    <div role="tabpanel" class="tab-pane active" id="account-vertical-general" aria-labelledby="account-pill-general" aria-expanded="true">
-                                                        <div class="media">
-                                                            <a href="javascript: void(0);">
-                                                                <img src="../../../app-assets/images/portrait/small/avatar-s-16.jpg" class="rounded mr-75" alt="profile image" height="64" width="64">
-                                                            </a>
-                                                            <div class="media-body mt-25">
-                                                                <div class="col-12 px-0 d-flex flex-sm-row flex-column justify-content-start">
-                                                                    <label for="select-files" class="btn btn-sm btn-light-primary ml-50 mb-50 mb-sm-0">
-                                                                        <span>Upload new photo</span>
-                                                                        <input id="select-files" type="file" hidden>
-                                                                    </label>
-                                                                    <button class="btn btn-sm btn-light-secondary ml-50">Reset</button>
-                                                                </div>
-                                                                <p class="text-muted ml-1 mt-50"><small>Allowed JPG, GIF or PNG. Max
-                                                                        size of
-                                                                        800kB</small></p>
-                                                            </div>
-                                                        </div>
-                                                        <hr>
-                                                        <form novalidate>
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <div class="controls">
-                                                                            <label>Username</label>
-                                                                            <input type="text" class="form-control" placeholder="Username" value="hermione007" required data-validation-required-message="This username field is required">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <div class="controls">
-                                                                            <label>Name</label>
-                                                                            <input type="text" class="form-control" placeholder="Name" value="Hermione Granger" required data-validation-required-message="This name field is required">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <div class="controls">
-                                                                            <label>E-mail</label>
-                                                                            <input type="email" class="form-control" placeholder="Email" value="granger007@hogward.com" required data-validation-required-message="This email field is required">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="alert bg-rgba-warning alert-dismissible mb-2" role="alert">
-                                                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                                                            <span aria-hidden="true">×</span>
-                                                                        </button>
-                                                                        <p class="mb-0">
-                                                                            Your email is not confirmed. Please check your inbox.
-                                                                        </p>
-                                                                        <a href="javascript: void(0);">Resend confirmation</a>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Company</label>
-                                                                        <input type="text" class="form-control" placeholder="Company name">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
-                                                                    <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Save
-                                                                        changes</button>
-                                                                    <button type="reset" class="btn btn-light mb-1">Cancel</button>
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <div class="tab-pane fade " id="account-vertical-password" role="tabpanel" aria-labelledby="account-pill-password" aria-expanded="false">
-                                                        <form novalidate>
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <div class="controls">
-                                                                            <label>Old Password</label>
-                                                                            <input type="password" class="form-control" required placeholder="Old Password" data-validation-required-message="This old password field is required">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <div class="controls">
-                                                                            <label>New Password</label>
-                                                                            <input type="password" name="password" class="form-control" placeholder="New Password" required data-validation-required-message="The password field is required" minlength="6">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <div class="controls">
-                                                                            <label>Retype new Password</label>
-                                                                            <input type="password" name="con-password" class="form-control" required data-validation-match-match="password" placeholder="New Password" data-validation-required-message="The Confirm password field is required" minlength="6">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
-                                                                    <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Save
-                                                                        changes</button>
-                                                                    <button type="reset" class="btn btn-light mb-1">Cancel</button>
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <div class="tab-pane fade" id="account-vertical-info" role="tabpanel" aria-labelledby="account-pill-info" aria-expanded="false">
-                                                        <form novalidate>
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Bio</label>
-                                                                        <textarea class="form-control" id="accountTextarea" rows="3" placeholder="Your Bio data here..."></textarea>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <div class="controls">
-                                                                            <label>Birth date</label>
-                                                                            <input type="text" class="form-control birthdate-picker" required placeholder="Birth date" data-validation-required-message="This birthdate field is required">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Country</label>
-                                                                        <select class="form-control" id="accountSelect">
-                                                                            <option>USA</option>
-                                                                            <option>India</option>
-                                                                            <option>Canada</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Languages</label>
-                                                                        <select class="form-control" id="languageselect2" multiple="multiple">
-                                                                            <option value="English" selected>English</option>
-                                                                            <option value="Spanish">Spanish</option>
-                                                                            <option value="French">French</option>
-                                                                            <option value="Russian">Russian</option>
-                                                                            <option value="German">German</option>
-                                                                            <option value="Arabic" selected>Arabic</option>
-                                                                            <option value="Sanskrit">Sanskrit</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <div class="controls">
-                                                                            <label>Phone</label>
-                                                                            <input type="text" class="form-control" required placeholder="Phone number" value="(+656) 254 2568" data-validation-required-message="This phone number field is required">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Website</label>
-                                                                        <input type="text" class="form-control" placeholder="Website address">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Favourite Music</label>
-                                                                        <select class="form-control" id="musicselect2" multiple="multiple">
-                                                                            <option value="Rock">Rock</option>
-                                                                            <option value="Jazz" selected>Jazz</option>
-                                                                            <option value="Disco">Disco</option>
-                                                                            <option value="Pop">Pop</option>
-                                                                            <option value="Techno">Techno</option>
-                                                                            <option value="Folk" selected>Folk</option>
-                                                                            <option value="Hip hop">Hip hop</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Favourite movies</label>
-                                                                        <select class="form-control" id="moviesselect2" multiple="multiple">
-                                                                            <option value="The Dark Knight" selected>The Dark Knight
-                                                                            </option>
-                                                                            <option value="Harry Potter" selected>Harry Potter</option>
-                                                                            <option value="Airplane!">Airplane!</option>
-                                                                            <option value="Perl Harbour">Perl Harbour</option>
-                                                                            <option value="Spider Man">Spider Man</option>
-                                                                            <option value="Iron Man" selected>Iron Man</option>
-                                                                            <option value="Avatar">Avatar</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
-                                                                    <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Save
-                                                                        changes</button>
-                                                                    <button type="reset" class="btn btn-light mb-1">Cancel</button>
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <div class="tab-pane fade " id="account-vertical-social" role="tabpanel" aria-labelledby="account-pill-social" aria-expanded="false">
-                                                        <form>
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Twitter</label>
-                                                                        <input type="text" class="form-control" placeholder="Add link" value="https://www.twitter.com">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Facebook</label>
-                                                                        <input type="text" class="form-control" placeholder="Add link">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Google+</label>
-                                                                        <input type="text" class="form-control" placeholder="Add link">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>LinkedIn</label>
-                                                                        <input type="text" class="form-control" placeholder="Add link" value="https://www.linkedin.com">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Instagram</label>
-                                                                        <input type="text" class="form-control" placeholder="Add link">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Quora</label>
-                                                                        <input type="text" class="form-control" placeholder="Add link">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
-                                                                    <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Save
-                                                                        changes</button>
-                                                                    <button type="reset" class="btn btn-light mb-1">Cancel</button>
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                    <div class="tab-pane fade" id="account-vertical-connections" role="tabpanel" aria-labelledby="account-pill-connections" aria-expanded="false">
-                                                        <div class="row">
-                                                            <div class="col-12 my-2">
-                                                                <a href="javascript: void(0);" class="btn btn-info">Connect to
-                                                                    <strong>Twitter</strong></a>
-                                                            </div>
-                                                            <hr>
-                                                            <div class="col-12 my-2">
-                                                                <button class=" btn btn-sm btn-light-secondary float-right">edit</button>
-                                                                <h6>You are connected to facebook.</h6>
-                                                                <p>Johndoe@gmail.com</p>
-                                                            </div>
-                                                            <hr>
-                                                            <div class="col-12 my-2">
-                                                                <a href="javascript: void(0);" class="btn btn-danger">Connect to
-                                                                    <strong>Google</strong>
-                                                                </a>
-                                                            </div>
-                                                            <hr>
-                                                            <div class="col-12 my-2">
-                                                                <button class=" btn btn-sm btn-light-secondary float-right">edit</button>
-                                                                <h6>You are connected to Instagram.</h6>
-                                                                <p>Johndoe@gmail.com</p>
-                                                            </div>
-                                                            <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
-                                                                <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Save
-                                                                    changes</button>
-                                                                <button type="reset" class="btn btn-light mb-1">Cancel</button>
-                                                            </div>
+                <!-- users edit start -->
+                <section class="users-edit">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="card-body">
+                                <ul class="nav nav-tabs mb-2" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link d-flex align-items-center active" id="account-tab" data-toggle="tab" href="#account" aria-controls="account" role="tab" aria-selected="true">
+                                            <i class="bx bx-user mr-25"></i><span class="d-none d-sm-block">Аккаунт</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div class="tab-pane active fade show" id="account" aria-labelledby="account-tab" role="tabpanel">
+                                        
+                                        <!-- users edit account form start -->
+                                        <form novalidate>
+                                            <div class="row">
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="controls">
+                                                            <label>Логин</label>
+                                                            <input type="text" class="form-control" placeholder="Логин" value="dean3004" required data-validation-required-message="Логин обязательно">
                                                         </div>
                                                     </div>
-                                                    <div class="tab-pane fade" id="account-vertical-notifications" role="tabpanel" aria-labelledby="account-pill-notifications" aria-expanded="false">
-                                                        <div class="row">
-                                                            <h6 class="m-1">Activity</h6>
-                                                            <div class="col-12 mb-1">
-                                                                <div class="custom-control custom-switch custom-control-inline">
-                                                                    <input type="checkbox" class="custom-control-input" checked id="accountSwitch1">
-                                                                    <label class="custom-control-label mr-1" for="accountSwitch1"></label>
-                                                                    <span class="switch-label w-100">Email me when someone comments
-                                                                        onmy
-                                                                        article</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12 mb-1">
-                                                                <div class="custom-control custom-switch custom-control-inline">
-                                                                    <input type="checkbox" class="custom-control-input" checked id="accountSwitch2">
-                                                                    <label class="custom-control-label mr-1" for="accountSwitch2"></label>
-                                                                    <span class="switch-label w-100">Email me when someone answers on
-                                                                        my
-                                                                        form</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12 mb-1">
-                                                                <div class="custom-control custom-switch custom-control-inline">
-                                                                    <input type="checkbox" class="custom-control-input" id="accountSwitch3">
-                                                                    <label class="custom-control-label mr-1" for="accountSwitch3"></label>
-                                                                    <span class="switch-label w-100">Email me hen someone follows
-                                                                        me</span>
-                                                                </div>
-                                                            </div>
-                                                            <h6 class="m-1">Application</h6>
-                                                            <div class="col-12 mb-1">
-                                                                <div class="custom-control custom-switch custom-control-inline">
-                                                                    <input type="checkbox" class="custom-control-input" checked id="accountSwitch4">
-                                                                    <label class="custom-control-label mr-1" for="accountSwitch4"></label>
-                                                                    <span class="switch-label w-100">News and announcements</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12 mb-1">
-                                                                <div class="custom-control custom-switch custom-control-inline">
-                                                                    <input type="checkbox" class="custom-control-input" id="accountSwitch5">
-                                                                    <label class="custom-control-label mr-1" for="accountSwitch5"></label>
-                                                                    <span class="switch-label w-100">Weekly product updates</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12 mb-1">
-                                                                <div class="custom-control custom-switch custom-control-inline">
-                                                                    <input type="checkbox" class="custom-control-input" checked id="accountSwitch6">
-                                                                    <label class="custom-control-label mr-1" for="accountSwitch6"></label>
-                                                                    <span class="switch-label w-100">Weekly blog digest</span>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
-                                                                <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Save
-                                                                    changes</button>
-                                                                <button type="reset" class="btn btn-light mb-1">Cancel</button>
-                                                            </div>
+                                                    <div class="form-group">
+                                                        <div class="controls">
+                                                            <label>Имя</label>
+                                                            <input type="text" class="form-control" placeholder="Имя" value="Dean Stanley" required data-validation-required-message="Имя обязательно">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="controls">
+                                                            <label>E-mail</label>
+                                                            <input type="email" class="form-control" placeholder="Email" value="deanstanley@gmail.com" required data-validation-required-message="Еmail обязательно">
                                                         </div>
                                                     </div>
                                                 </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                        <label>Роль</label>
+                                                        <select class="form-control">
+                                                            <option>Менеджер</option>
+                                                            <option>Админ</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label>Статус</label>
+                                                        <select class="form-control">
+                                                            <option>Активный</option>
+                                                            <option>Удаленный</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-sm-6">
+                                                    <div class="form-group">
+                                                        <div class="controls">
+                                                            <label>Пароль</label>
+                                                            <input type="password" class="form-control" placeholder="Пароль" value="fcrfhjgnjv123" required data-validation-required-message="Пароль обязательно">
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <div class="controls">
+                                                            <label>Повторите Пароль</label>
+                                                            <input type="password" class="form-control" placeholder="Повторите Пароль" value="fcrfhjgnjv123" required data-validation-required-message="Повторить пароль обязательно">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
+                                                    <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">Сохранить</button>
+                                                    <button type="reset" class="btn btn-light">Закрыть</button>
+                                                    <button type="button" class="btn btn-outline-danger ml-1" id="confirm-text">Удалить пользователя</button>
+                                                </div>
                                             </div>
-                                        </div>
+                                        </form>
+                                        <!-- users edit account form ends -->
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
-                <!-- account setting page ends -->
+                <!-- users edit ends -->
             </div>
         </div>
     </div>
@@ -1036,9 +715,8 @@
     <!-- BEGIN: Page Vendor JS-->
     <script src="../../../app-assets/vendors/js/forms/select/select2.full.min.js"></script>
     <script src="../../../app-assets/vendors/js/forms/validation/jqBootstrapValidation.js"></script>
-    <script src="../../../app-assets/vendors/js/pickers/pickadate/picker.js"></script>
-    <script src="../../../app-assets/vendors/js/pickers/pickadate/picker.date.js"></script>
-    <script src="../../../app-assets/vendors/js/extensions/dropzone.min.js"></script>
+    <script src="../../../app-assets/vendors/js/extensions/sweetalert2.all.min.js"></script>
+    <script src="../../../app-assets/vendors/js/extensions/polyfill.min.js"></script>
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
@@ -1050,8 +728,12 @@
     <!-- END: Theme JS-->
 
     <!-- BEGIN: Page JS-->
-    <script src="../../../app-assets/js/scripts/pages/page-account-settings.js"></script>
+    <script src="../../../app-assets/js/scripts/pages/page-users.js"></script>
+    <script src="../../../app-assets/js/scripts/navs/navs.js"></script>
     <!-- END: Page JS-->
+       <!-- BEGIN: Page JS-->
+       <script src="../../../app-assets/js/scripts/extensions/sweet-alerts.js"></script>
+       <!-- END: Page JS-->
 
 </body>
 <!-- END: Body-->

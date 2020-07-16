@@ -122,10 +122,11 @@ def employeeView(request, ):
 def employeeEditView(request):
     context = {
     }
-    return render(request, 'admin_panel/admin-sotrud.html', context=context)
+    return render(request, 'admin_panel/admin-sotrud-edit.html', context=context)
 
-
-def userListView(request):
+def employeeAddView(request):
     context = {
     }
-    return render(request, 'admin_panel/page-users-list.html', context=context)
+    return render(request, 'admin_panel/admin-sotrud-add.html', context=context)
+
+
