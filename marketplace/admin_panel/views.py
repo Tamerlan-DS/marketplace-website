@@ -113,16 +113,11 @@ def resetPasswordView(request):
     return render(request, 'admin_panel/admin-reset-password.html', context=context)
 
 
-def employeeView(request, ):
+def employeesView(request, ):
     context = {
     }
     return render(request, 'admin_panel/admin-sotrud.html', context=context)
 
-
-def employeeEditView(request):
-    context = {
-    }
-    return render(request, 'admin_panel/admin-sotrud-edit.html', context=context)
 
 def employeeAddView(request):
     context = {
@@ -130,3 +125,7 @@ def employeeAddView(request):
     return render(request, 'admin_panel/admin-sotrud-add.html', context=context)
 
 
+def employeeEditView(request):
+    context = {
+    }
+    return render(request, 'admin_panel/admin-sotrud-edit.html', context=context)
