@@ -15,27 +15,9 @@
     <link rel="shortcut icon" type="image/x-icon" href="{% static 'admin_panel/app-assets/images/ico/favicon.ico' %}">
    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700" rel="stylesheet">
 
-   <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/app-assets/vendors/css/vendors.min.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/app-assets/vendors/css/tables/datatable/datatables.min.css' %}">
-    <!-- END: Vendor CSS-->
-
-    <!-- BEGIN: Theme CSS-->
-  <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/app-assets/css/bootstrap.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/app-assets/css/bootstrap-extended.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/app-assets/css/colors.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/app-assets/css/components.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/app-assets/css/themes/dark-layout.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/app-assets/css/themes/semi-dark-layout.css' %}">
-    <!-- END: Theme CSS-->
-
-    <!-- BEGIN: Page CSS-->
-    <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/app-assets/css/core/menu/menu-types/vertical-menu.css' %}">
-    <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/app-assets/css/pages/dashboard-ecommerce.css' %}">
-    <!-- END: Page CSS-->
-
-    <!-- BEGIN: Custom CSS-->
-   <link rel="stylesheet" type="text/css" href="{% static 'admin_panel/assets/css/style.css' %}">
-      <!-- END: Custom CSS-->
+    {% block cssLoader %}
+    {% include 'admin_panel/cssLoader.html' %}
+    {% endblock cssLoader %}
 
 </head>
 <!-- END: Head-->
