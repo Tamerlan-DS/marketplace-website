@@ -22,11 +22,13 @@ def employeeAddView(request):
         password = request.POST['password']
         re_password = request.POST['re_password']
         role = request.POST['role']
+        status = request.POST['status']
         context['username'] = username
         context['first_name'] = first_name
         context['last_name'] = last_name
         context['email'] = email
         context['role'] = role
+        context['status'] = status
         if password == re_password:
             try:
                 user = User.objects.get(username=username)
@@ -46,6 +48,12 @@ def employeeAddView(request):
                     card.role = Card.RoleChoices.MODERATOR
                 else:
                     card.role = Card.RoleChoices.ADMINISTRATOR
+
+                if status == 0:
+                    card.status = Card.StatusChoices.ACTIVE
+                else:
+                    card.status = Card.StatusChoices.DELETED
+
                 card.save()
                 context['error'] = 0
                 return render(request, 'admin_panel/admin-sotrud-add.html', context=context)
