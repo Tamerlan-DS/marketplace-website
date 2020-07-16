@@ -10,9 +10,6 @@
     <meta name="keywords" content="admin template, Frest admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
     <title>Users List - Frest - Bootstrap HTML admin template</title>
-    <link rel="apple-touch-icon" href="../../../app-assets/images/ico/apple-icon-120.png">
-    <link rel="shortcut icon" type="image/x-icon" href="../../../app-assets/images/ico/favicon.ico">
-    <link href="https://fonts.googleapis.com/css?family=Rubik:300,400,500,600%7CIBM+Plex+Sans:300,400,500,600,700" rel="stylesheet">
 
       {% block cssLoader %}
     {% include 'admin_panel/cssLoader.html' %}
@@ -95,26 +92,18 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
+                                              {% for user in users %}
                                                 <tr>
-                                                    <td>300</td>
-                                                    <td><a href="../../../html/ltr/vertical-menu-template-semi-dark/admin-sotrud-view.html">dean3004</a>
+                                                    <td>{{ user.pk }}</td>
+                                                    <td><a href="">{{ user.owner }}</a>
                                                     </td>
-                                                    <td>Dean Stanley</td>
-                                                    <td>30/04/2019</td>
-                                                    <td>Менеджер</td>
-                                                    <td><span class="badge badge-light-success">Активный</span></td>
-                                                    <td><a href="../../../html/ltr/vertical-menu-template-semi-dark/admin-sotrud-edit.html"><i class="bx bx-edit-alt"></i></a></td>
+                                                    <td>{{ user.name }}</td>
+                                                    <td>{{ user.owner.date_joined }}</td>
+                                                    <td>{{ user.role }}</td>
+                                                    <td><span class="badge badge-light-success">{{ user.status }}</span></td>
+                                                    <td><a href="{% url 'employee-edit' user.pk %}"><i class="bx bx-edit-alt"></i></a></td>
                                                 </tr>
-                                                <tr>
-                                                    <td>300</td>
-                                                    <td><a href="../../../html/ltr/vertical-menu-template-semi-dark/admin-sotrud-view.html">dean3004</a>
-                                                    </td>
-                                                    <td>Dean Stanley</td>
-                                                    <td>30/04/2019</td>
-                                                    <td>Админ</td>
-                                                    <td><span class="badge badge-light-danger">Удаленный</span></td>
-                                                    <td><a href="../../../html/ltr/vertical-menu-template-semi-dark/admin-sotrud-edit.html"><i class="bx bx-edit-alt"></i></a></td>
-                                                </tr>
+                                               {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
