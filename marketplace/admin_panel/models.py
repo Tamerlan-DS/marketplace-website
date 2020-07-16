@@ -10,12 +10,19 @@ class Card(models.Model):
         COMPANY_OWNER = 'COMPANY_OWNER', 'company owner'
         USER = 'USER', 'user'
 
+    class StatusChoices(models.TextChoices):
+        ACTIVE = 'ACTIVE', 'active'
+        DELETED = 'DELETED', 'deleted'
+
     owner = models.OneToOneField(User,
                                  on_delete=models.CASCADE,
                                  related_name="card"
                                  )
-
     role = models.CharField(max_length=255,
                             choices=RoleChoices.choices,
                             default=RoleChoices.USER,
                             )
+    status = models.CharField(max_length=255,
+                              choices=StatusChoices.choices,
+                              default=StatusChoices.ACTIVE
+                              )
