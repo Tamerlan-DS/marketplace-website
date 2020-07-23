@@ -12,26 +12,6 @@ def companyView(request):
     return render(request, 'admin_panel/admin-companies.html', context=context)
 
 
-def companyEditView(request, company_id):
-    company = get_object_or_404(Company, pk=company_id)
-    context = {
-        'company': company,
-    }
-    if request.method == 'POST':
-        name = request.POST['name']
-        short_description = request.POST['short_description']
-        description = request.POST['description']
-        company_info = company.info
-        company_info.name = name
-        company_info.short_description = short_description
-        company_info.description = description
-        company_info.save()
-    else:
-        pass
-
-    return render(request, 'admin_panel/admin-company-edit.html', context=context)
-
-
 def companyAddView(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -62,6 +42,38 @@ def companyAddView(request):
         context = {
         }
     return render(request, 'admin_panel/admin-company-add.html', context=context)
+
+
+def companyEditView(request, company_id):
+    company = get_object_or_404(Company, pk=company_id)
+    categories = Category.objects.all()
+    context = {
+        'company': company,
+        'categories': categories,
+    }
+    if request.method == 'POST':
+        type = request.POST['form']
+        if type == 'info':
+            name = request.POST['name']
+            short_description = request.POST['short_description']
+            description = request.POST['description']
+            company_info = company.info
+            company_info.name = name
+            company_info.short_description = short_description
+            company_info.description = description
+            company_info.save()
+        if type == 'category':
+            categories_id = request.POST.getlist('categories')
+            company_info = company.info
+            company_info.categories.clear()
+            for category_id in categories_id:
+                category = Category.objects.get(pk=category_id)
+                company_info.categories.add(category)
+
+    else:
+        pass
+
+    return render(request, 'admin_panel/test/company-edit.html', context=context)
 
 
 def companyCategoryView(request):

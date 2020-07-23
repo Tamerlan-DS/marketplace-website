@@ -11,5 +11,5 @@ class CompanyInfo(models.Model):
     name = models.CharField(max_length=255, default="")
     short_description = models.TextField(default="")
     description = models.TextField(default="")
-    category = models.ManyToManyField(Category)
+    categories = models.ManyToManyField(Category)
     # city =
