@@ -1,5 +1,6 @@
 from django.db import models
 from .company import Company
+from .category import Category
 
 
 class CompanyInfo(models.Model):
@@ -10,5 +11,5 @@ class CompanyInfo(models.Model):
     name = models.CharField(max_length=255, default="")
     short_description = models.TextField(default="")
     description = models.TextField(default="")
-    # tags =
+    category = models.ManyToManyField(Category)
     # city =

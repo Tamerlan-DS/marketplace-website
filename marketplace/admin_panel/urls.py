@@ -7,8 +7,10 @@ urlpatterns = [
     path('companies', companyView, name='companies'),
     path('company-edit/<int:company_id>', companyEditView, name='company-edit'),
     path('company-add', companyAddView, name='company-add'),
+
     path('company-category', companyCategoryView, name='company-category'),
-    path('company-category-edit', companyCategoryEditView, name='company-category-edit'),
+    path('company-category-add', companyCategoryAddView, name='company-category-add'),
+    path('company-category-edit/<int:category_id>', companyCategoryEditView, name='company-category-edit'),
 
     path('login', loginView, name='login'),
     path('logout', logoutView, name='logout'),

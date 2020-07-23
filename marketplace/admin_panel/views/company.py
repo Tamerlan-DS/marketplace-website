@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from company.helper import *
-from company.models import Company
+from company.models import Company, Category
 from ..models import Card
 
 
@@ -10,12 +10,6 @@ def companyView(request):
         'companies': companies,
     }
     return render(request, 'admin_panel/admin-companies.html', context=context)
-
-
-def companyCategoryView(request):
-    context = {
-    }
-    return render(request, 'admin_panel/admin-company-category.html', context=context)
 
 
 def companyEditView(request, company_id):
@@ -70,8 +64,38 @@ def companyAddView(request):
     return render(request, 'admin_panel/admin-company-add.html', context=context)
 
 
-def companyCategoryEditView(request):
+def companyCategoryView(request):
+    categories = Category.objects.all()
     context = {
+        'categories': categories
     }
-    return render(request, 'admin_panel/admin-company-category-edit.html', context=context)
+    return render(request, 'admin_panel/test/category_views.html', context=context)
 
+
+def companyCategoryAddView(request):
+    context = {}
+    if request.method == 'POST':
+        name = request.POST['name']
+        if Category.objects.filter(name='name').count():
+            context['error'] = 1
+        else:
+            category = Category(name=name)
+            category.save()
+            context['error'] = 0
+    return render(request, 'admin_panel/test/category_add.html', context=context)
+
+
+def companyCategoryEditView(request, category_id):
+    category = get_object_or_404(Category, pk=category_id)
+    context = {
+        'category': category,
+    }
+    if request.method == 'POST':
+        name = request.POST['name']
+        if category.name != name and Category.objects.filter(name='name').count():
+            context['error'] = 1
+        else:
+            category.name = name
+            category.save()
+            context['error'] = 0
+    return render(request, 'admin_panel/test/category_edit.html', context=context)
