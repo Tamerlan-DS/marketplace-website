@@ -159,7 +159,8 @@
                                                         </form>
                                                     </div>
                                                     <div class="tab-pane fade" id="account-vertical-info" role="tabpanel" aria-labelledby="account-pill-info" aria-expanded="false">
-                                                        <form novalidate>
+                                                    <form action="{% url 'company-edit' company.pk %}" method="POST">
+                                                    {% csrf_token %}
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="form-group">
@@ -167,43 +168,21 @@
                                                                         <textarea class="form-control" id="accountTextarea" rows="3" placeholder="Описание..."></textarea>
                                                                     </div>
                                                                 </div>
+
                                                                 <div class="col-12">
                                                                     <div class="form-group">
                                                                         <label>Категория</label>
-                                                                        <select class="form-control" id="accountSelect">
-                                                                            <option>Категория 1</option>
-                                                                            <option>Категория 2</option>
-                                                                            <option>Категория 3</option>
+                                                                            <input type="hidden" name="form" value="category">
+                                                                        <select class="form-control" id="accountSelect"  name="categories" multiple data-live-search="true">
+                                                                                  {% for category in categories %}
+                                                                              <option value="{{ category.pk }}" {% if category in company.info.categories.all %} selected {% endif %}>
+                                                                                   {{ category.name }}
+                                                                            </option>
+                                                                                {% endfor %}
                                                                         </select>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Характеристики</label>
-                                                                        <select class="form-control" id="languageselect2" multiple="multiple">
-                                                                            <option value="English" selected>English</option>
-                                                                            <option value="Spanish">Spanish</option>
-                                                                            <option value="French">French</option>
-                                                                            <option value="Russian">Russian</option>
-                                                                            <option value="German">German</option>
-                                                                            <option value="Arabic" selected>Arabic</option>
-                                                                            <option value="Sanskrit">Sanskrit</option>
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <div class="controls">
-                                                                            <label>Телефон</label>
-                                                                            <input type="text" class="form-control" required placeholder="Phone number" value="(+656) 254 2568" data-validation-required-message="This phone number field is required">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <div class="controls">
-                                                                            <label>Телефон</label>
-                                                                            <input type="text" class="form-control" required placeholder="Phone number" value="(+656) 254 2568" data-validation-required-message="This phone number field is required">
-                                                                        </div>
-                                                                    </div>
                                                                     <div class="form-group">
                                                                         <div class="controls">
                                                                             <label>Телефон</label>
@@ -239,21 +218,6 @@
                                                                     <div class="form-group">
                                                                         <label>Адрес</label>
                                                                         <input type="text" class="form-control" placeholder="Адрес">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Favourite movies</label>
-                                                                        <select class="form-control" id="moviesselect2" multiple="multiple">
-                                                                            <option value="The Dark Knight" selected>The Dark Knight
-                                                                            </option>
-                                                                            <option value="Harry Potter" selected>Harry Potter</option>
-                                                                            <option value="Airplane!">Airplane!</option>
-                                                                            <option value="Perl Harbour">Perl Harbour</option>
-                                                                            <option value="Spider Man">Spider Man</option>
-                                                                            <option value="Iron Man" selected>Iron Man</option>
-                                                                            <option value="Avatar">Avatar</option>
-                                                                        </select>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
