@@ -106,8 +106,8 @@
                                                     <div class="form-group">
                                                         <label>Роль</label>
                                                         <select class="form-control" name="role">
-                                                            <option value="0">Менеджер</option>
-                                                            <option value="1">Админ</option>
+                                                            <option value="0" {% if card.role == card.RoleChoices.MODERATOR %} selected {% endif %}>Менеджер</option>
+                                                            <option value="1" {% if card.role == card.RoleChoices.ADMINISTRATOR %} selected {% endif %}>Админ</option>
                                                         </select>
                                                     </div>
 
@@ -116,8 +116,8 @@
 
                                                         <label>Статус</label>
                                                         <select class="form-control" name="status">
-                                                            <option value="0">Активный</option>
-                                                            <option value="1">Удаленный</option>
+                                                            <option value="0" {% if card.status == card.StatusChoices.ACTIVE %} selected {% endif %}>Активный</option>
+                                                            <option value="1" {% if card.status == card.StatusChoices.DELETED %} selected {% endif %}>Удаленный</option>
                                                         </select>
 
                                                </div>
