@@ -9,7 +9,6 @@ urlpatterns = [
     path('company-add', companyAddView, name='company-add'),
 
     path('company-category', companyCategoryView, name='company-category'),
-    path('company-category-add', companyCategoryAddView, name='company-category-add'),
     path('company-category-edit/<int:category_id>', companyCategoryEditView, name='company-category-edit'),
 
     path('login', loginView, name='login'),
