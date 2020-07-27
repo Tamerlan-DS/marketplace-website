@@ -52,33 +52,22 @@
                                     </div>
                                     <div class="card-content">
                                         <div class="card-body">
-                                            <form class="form form-horizontal">
+                                            <form class="form form-horizontal" action="{% url 'company-category-add' %}" method="post">
+                                                {% csrf_token %}
+                                                {% if error %}
+                                                {% if error == 0 %}
+                                                <p>Категория создана</p>
+                                                {% elif error == 1 %}
+                                                <p>Такая категория уже существтует</p>
+                                                {% endif %}
+                                                {% endif %}
                                                 <div class="form-body">
                                                     <div class="row">
                                                         <div class="col-md-4">
                                                             <label>Название</label>
                                                         </div>
                                                         <div class="col-md-8 form-group">
-                                                            <input type="text" id="first-name" class="form-control" name="fname" placeholder="Название">
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <label>Род. категория</label>
-                                                        </div>
-                                                        <div class="col-md-8 form-group">
-                                                            <div class="form-group">
-                                                                <select class="form-control">
-                                                                    <option value="-" selected>Без род. категории
-                                                                    </option>
-                                                                    <option value="The Dark Knight">The Dark Knight
-                                                                    </option>
-                                                                    <option value="Harry Potter">Harry Potter</option>
-                                                                    <option value="Airplane!">Airplane!</option>
-                                                                    <option value="Perl Harbour">Perl Harbour</option>
-                                                                    <option value="Spider Man">Spider Man</option>
-                                                                    <option value="Iron Man" >Iron Man</option>
-                                                                    <option value="Avatar">Avatar</option>
-                                                                </select>
-                                                            </div>
+                                                            <input type="text" id="first-name" class="form-control" name="name" placeholder="Название">
                                                         </div>
                                                         <div class="col-sm-12 d-flex justify-content-end">
                                                             <button type="submit" class="btn btn-primary">Добавить</button>
@@ -95,63 +84,22 @@
                 <section id="table-success">
                     <div class="card">
                         <!-- datatable start -->
+
+
                         <div class="table-responsive">
                             <table id="table-extended-success" class="table mb-0">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
                                         <th>Название</th>
-                                        <th>Род. категория</th>
                                         <th>Действие</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Кровля</td>
-                                        <td>Крыша</td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <span class="bx bx-dots-horizontal-rounded font-medium-3 dropdown-toggle nav-hide-arrow cursor-pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu">
-                                                </span>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#"><i class="bx bx-edit-alt mr-1"></i> Править</a>
-                                                    <a class="dropdown-item" href="#"><i class="bx bx-trash mr-1"></i> Удалить</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Кровля</td>
-                                        <td></td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <span class="bx bx-dots-horizontal-rounded font-medium-3 dropdown-toggle nav-hide-arrow cursor-pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu">
-                                                </span>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#"><i class="bx bx-edit-alt mr-1"></i> Править</a>
-                                                    <a class="dropdown-item" href="#"><i class="bx bx-trash mr-1"></i> Удалить</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Кровля</td>
-                                        <td>Крыша</td>
-                                        <td>
-                                            <div class="dropdown">
-                                                <span class="bx bx-dots-horizontal-rounded font-medium-3 dropdown-toggle nav-hide-arrow cursor-pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu">
-                                                </span>
-                                                <div class="dropdown-menu dropdown-menu-right">
-                                                    <a class="dropdown-item" href="#"><i class="bx bx-edit-alt mr-1"></i> Править</a>
-                                                    <a class="dropdown-item" href="#"><i class="bx bx-trash mr-1"></i> Удалить</a>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
+                                     {% for category in categories %}
+                                   <p>
+                                     pk:{{ category.pk }}, name:{{ category.name }}
+                                   </p>
+                                     {% endfor %}
                             </table>
                         </div>
                         <!-- datatable ends -->

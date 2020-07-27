@@ -81,7 +81,7 @@ def companyCategoryView(request):
     context = {
         'categories': categories
     }
-    return render(request, 'admin_panel/test/category_views.html', context=context)
+    return render(request, 'admin_panel/admin-company-category.html', context=context)
 
 
 def companyCategoryAddView(request):
