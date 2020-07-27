@@ -6,6 +6,7 @@ urlpatterns = [
 
     path('companies', companyView, name='companies'),
     path('company-edit/<int:company_id>', companyEditView, name='company-edit'),
+    path('company-testedit/<int:company_id>', companytestEditView, name='company-testedit'),
     path('company-add', companyAddView, name='company-add'),
 
     path('company-category', companyCategoryView, name='company-category'),

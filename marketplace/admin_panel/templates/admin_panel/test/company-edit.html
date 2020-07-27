@@ -1,28 +1,28 @@
-<form action="{% url 'company-edit' company.pk %}" method="POST">
-    {% csrf_token %}
-    <input type="hidden" name="form" value="info">
-    <input type="text" name="name" placeholder="Name" value="{{ company.info.name }}">
-    <input type="text" name="description" placeholder="Decription" value="{{ company.info.description }}">
-    <input type="text" name="short_description" placeholder="Short Description" value="{{ company.info.short_description }}">
-    <button type="submit">Сохранить</button>
-</form>
+        <form action="{% url 'company-edit' company.pk %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="form" value="info">
+            <input type="text" name="name" placeholder="Name" value="{{ company.info.name }}">
+            <input type="text" name="description" placeholder="Decription" value="{{ company.info.description }}">
+            <input type="text" name="short_description" placeholder="Short Description" value="{{ company.info.short_description }}">
+            <button type="submit">Сохранить</button>
+        </form>
 
-<hr/>
+        <hr/>
 
-<form action="{% url 'company-edit' company.pk %}" method="POST">
-    {% csrf_token %}
-    <input type="hidden" name="form" value="category">
-    <select name="categories" multiple data-live-search="true">
-        {% for category in categories %}
-            <option value="{{ category.pk }}" {% if category in company.info.categories.all %} selected {% endif %}>
-                {{ category.name }}
-            </option>
-        {% endfor %}
-    </select>
-    <button type="submit">Сохранить</button>
-</form>
+            <form action="{% url 'company-edit' company.pk %}" method="POST">
+                {% csrf_token %}
+            <input type="hidden" name="form" value="category">
+            <select name="categories" multiple data-live-search="true">
+                {% for category in categories %}
+                    <option value="{{ category.pk }}" {% if category in company.info.categories.all %} selected {% endif %}>
+                        {{ category.name }}
+                    </option>
+                {% endfor %}
+            </select>
+            <button type="submit">Сохранить</button>
+        </form>
 
-<hr/>
+        <hr/>
 
 
 
