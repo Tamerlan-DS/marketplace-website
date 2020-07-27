@@ -73,7 +73,7 @@ def companyEditView(request, company_id):
     else:
         pass
 
-    return render(request, 'admin_panel/test/company-edit.html', context=context)
+    return render(request, 'admin_panel/admin-company-edit.html', context=context)
 
 
 def companyCategoryView(request):
