@@ -95,11 +95,24 @@
                                         <th>Действие</th>
                                     </tr>
                                 </thead>
-                                     {% for category in categories %}
-                                   <p>
-                                     pk:{{ category.pk }}, name:{{ category.name }}
-                                   </p>
-                                     {% endfor %}
+                                <tbody>
+                                 {% for category in categories %}
+                                <tr>
+                                   <td> {{ category.pk }} </td>
+                                    <td>{{ category.name }} </td>
+                                    <td>
+                                        <div class="dropdown">
+                                                <span class="bx bx-dots-horizontal-rounded font-medium-3 dropdown-toggle nav-hide-arrow cursor-pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu">
+                                                </span>
+                                                <div class="dropdown-menu dropdown-menu-right">
+                                                    <a class="dropdown-item" href="{% url 'company-category-edit' category.pk %}"><i class="bx bx-edit-alt mr-1"></i> Править</a>
+                                                    <a class="dropdown-item" href=""><i class="bx bx-trash mr-1"></i> Удалить</a>
+                                                </div>
+                                            </div>
+                                    </td>
+                                </tr>
+                                    {% endfor %}
+                                </tbody>
                             </table>
                         </div>
                         <!-- datatable ends -->
