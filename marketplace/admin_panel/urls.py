@@ -16,5 +16,5 @@ urlpatterns = [
 
     path('employees', employeesView, name='employees'),
     path('employee-add', employeeAddView, name='employee-add'),
-    path('employee-edit/<int:employee_id>', employeeEditView, name='employee-edit'),
+    path('employee-edit/<int:employee_card_id>', employeeEditView, name='employee-edit'),
 ]
