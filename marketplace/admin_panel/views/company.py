@@ -79,13 +79,8 @@ def companyEditView(request, company_id):
 def companyCategoryView(request):
     categories = Category.objects.all()
     context = {
-        'categories': categories
+        'categories': categories,
     }
-    return render(request, 'admin_panel/admin-company-category.html', context=context)
-
-
-def companyCategoryAddView(request):
-    context = {}
     if request.method == 'POST':
         name = request.POST['name']
         if Category.objects.filter(name='name').count():
@@ -94,7 +89,7 @@ def companyCategoryAddView(request):
             category = Category(name=name)
             category.save()
             context['error'] = 0
-    return render(request, 'admin_panel/test/category_add.html', context=context)
+    return render(request, 'admin_panel/admin-company-category.html', context=context)
 
 
 def companyCategoryEditView(request, category_id):
@@ -110,4 +105,4 @@ def companyCategoryEditView(request, category_id):
             category.name = name
             category.save()
             context['error'] = 0
-    return render(request, 'admin_panel/test/category_edit.html', context=context)
+    return render(request, 'admin_panel/admin-company-category-edit.html', context=context)

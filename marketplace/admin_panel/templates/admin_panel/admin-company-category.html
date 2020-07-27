@@ -52,7 +52,7 @@
                                     </div>
                                     <div class="card-content">
                                         <div class="card-body">
-                                            <form class="form form-horizontal" action="{% url 'company-category-add' %}" method="post">
+                                            <form class="form form-horizontal" action="{% url 'company-category' %}" method="post">
                                                 {% csrf_token %}
                                                 {% if error %}
                                                 {% if error == 0 %}
