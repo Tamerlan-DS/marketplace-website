@@ -68,8 +68,10 @@ def employeeAddView(request):
 def employeeEditView(request, employee_card_id):
     card = get_object_or_404(Card, pk=employee_card_id)
     user = card.owner
+    raw_password = "XXsalamdias!XX"
     context = {
         'card': card,
+        'raw_password': raw_password,
     }
     if request.method == 'POST':
         username = request.POST['username']
@@ -86,7 +88,8 @@ def employeeEditView(request, employee_card_id):
                 return render(request, 'admin_panel/admin-sotrud-edit.html', context=context)
             else:
                 user.username = username
-                user.set_password(password)
+                if password != raw_password:
+                    user.set_password(password)
                 user.email = email
                 user.first_name = first_name
                 user.last_name = last_name
