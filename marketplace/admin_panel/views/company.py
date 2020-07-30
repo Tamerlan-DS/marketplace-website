@@ -117,6 +117,8 @@ def companyCategoryView(request):
         name = request.POST['name']
         if Category.objects.filter(name='name').count():
             context['error'] = 1
+        elif not name:
+            context['error'] = 2
         else:
             category = Category(name=name)
             category.save()
@@ -133,6 +135,8 @@ def companyCategoryEditView(request, category_id):
         name = request.POST['name']
         if category.name != name and Category.objects.filter(name='name').count():
             context['error'] = 1
+        elif not name:
+            context['error'] = 2
         else:
             category.name = name
             category.save()
