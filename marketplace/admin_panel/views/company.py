@@ -2,8 +2,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from company.helper import *
 from company.models import Company, Category
 from ..models import Card
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def companyView(request):
     companies = Company.objects.all()
     context = {
@@ -12,6 +14,7 @@ def companyView(request):
     return render(request, 'admin_panel/admin-companies.html', context=context)
 
 
+@login_required
 def companyAddView(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -44,6 +47,7 @@ def companyAddView(request):
     return render(request, 'admin_panel/admin-company-add.html', context=context)
 
 
+@login_required
 def companyEditView(request, company_id):
     company = get_object_or_404(Company, pk=company_id)
     categories = Category.objects.all()
@@ -76,6 +80,7 @@ def companyEditView(request, company_id):
     return render(request, 'admin_panel/admin-company-edit.html', context=context)
 
 
+@login_required
 def companytestEditView(request, company_id):
     company = get_object_or_404(Company, pk=company_id)
     categories = Category.objects.all()
@@ -108,6 +113,7 @@ def companytestEditView(request, company_id):
     return render(request, 'admin_panel/test/company-edit.html', context=context)
 
 
+@login_required
 def companyCategoryView(request):
     categories = Category.objects.all()
     context = {
@@ -126,6 +132,7 @@ def companyCategoryView(request):
     return render(request, 'admin_panel/admin-company-category.html', context=context)
 
 
+@login_required
 def companyCategoryEditView(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
     context = {

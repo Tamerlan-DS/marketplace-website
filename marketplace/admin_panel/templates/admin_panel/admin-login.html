@@ -44,7 +44,7 @@
                                         </div>
                                         <div class="card-content">
                                             <div class="card-body">
-                                                <form action="{% url 'login' %}" method="post">
+                                                <form action="{% url 'login' %}?next={{ next }}" method="post">
                                                            {% csrf_token %}
                                                     <div class="form-group mb-50">
                                                         <label class="text-bold-600" > Username</label>

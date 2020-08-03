@@ -1,16 +1,20 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from ..models import Card
+from django.db.models import Q
+from django.contrib.auth.decorators import login_required
 
 
+@login_required
 def employeesView(request):
-    cards = Card.objects.all()
+    cards = Card.objects.filter(~Q(role=Card.RoleChoices.COMPANY_OWNER))
     context = {
         'cards': cards,
     }
     return render(request, 'admin_panel/admin-sotrud.html', context=context)
 
 
+@login_required
 def employeeAddView(request):
     context = {
     }
@@ -65,6 +69,7 @@ def employeeAddView(request):
     return render(request, 'admin_panel/admin-sotrud-add.html', context=context)
 
 
+@login_required
 def employeeEditView(request, employee_card_id):
     card = get_object_or_404(Card, pk=employee_card_id)
     user = card.owner

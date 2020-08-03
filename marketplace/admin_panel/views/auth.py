@@ -1,19 +1,21 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, logout, authenticate
+from django.urls import reverse
 
 
 def loginView(request):
     if request.user.is_authenticated:
-        return redirect('panel')
+        return redirect(request.GET.get('next') or 'panel')
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
         if user:
             login(request, user)
-            return redirect('panel')
-
-    return render(request, 'admin_panel/admin-login.html')
+            return redirect(request.GET.get('next') or 'panel')
+    return render(request,
+                  'admin_panel/admin-login.html',
+                  {'next': request.GET.get('next') or reverse('panel')})
 
 
 def logoutView(request):
