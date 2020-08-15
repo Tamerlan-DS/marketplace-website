@@ -15,7 +15,7 @@
     <select name="categories" multiple data-live-search="true">
         {% for category in categories %}
             <option value="{{ category.pk }}" {% if category in company_categories %} selected {% endif %}>
-                {{ category.name }}
+                {{ category }}
             </option>
         {% endfor %}
     </select>
