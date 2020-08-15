@@ -173,7 +173,7 @@
                                                                     <div class="form-group">
                                                                         <label>Категория</label>
                                                                             <input type="hidden" name="form" value="category">
-                                                                        <select class="form-control" id="accountSelect"  name="categories" multiple data-live-search="true">
+                                                                        <select class="form-control" id="accountSelect"  name="categories" >
                                                                                   {% for category in categories %}
                                                                               <option value="{{ category.pk }}" {% if category in company.info.categories.all %} selected {% endif %}>
                                                                                    {{ category.name }}
@@ -182,6 +182,7 @@
                                                                         </select>
                                                                     </div>
                                                                 </div>
+
                                                                 <div class="col-12">
                                                                     <div class="form-group">
                                                                         <div class="controls">
