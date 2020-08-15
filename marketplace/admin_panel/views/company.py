@@ -121,15 +121,20 @@ def companyCategoryView(request):
     }
     if request.method == 'POST':
         name = request.POST['name']
+        parent_id = int(request.POST['parent_id'])
+        if parent_id:
+            parent = Category.objects.get(pk=parent_id)
+        else:
+            parent = None
         if Category.objects.filter(name='name').count():
             context['error'] = 1
         elif not name:
             context['error'] = 2
         else:
-            category = Category(name=name)
+            category = Category(name=name, parent=parent)
             category.save()
             context['error'] = 0
-    return render(request, 'admin_panel/admin-company-category.html', context=context)
+    return render(request, 'admin_panel/test/category_views.html', context=context)
 
 
 @login_required
