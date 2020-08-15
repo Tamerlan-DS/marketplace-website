@@ -84,12 +84,13 @@ def companyEditView(request, company_id):
 def companytestEditView(request, company_id):
     company = get_object_or_404(Company, pk=company_id)
     categories = Category.objects.all()
+    company_categories = Category.objects.filter(pk__in=CompanyCategory.objects.filter(company=company).values_list('category'))
+    print(company_categories)
     context = {
         'company': company,
         'categories': categories,
-        'company_categories': CompanyCategory.objects.filter(company=company),
+        'company_categories': company_categories,
     }
-    company_categories = CompanyCategory.objects.filter(company=company)
     if request.method == 'POST':
         type = request.POST['form']
         if type == 'info':
