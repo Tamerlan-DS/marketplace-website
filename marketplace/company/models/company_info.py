@@ -11,5 +11,8 @@ class CompanyInfo(models.Model):
     name = models.CharField(max_length=255, default="")
     short_description = models.TextField(default="")
     description = models.TextField(default="")
-    categories = models.ManyToManyField(Category)
+    category = models.ForeignKey(Category,
+                                 on_delete=models.CASCADE,
+                                 related_name='companies',
+                                 )
     # city =
