@@ -74,12 +74,15 @@
                                                         </div>
                                                         <div class="col-md-8 form-group">
                                                             <div class="form-group">
-                                                               <select class="form-control" id="accountSelect"  name="categories" >
-                                                                                  {% for category in categories %}
-                                                                              <option value="{{ category.pk }}" {% if category in company.info.categories.all %} selected {% endif %}>
-                                                                                   {{ category.name }}
-                                                                            </option>
-                                                                                {% endfor %}
+                                                               <select class="form-control" id="accountSelect"  name="parent_id" >
+                                                                             <option value="0">
+            None
+        </option>
+        {% for category in categories %}
+            <option value="{{ category.pk }}">
+                {{ category.name }}
+            </option>
+        {% endfor %}
                                                                         </select>
                                                             </div>
                                                         </div>
@@ -117,7 +120,11 @@
                                 <tr>
                                    <td> {{ category.pk }} </td>
                                     <td>{{ category.name }} </td>
-                                    <td>{{ category }}</td>
+                                    <td>  {% if category.parent %}
+                                         {{ category.parent.name }}
+        {% else %}
+            None
+        {% endif %}</td>
                                     <td>
                                         <div class="dropdown">
                                                 <span class="bx bx-dots-horizontal-rounded font-medium-3 dropdown-toggle nav-hide-arrow cursor-pointer" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" role="menu">

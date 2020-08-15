@@ -51,9 +51,12 @@ def companyAddView(request):
 def companyEditView(request, company_id):
     company = get_object_or_404(Company, pk=company_id)
     categories = Category.objects.all()
+    company_categories = Category.objects.filter(
+        pk__in=CompanyCategory.objects.filter(company=company).values_list('category'))
     context = {
         'company': company,
         'categories': categories,
+        'company_categories': company_categories,
     }
     if request.method == 'POST':
         type = request.POST['form']
@@ -68,11 +71,12 @@ def companyEditView(request, company_id):
             company_info.save()
         if type == 'category':
             categories_id = request.POST.getlist('categories')
-            company_info = company.info
-            company_info.categories.clear()
+            company_categories = CompanyCategory.objects.filter(company=company)
+            for company_category in company_categories:
+                company_category.delete()
             for category_id in categories_id:
                 category = Category.objects.get(pk=category_id)
-                company_info.categories.add(category)
+                CompanyCategory(company=company, category=category).save()
 
     else:
         pass
@@ -137,7 +141,7 @@ def companyCategoryView(request):
             category = Category(name=name, parent=parent)
             category.save()
             context['error'] = 0
-    return render(request, 'admin_panel/test/category_views.html', context=context)
+    return render(request, 'admin_panel/admin-company-category.html', context=context)
 
 
 @login_required

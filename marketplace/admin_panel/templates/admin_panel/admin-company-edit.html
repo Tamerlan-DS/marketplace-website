@@ -163,6 +163,7 @@
                                                     <div class="tab-pane fade" id="account-vertical-info" role="tabpanel" aria-labelledby="account-pill-info" aria-expanded="false">
                                                     <form action="{% url 'company-edit' company.pk %}" method="POST">
                                                     {% csrf_token %}
+
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="form-group">
@@ -176,11 +177,11 @@
                                                                         <label>Категория</label>
                                                                             <input type="hidden" name="form" value="category">
                                                                         <select class="form-control" id="accountSelect"  name="categories" >
-                                                                                  {% for category in categories %}
-                                                                              <option value="{{ category.pk }}" {% if category in company.info.categories.all %} selected {% endif %}>
-                                                                                   {{ category.name }}
-                                                                            </option>
-                                                                                {% endfor %}
+                                                                                 {% for category in categories %}
+                                                                                    <option value="{{ category.pk }}" {% if category in company_categories %} selected {% endif %}>
+                                                                                                  {{ category }}
+                                                                                          </option>
+                                                                            {% endfor %}
                                                                         </select>
                                                                     </div>
                                                                 </div>
