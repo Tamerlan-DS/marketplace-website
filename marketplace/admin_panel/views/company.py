@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from company.helper import *
-from company.models import Company, Category
+from company.models import Company, Category, CompanyCategory
 from ..models import Card
 from django.contrib.auth.decorators import login_required
 
@@ -87,7 +87,9 @@ def companytestEditView(request, company_id):
     context = {
         'company': company,
         'categories': categories,
+        'company_categories': CompanyCategory.objects.filter(company=company),
     }
+    company_categories = CompanyCategory.objects.filter(company=company)
     if request.method == 'POST':
         type = request.POST['form']
         if type == 'info':
@@ -101,11 +103,12 @@ def companytestEditView(request, company_id):
             company_info.save()
         if type == 'category':
             categories_id = request.POST.getlist('categories')
-            company_info = company.info
-            company_info.categories.clear()
+            company_categories = CompanyCategory.objects.filter(company=company)
+            for company_category in company_categories:
+                company_category.delete()
             for category_id in categories_id:
                 category = Category.objects.get(pk=category_id)
-                company_info.categories.add(category)
+                CompanyCategory(company=company, category=category).save()
 
     else:
         pass

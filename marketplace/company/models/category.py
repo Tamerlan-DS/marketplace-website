@@ -1,5 +1,5 @@
 from django.db import models
-from .company_info import CompanyInfo
+from .company import Company
 
 
 class Category(models.Model):
@@ -16,7 +16,7 @@ class Property(models.Model):
 
 
 class CompanyCategory(models.Model):
-    company = models.ForeignKey(CompanyInfo,
+    company = models.ForeignKey(Company,
                                 on_delete=models.CASCADE,
                                 related_name="categories",
                                 )
