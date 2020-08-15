@@ -129,7 +129,7 @@ def companyCategoryView(request):
             parent = Category.objects.get(pk=parent_id)
         else:
             parent = None
-        if Category.objects.filter(name='name').count():
+        if Category.objects.filter(name=name).count():
             context['error'] = 1
         elif not name:
             context['error'] = 2
@@ -148,7 +148,7 @@ def companyCategoryEditView(request, category_id):
     }
     if request.method == 'POST':
         name = request.POST['name']
-        if category.name != name and Category.objects.filter(name='name').count():
+        if category.name != name and Category.objects.filter(name=name).count():
             context['error'] = 1
         elif not name:
             context['error'] = 2
