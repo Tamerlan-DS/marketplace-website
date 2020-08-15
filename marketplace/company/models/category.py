@@ -3,14 +3,23 @@ from .company import Company
 
 
 class Category(models.Model):
+    class StatusChoices(models.TextChoices):
+        ACTIVE = 'ACTIVE', 'active'
+        DELETED = 'DELETED', 'deleted'
+
     parent = models.ForeignKey("self", null=True, on_delete=models.SET_NULL)
     name = models.CharField(max_length=255)
+    status = models.CharField(max_length=255,
+                              choices=StatusChoices.choices,
+                              default=StatusChoices.ACTIVE
+                              )
 
     def __str__(self):
         if self.parent:
             return str(self.parent) + '-' + self.name
         else:
             return self.name
+
 
 class Property(models.Model):
     category = models.ForeignKey(Category,
