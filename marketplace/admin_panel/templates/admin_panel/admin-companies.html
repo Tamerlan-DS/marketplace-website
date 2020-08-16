@@ -92,7 +92,11 @@
                                                     </td>
                                                     <td>{{ company.info.name }}</td>
                                                     <td>{{ company.owner.date_joined }}</td>
-                                                    <td>{{ company.info.category  }}</td>
+                                                    <td>
+                                                        {% for category in company.categories.all %}
+                                                        {{ category.category.name }}
+                                                        {% endfor %}
+                                                    </td>
                                                     <td><span class="badge badge-light-success">{{ company.status }}</span></td>
                                                     <td><a href="{% url 'company-edit' company.pk %}"><i class="bx bx-edit-alt"></i></a></td>
 
