@@ -12,7 +12,10 @@ api_key = '81394ed8558679117135af6c57342cb7'
 @login_required
 def balanceView(request):
     user = request.user
-    balance = user.balance
+    try:
+        balance = user.balance
+    except Balance.DoesNotExist:
+        balance = Balance(owner=user)
     history = balance.payments.order_by('-date')
     for invoice in history:
         invoice.update()
