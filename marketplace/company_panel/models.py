@@ -45,14 +45,10 @@ class Invoice(models.Model):
         )
         self.text = response.text
         json_response = response.json()
-        if json_response['Success']:
-            self.status = json_response['Model']['Status']
-            self.reason = json_response['Model']['Reason']
-            if self.status == 'Completed' and not self.charged:
-                self.balance.value += self.value
-                self.balance.save()
-                self.charged = True
-        else:
-            self.status = 'error'
-            self.reason = 'error'
+        self.status = json_response['Model']['Status']
+        self.reason = json_response['Model']['Reason']
+        if self.status == 'Completed' and not self.charged:
+            self.balance.value += self.value
+            self.balance.save()
+            self.charged = True
         self.save()

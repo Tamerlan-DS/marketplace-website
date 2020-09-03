@@ -8,6 +8,7 @@ def user_is_admin(function):
             card = request.user.card
         except Card.DoesNotExist:
             card = Card(owner=request.user)
+            card.save()
         if (
                 card.status == Card.StatusChoices.ACTIVE and
                 card.role == Card.RoleChoices.ADMINISTRATOR
@@ -27,6 +28,7 @@ def user_is_moder(function):
             card = request.user.card
         except Card.DoesNotExist:
             card = Card(owner=request.user)
+            card.save()
         if (
                 card.status == Card.StatusChoices.ACTIVE and
                 (

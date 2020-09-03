@@ -16,6 +16,7 @@ def balanceView(request):
         balance = user.balance
     except Balance.DoesNotExist:
         balance = Balance(owner=user)
+        balance.save()
     history = balance.payments.order_by('-date')
     for invoice in history:
         invoice.update()
@@ -32,6 +33,7 @@ def invoiceView(request):
         balance = user.balance
     except Balance.DoesNotExist:
         balance = Balance(owner=user)
+        balance.save()
     value = request.POST['value']
     invoice = Invoice.objects.create(value=value, balance=balance)
     invoice.save()
