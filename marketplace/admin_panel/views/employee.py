@@ -3,9 +3,11 @@ from django.contrib.auth.models import User
 from ..models import Card
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
+from ..decorators import *
 
 
 @login_required
+@user_is_moder
 def employeesView(request):
     cards = Card.objects.filter(~Q(role=Card.RoleChoices.COMPANY_OWNER))
     context = {
@@ -15,6 +17,7 @@ def employeesView(request):
 
 
 @login_required
+@user_is_moder
 def employeeAddView(request):
     context = {
     }
@@ -70,6 +73,7 @@ def employeeAddView(request):
 
 
 @login_required
+@user_is_moder
 def employeeEditView(request, employee_card_id):
     card = get_object_or_404(Card, pk=employee_card_id)
     user = card.owner

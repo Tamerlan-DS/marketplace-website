@@ -28,7 +28,10 @@ def balanceView(request):
 @login_required
 def invoiceView(request):
     user = request.user
-    balance = user.balance
+    try:
+        balance = user.balance
+    except Balance.DoesNotExist:
+        balance = Balance(owner=user)
     value = request.POST['value']
     invoice = Invoice.objects.create(value=value, balance=balance)
     invoice.save()

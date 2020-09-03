@@ -17,6 +17,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
+from django.http import HttpResponse
+from .views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,3 +26,13 @@ urlpatterns = [
     path('admin_panel/', include('admin_panel.urls')),
     path('company_panel/', include('company_panel.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+def response_error_handler(request, exception=None):
+    return HttpResponse('У вас не хватает власти. Попросоите высшего дать вам больше власти (Добавить страницы когда появятся)', status=403)
+
+
+handler400 = error_400_view
+handler403 = error_403_view
+handler404 = error_404_view
+handler500 = error_500_view

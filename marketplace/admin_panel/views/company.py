@@ -3,9 +3,11 @@ from company.helper import *
 from company.models import Company, Category, CompanyCategory
 from ..models import Card
 from django.contrib.auth.decorators import login_required
+from ..decorators import *
 
 
 @login_required
+@user_is_moder
 def companyView(request):
     companies = Company.objects.all()
     context = {
@@ -15,6 +17,7 @@ def companyView(request):
 
 
 @login_required
+@user_is_moder
 def companyAddView(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -48,6 +51,7 @@ def companyAddView(request):
 
 
 @login_required
+@user_is_moder
 def companyEditView(request, company_id):
     company = get_object_or_404(Company, pk=company_id)
     categories = Category.objects.all()
@@ -85,6 +89,7 @@ def companyEditView(request, company_id):
 
 
 @login_required
+@user_is_moder
 def companytestEditView(request, company_id):
     company = get_object_or_404(Company, pk=company_id)
     categories = Category.objects.all()
@@ -121,6 +126,7 @@ def companytestEditView(request, company_id):
 
 
 @login_required
+@user_is_moder
 def companyCategoryView(request):
     categories = Category.objects.all()
     context = {
@@ -145,6 +151,7 @@ def companyCategoryView(request):
 
 
 @login_required
+@user_is_moder
 def companyCategoryEditView(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
     context = {

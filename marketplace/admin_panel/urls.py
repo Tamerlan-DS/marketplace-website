@@ -21,3 +21,4 @@ urlpatterns = [
 
     path('takeout/company/<int:company_id>', companyTakeoutView, name='takeout-company'),
 ]
+
