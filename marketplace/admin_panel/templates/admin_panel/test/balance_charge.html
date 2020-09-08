@@ -1,0 +1,6 @@
+<form action="{% url 'balance-charge' user_id%}" method="POST">
+    {% csrf_token %}
+    {{ error }}
+    <input type="number" name="value">
+    <button type="submit">Submit</button>
+</form>

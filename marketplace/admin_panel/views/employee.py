@@ -4,6 +4,7 @@ from ..models import Card
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from ..decorators import *
+from company_panel.models import Balance
 
 
 @login_required
@@ -50,6 +51,8 @@ def employeeAddView(request):
                     email=email,
                 )
                 user.save()
+                balance = Balance.objects.create(owner=user)
+                balance.save()
                 card = Card(owner=user)
                 if role == '0':
                     card.role = Card.RoleChoices.MODERATOR

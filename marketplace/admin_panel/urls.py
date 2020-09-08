@@ -19,6 +19,8 @@ urlpatterns = [
     path('employee-add', employeeAddView, name='employee-add'),
     path('employee-edit/<int:employee_card_id>', employeeEditView, name='employee-edit'),
 
+    path('balance-charge/<int:user_id>', balanceChargeView, name='balance-charge'),
+
     path('takeout/company/<int:company_id>', companyTakeoutView, name='takeout-company'),
 ]
 

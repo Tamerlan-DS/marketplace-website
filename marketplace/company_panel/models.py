@@ -18,26 +18,40 @@ class Balance(models.Model):
 class Invoice(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     value = models.FloatField()
-    balance = models.ForeignKey(Balance,
-                                on_delete=models.CASCADE,
-                                related_name="payments")
+    balance = models.ForeignKey(
+        Balance,
+        on_delete=models.CASCADE,
+        related_name="payments",
+    )
     status = models.CharField(max_length=255,
-                              default="Undefined"
+                              default="Undefined",
                               )
     reason = models.CharField(max_length=255,
-                              default="Undefined"
+                              default="Undefined",
                               )
     text = models.TextField(
         blank=True,
-        null=True
+        null=True,
     )
     charged = models.BooleanField(
-        default=False
+        default=False,
+    )
+    from_administration = models.BooleanField(
+        default=False,
     )
 
     def update(self, skip=True):
         if skip and self.status != "Undefined":
             return
+        if self.from_administration:
+            self.status = "Completed"
+            self.reason = "Charge from administration"
+            self.balance.value += self.value
+            self.charged = 1
+            self.balance.save()
+            self.save()
+            return
+
         response = requests.post(
             url='https://api.cloudpayments.ru/v2/payments/find',
             auth=(public_id, api_key),

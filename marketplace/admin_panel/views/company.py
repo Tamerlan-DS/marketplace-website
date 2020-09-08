@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from company.helper import *
 from company.models import Company, Category, CompanyCategory
-from ..models import Card
+from admin_panel.models import Card
 from django.contrib.auth.decorators import login_required
-from ..decorators import *
+from admin_panel.decorators import *
+from company_panel.models import Balance, Invoice
 
 
 @login_required
@@ -36,6 +37,8 @@ def companyAddView(request):
             except User.DoesNotExist:
                 user = User.objects.create_user(username=username, password=password)
                 user.save()
+                balance = Balance.objects.create(owner=user)
+                balance.save()
                 card = Card(owner=user, role=Card.RoleChoices.COMPANY_OWNER)
                 card.save()
                 create_company(user, name)
@@ -168,3 +171,18 @@ def companyCategoryEditView(request, category_id):
             category.save()
             context['error'] = 0
     return render(request, 'admin_panel/admin-company-category-edit.html', context=context)
+
+@login_required
+@user_is_moder
+def balanceChargeView(request, user_id):
+    user = get_object_or_404(User, pk=user_id)
+    balance = user.balance
+    context = {
+        'user_id': user_id,
+    }
+    if request.method == 'POST':
+        value = int(request.POST['value'])
+        invoice = Invoice.objects.create(value=value, balance=balance, from_administration=True)
+        invoice.save()
+        invoice.update()
+    return render(request, 'admin_panel/test/balance_charge.html', context=context)
