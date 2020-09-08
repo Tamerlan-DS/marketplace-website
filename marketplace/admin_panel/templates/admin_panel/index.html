@@ -98,42 +98,16 @@
                                     </thead>
                                     <tbody>
 
-
-
-
-
+                                    {% for invoice in history %}
                                     <tr role="row" class="odd">
-                                            <td class="sorting_1"><i class="bx bxs-circle success font-small-1 mr-50"></i><span>Paid</span></td>
-                                            <td class="text-bold-600">Michael Pena</td>
-                                            <td><img src="{% static 'admin_panel/app-assets/images/cards/discover.png' %}" class="mr-50" alt="card" width="35" height="25"> **** 7617</td>
-                                            <td class="">11.08.18</td>
-                                            <td class="text-bold-600">$564</td>
-                                        </tr><tr role="row" class="even">
-                                            <td class="sorting_1"><i class="bx bxs-circle success font-small-1 mr-50"></i><span>Paid</span></td>
-                                            <td class="text-bold-600">Devin Payne</td>
-                                            <td><img src="{% static 'admin_panel/app-assets/images/cards/visa.png' %}" class="mr-50" alt="card" width="35" height="25">
-                                                **** 7617</td>
-                                            <td class="">11.08.18</td>
-                                            <td class="text-bold-600">$232</td>
-                                        </tr><tr role="row" class="odd">
-                                            <td class="sorting_1"><i class="bx bxs-circle success font-small-1 mr-50"></i><span>Paid</span></td>
-                                            <td class="text-bold-600">Mike Brennan</td>
-                                            <td><img src="{% static 'admin_panel/app-assets/images/cards/amer-express.png' %}" class="mr-50" alt="card" width="35" height="25"> **** 7617</td>
-                                            <td class="">10.09.17</td>
-                                            <td class="text-bold-600">$1,934</td>
-                                        </tr><tr role="row" class="even">
-                                            <td class="sorting_1"><i class="bx bxs-circle danger font-small-1 mr-50"></i><span>Expired</span></td>
-                                            <td class="text-bold-600">Michael Pena</td>
-                                            <td><img src="{% static 'admin_panel/app-assets/images/cards/mastercard.png' %}" class="mr-50" alt="card" width="35" height="25"> **** 7617</td>
-                                            <td class="">11.08.18</td>
-                                            <td class="text-bold-600">$564</td>
-                                        </tr><tr role="row" class="odd">
-                                            <td class="sorting_1"><i class="bx bxs-circle danger font-small-1 mr-50"></i><span>Expired</span></td>
-                                            <td class="text-bold-600">Devin Payne</td>
-                                            <td><img src="{% static 'admin_panel/app-assets/images/cards/discover.png' %}" class="mr-50" alt="card" width="35" height="25"> **** 7617</td>
-                                            <td class="">11.08.18</td>
-                                            <td class="text-bold-600">$232</td>
-                                        </tr></tbody>
+                                            <td class="sorting_1"><i class="bx bxs-circle success font-small-1 mr-50"></i><span>{{ invoice.status }}</span></td>
+                                            <td class="text-bold-600">{{ invoice.balance.owner }}</td>
+                                            <td>{{ invoice.reason }}</td>
+                                            <td class="">{{ invoice.date }}</td>
+                                            <td class="text-bold-600">{{ invoice.value }}</td>
+                                        </tr>
+                                    {% endfor %}
+    </tbody>
                                 </table></div>
                             </div>
                             <!-- datatable ends -->

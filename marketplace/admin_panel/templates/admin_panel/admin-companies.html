@@ -85,7 +85,6 @@
                                             </thead>
                                             <tbody>
                                                   {% for company in companies %}
-
                                                   <tr>
                                                     <td>{{ company.pk }}</td>
                                                     <td><a href="{% url 'panel' %}">{{ company.owner }}</a>
@@ -97,11 +96,10 @@
                                                         {{ category.category.name }}
                                                         {% endfor %}
                                                     </td>
-                                                    <td><span class="badge badge-light-success">{{ company.status }}</span></td>
-                                                    <td><a href="{% url 'company-edit' company.pk %}"><i class="bx bx-edit-alt"></i></a></td>
-
+                                                      <td><span class="badge badge-light-success">{{ company.status }}</span></td>
+                                                      <td><a href="{% url 'company-edit' company.pk %}"><i class="bx bx-edit-alt"></i></a></td>
                                                 </tr>
-   {% endfor %}
+                                                  {% endfor %}
                                             </tbody>
                                         </table>
                                     </div>
