@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'admin_panel',
     'sandbox',
     'company_panel',
+    'front',
 ]
 
 MIDDLEWARE = [

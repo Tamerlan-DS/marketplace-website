@@ -25,6 +25,7 @@ urlpatterns = [
     path('sandbox/', include('sandbox.urls')),
     path('admin_panel/', include('admin_panel.urls')),
     path('company_panel/', include('company_panel.urls')),
+    path('', include('front.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
