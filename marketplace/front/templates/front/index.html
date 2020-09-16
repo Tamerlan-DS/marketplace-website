@@ -1,0 +1,482 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'front/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'front/css/swiper.min.css' %}">
+    <link rel="stylesheet" href="{% static 'front/css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'front/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'front/css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'front/css/jquery.fancybox.min.css' %}" />
+    <link rel="icon" href="{% static 'front/img/favicon.png' %}"/>
+    <title></title>
+</head>
+<body class="main-page">
+
+
+<nav class="main-nav" id="main-nav">
+    <ul>
+        <li>
+            <a href="#">Главная</a>
+        </li>
+        
+        <li>
+            <a href="#">Услуги</a>
+        </li>
+        <li>
+            <a href="#">О нас</a>
+        </li>
+        <li>
+            <a href="#">Портфолио</a>
+        </li>
+        <li>
+            <a href="#">Преймущества</a>
+        </li>
+        <li>
+            <a href="#">Новости</a>
+        </li>
+        <li>
+            <a href="#">Контакты</a>
+        </li>
+        <li>
+            <a href="tel:+7 701 693 66 44">+7 701 693 66 44</a>
+        </li>
+        <li>
+            <a href="tel:+7 747 371 53 57">+7 747 371 53 57</a>
+        </li>
+        
+    </ul>
+</nav>
+
+<button id="burger" class="open-main-nav">
+    <span class="burger"></span>
+</button>
+
+
+<header id="navbar" class="nonactive">
+    <div class="container">
+        <div class="nav-div">
+            <div class="logo-div">
+                <a href="index.html"><img src="img/logo.svg" alt=""></a> 
+            </div>
+            <div class="cont-div">
+                <a href="" class="menu-item">Поиск</a>
+                <a href="" class="menu-item">Нур-Султан</a>
+                <a href="" class="menu-item">Мой кабинет</a>
+            </div>
+           
+        </div>
+       
+    </div>
+    <div class="nav-bottom">
+        <div class="nav-bottom-inner">
+            <ul>
+                <li class="catalog-btn"><a href="">Каталог компании</a></li>
+                <li><a href="">Главная страница</a></li>
+                <li><a href="">О проекте</a></li>
+                <li><a href="">Клиентам</a></li>
+                <li><a href="">Партнерам</a></li>
+                <li><a href="">Новости</a></li>
+                <li><a href="">Контакты</a></li>
+            </ul>
+
+            <div class="button-r header-call-btn">Свяжитесь с нами
+                <div class="header-call-btn-div">
+                    <div class="header-call-btn-div-inner">
+                        <div class="header-call-btn-div-item">
+                            <p class="header-call-btn-div-title">Телефоны:</p>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Астана:</td>
+                                        <td>8 700 700 70 70</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Алматы:</td>
+                                        <td>8 700 700 70 70</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Караганда:</td>
+                                        <td>8 700 700 70 70</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="header-call-btn-div-item">
+                            <p class="header-call-btn-div-title">Почта:</p>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Техподдержка:</td>
+                                        <td><a href="mail:support@mail.ru">support@mail.ru</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Техподдержка:</td>
+                                        <td><a href="mail:support@mail.ru">support@mail.ru</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+        
+    </div>
+</header>
+
+
+
+
+<section id="main-banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-7 col-12">
+                <h1>Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам</h1>
+            </div>
+            <div class="col-12">
+                <div class="main-banner-form">
+                    <form>
+                        <div class="row">
+                          <div class="col">
+                            <input type="text" class="form-control" placeholder="Я хочу найти..." required>
+                          </div>
+                          <div class="col d-md-block d-none">
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                                <option selected>Категория</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                              </select>
+                          </div>
+                          <div class="col d-md-block d-none">
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                                <option selected>Город</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                              </select>
+                          </div>
+                          <div class="col-auto">
+                            <button type="submit" class="button">Поиск</button>
+                          </div>
+                        </div>
+                      </form>
+                </div>
+            </div>
+        </div>
+        
+
+        
+    </div>
+</section>
+
+
+
+
+
+<section id="main-product">
+    <div class="container">
+        <div class="view1 product-div">
+            <div class="product-item premium" data-tilt data-tilt-perspective="5000">
+                <a href="" class="product-img">
+                    <img src="img/product/1.png" alt="">
+                </a>
+                <div class="product-body">
+                    <a href="" class="product-name">BI Group</a>
+                    <a href="" class="product-cotegory">Строительство жилых домов</a>
+
+
+                    <!-- макс сим. - 100 -->
+                    <p class="product-desc">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет...</p>
+                </div>
+                <div class="product-footer">
+                    <a href="" class="button">Подробнее</a>
+                    <button class="like-btn favorite">
+                        <img src="img/icons/favourite.svg" class="no-active">
+                        <img src="img/icons/favourite1.svg" class="active">
+                    </button>
+                </div>
+            </div>
+
+            <div class="product-item" data-tilt data-tilt-perspective="5000">
+                <a href="" class="product-img">
+                    <img src="img/product/1.png" alt="">
+                </a>
+                <div class="product-body">
+                    <a href="" class="product-name">BI Group</a>
+                    <a href="" class="product-cotegory">Строительство жилых домов</a>
+
+
+                    <!-- макс сим. - 100 -->
+                    <p class="product-desc">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет...</p>
+                </div>
+                <div class="product-footer">
+                    <a href="" class="button">Подробнее</a>
+                    <button class="like-btn favorite">
+                        <img src="img/icons/favourite.svg" class="no-active">
+                        <img src="img/icons/favourite1.svg" class="active">
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="main-about">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-12">
+                <h2>О сервисе</h2>
+
+                <p class="text">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет необходимо предоставить исходные данные, по которым наши копирайтеры составят правильный текст, который будет содержать в себе основную информацию о деятельности Вашей компании. Этот текст будет заменен на новый подходящий текст. Текст будет заменен на новый подходящий текст. Здесь будет мини-описание.Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет необходимо предоставить исходные данные, по которым наши копирайтеры составят правильный текст, который будет содержать в </p>
+            </div>
+
+            <div class="col-md-4 col-12">
+                <div class="main-about-video">
+
+                </div>
+            </div>
+
+            <div class="col-md-4 col-12">
+                <div class="main-about-adv">
+                    <div class="main-about-adv-item">
+                        <div class="main-about-adv-img">
+                            <img src="img/icons/fb.svg" alt="">
+                        </div>
+                        <div class="main-about-adv-text">
+                            <p class="text">Это текст о компании. Он необходим для дальнейшего продвижения</p>
+                        </div>
+                    </div>
+                    <div class="main-about-adv-item">
+                        <div class="main-about-adv-img">
+                            <img src="img/icons/fb.svg" alt="">
+                        </div>
+                        <div class="main-about-adv-text">
+                            <p class="text">Это текст о компании. Он необходим для дальнейшего продвижения</p>
+                        </div>
+                    </div>
+                    <div class="main-about-adv-item">
+                        <div class="main-about-adv-img">
+                            <img src="img/icons/fb.svg" alt="">
+                        </div>
+                        <div class="main-about-adv-text">
+                            <p class="text">Это текст о компании. Он необходим для дальнейшего продвижения</p>
+                        </div>
+                    </div>
+                    <div class="main-about-adv-item">
+                        <div class="main-about-adv-img">
+                            <img src="img/icons/fb.svg" alt="">
+                        </div>
+                        <div class="main-about-adv-text">
+                            <p class="text">Это текст о компании. Он необходим для дальнейшего продвижения</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="main-company">
+    <div class="container">
+        <h2>Для компаний</h2>
+
+        <p class="text">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет необходимо предоставить исходные данные, по которым наши копирайтеры составят правильный текст, который будет содержать в себе основную информацию</p>
+
+        <a href="" class="button">Подробнее</a>
+    </div>
+</section>
+
+
+
+
+
+<section id="main-news">
+    <div class="main-news-div">
+        <div class="main-news-item ">
+            <img src="img/news/1.png" alt="">
+            <div class="main-news-info">
+                <p class="title">Он необходим для дальнейшего продвижения </p>
+                <p class="desc">Октябрь 20, 2020</p>
+            </div>
+        </div>
+        <div class="main-news-item ">
+           
+            <div class="main-news-info">
+                <p class="title">Он необходим для дальнейшего продвижения </p>
+                <p class="desc">Октябрь 20, 2020</p>
+            </div>
+        </div>
+        <div class="main-news-item ">
+            <img src="img/news/1.png" alt="">
+            <div class="main-news-info">
+                <p class="title">Он необходим для дальнейшего продвижения </p>
+                <p class="desc">Октябрь 20, 2020</p>
+            </div>
+        </div>
+        <div class="main-news-item ">
+           
+            <div class="main-news-info">
+                <p class="title">Он необходим для дальнейшего продвижения </p>
+                <p class="desc">Октябрь 20, 2020</p>
+            </div>
+        </div>
+        <div class="main-news-item ">
+            <img src="img/news/1.png" alt="">
+            <div class="main-news-info">
+                <p class="title">Он необходим для дальнейшего продвижения </p>
+                <p class="desc">Октябрь 20, 2020</p>
+            </div>
+        </div>
+        <div class="main-news-item ">
+            <img src="img/news/1.png" alt="">
+            <div class="main-news-info">
+                <p class="title">Он необходим для дальнейшего продвижения </p>
+                <p class="desc">Октябрь 20, 2020</p>
+            </div>
+        </div>
+        <div class="main-news-item ">
+            <img src="img/news/1.png" alt="">
+            <div class="main-news-info">
+                <p class="title">Он необходим для дальнейшего продвижения </p>
+                <p class="desc">Октябрь 20, 2020</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+<footer>
+    <div class="footer-top-div">
+        <div class="container">
+            <div class="footer-top">
+                <div>
+                    <a href=""><img src="img/logo.svg" alt=""></a>
+                </div>
+                <div>
+                    <p>Будьте в курсе самых лучших предложений и свежих новостей</p>
+                </div>
+                <form class="form-footer">
+                    <input class="form-search-footer" type="search" placeholder="Электронная почта" aria-label="Search">
+                    <button class="submit-search-footer" type="submit">Подписатся</button>
+                </form>
+                <div class="soc-div">
+                    <a href="" class="soc-item">
+                        <img src="img/icons/fb.svg" alt="">
+                    </a>
+                    <a href="" class="soc-item">
+                        <img src="img/icons/inst.svg" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="container">
+        <div class="footer-bottom">
+            <div>
+                <p class="footer-title">города</p>
+                <ul class="footer-menu footer-city">
+                    <li><a href="">Аксу</a></li>
+                    <li><a href="">Актау</a></li>
+                    <li><a href="">Актобе</a></li>
+                    <li><a href="">Алма-Ата</a></li>
+                    <li><a href="">Аркалык</a></li>
+                    <li><a href="">Аркалык</a></li>
+                    <li><a href="">Аркалык</a></li>
+                    <li><a href="">Аркалык</a></li>
+                    <li><a href="">Аксу</a></li>
+                    <li><a href="">Актау</a></li>
+                    <li><a href="">Актобе</a></li>
+                    <li><a href="">Алма-Ата</a></li>
+                    <li><a href="">Аркалык</a></li>
+                    <li><a href="">Аксу</a></li>
+                    <li><a href="">Актау</a></li>
+                    <li><a href="">Актобе</a></li>
+                    <li><a href="">Алма-Ата</a></li>
+                    <li><a href="">Аркалык</a></li>
+                    <li><a href="">Аксу</a></li>
+                    <li><a href="">Актау</a></li>
+                    <li><a href="">Актобе</a></li>
+                    <li><a href="">Алма-Ата</a></li>
+                    <li><a href="">Аркалык</a></li>
+                    <li><a href="">Аксу</a></li>
+                    <li><a href="">Актау</a></li>
+                    <li><a href="">Актобе</a></li>
+                    <li><a href="">Алма-Ата</a></li>
+                    <li><a href="">Аркалык</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="footer-title">Главная </p>
+                <ul class="footer-menu">
+                    <li><a href="">Оплата</a></li>
+                    <li><a href="">Доставка</a></li>
+                    <li><a href="">Гарантии</a></li>
+                    <li><a href="">Сервис</a></li>
+                    <li><a href="">Политика конфиденциальности</a></li>
+                </ul>
+            </div>
+            <div>
+                <p class="footer-title">Контакты</p>
+                <ul class="footer-menu">
+                    <li><a>г. Нур-Султан Район  Жумабаева 25/3</a></li>
+                    <li><a href="">mymail@ru</a></li>
+                    <li><a href="">8 707 700 70 70</a></li>
+                    <li><a href="">8 707 700 70 70</a></li>
+                </ul>
+
+                <p class="footer-title">Обратная связь</p>
+                <ul class="footer-menu">
+                    <li><a href="">Заказать обратный звонок</a></li>
+                    <li><a href="">Оставьте отзыв и помогите
+                        нам стать лучше</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-footer">
+            <div>
+                <p class="text text-md-left text-center text-white">Copyright 2020</p>
+            </div>
+    
+            <div>
+                <a href="" class="text text-center text-white">Политика конфиденциальности</a>
+            </div>
+    
+            <div>
+                <a href="" class="text text-md-right text-center text-white">Создание сайтов</a>
+            </div>
+        </div>
+    </div>
+    
+</footer>
+
+
+
+
+
+
+
+
+
+
+<script src="js/jquery-3.2.1.slim.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/popper.min.js"></script>
+<script src="js/wow.min.js"></script>
+<script src="js/swiper.min.js"></script>
+<script src="js/tilt.jquery.js"></script>
+<script src="js/main.js"></script>
+<script src="js/jquery.fancybox.min.js"></script>
+
+</body>
+</html>
