@@ -1,15 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru-RU">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/swiper.min.css">
-    <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="css/jquery.fancybox.min.css" />
-    <link rel="icon" href="img/favicon.png"/>
+    {% block cssLoader %}
+    {% include 'front/cssloader.html' %}
+    {% endblock %}
     <title></title>
 </head>
 <body>
@@ -18,10 +15,10 @@
     <div class="container">
         <div class="catalog-item-header">
             <div class="catalog-item-logo">
-                <img src="img/product/3.png" alt="">
+                <img src="{% static 'front/img/product/3.png' %}" alt="">
             </div>
             <div class="catalog-item-banner">
-                <img src="img/product/2.png" alt="">
+                <img src="{% static 'front/img/product/2.png' %}" alt="">
 
                 <div class="info">
                     <h3>BI Group</h3>
@@ -82,7 +79,7 @@
 
                 <div class="catalog-item-file">
                     <div class="catalog-item-file-item">
-                            <div class="catalog-item-file-icon"><img src="img/icons/catalog-item-file-icon.svg" alt=""></div>
+                            <div class="catalog-item-file-icon"><img src="{% static 'front/img/icons/catalog-item-file-icon.svg' %}" alt=""></div>
                         <div>
                             <div class="catalog-item-file-name">Название файла</div>
                             <div class="catalog-item-file-info">2 файл, 14.05 mb</div>
@@ -91,7 +88,7 @@
                     </div>
 
                     <div class="catalog-item-file-item">
-                        <div class="catalog-item-file-icon"><img src="img/icons/catalog-item-file-icon.svg" alt=""></div>
+                        <div class="catalog-item-file-icon"><img src="{% static 'front/img/icons/catalog-item-file-icon.svg' %}" alt=""></div>
                         <div>
                             <div class="catalog-item-file-name">Название файла</div>
                             <div class="catalog-item-file-info">2 файл, 14.05 mb</div>
@@ -100,7 +97,7 @@
                     </div>
 
                     <div class="catalog-item-file-item">
-                        <div class="catalog-item-file-icon"><img src="img/icons/catalog-item-file-icon.svg" alt=""></div>
+                        <div class="catalog-item-file-icon"><img src="{% static 'front/img/icons/catalog-item-file-icon.svg' %}" alt=""></div>
                         <div>
                             <div class="catalog-item-file-name">Название файла</div>
                             <div class="catalog-item-file-info">2 файл, 14.05 mb</div>
@@ -128,7 +125,7 @@
                                 <p class="catalog-item-service-title">Название</p>
                             </div>
                             <div class="catalog-item-service-img">
-                                <img src="img/product/1.png" alt="">
+                                <img src="{% static 'front/img/product/1.png' %}" alt="">
                             </div>
                             <div class="catalog-item-service-body">
                                 <!-- макс сим. - 100 -->
@@ -147,7 +144,7 @@
                                 <p class="catalog-item-service-title">Название</p>
                             </div>
                             <div class="catalog-item-service-img">
-                                <img src="img/product/1.png" alt="">
+                                <img src="{% static 'front/img/product/1.png' %}" alt="">
                             </div>
                             <div class="catalog-item-service-body">
                                 <!-- макс сим. - 100 -->
@@ -166,7 +163,7 @@
                                 <p class="catalog-item-service-title">Название</p>
                             </div>
                             <div class="catalog-item-service-img">
-                                <img src="img/product/1.png" alt="">
+                                <img src="{% static 'front/img/product/1.png' %}" alt="">
                             </div>
                             <div class="catalog-item-service-body">
                                 <!-- макс сим. - 100 -->
@@ -185,7 +182,7 @@
                                 <p class="catalog-item-service-title">Название</p>
                             </div>
                             <div class="catalog-item-service-img">
-                                <img src="img/product/1.png" alt="">
+                                <img src="{% static 'front/img/product/1.png' %}" alt="">
                             </div>
                             <div class="catalog-item-service-body">
                                 <!-- макс сим. - 100 -->
@@ -204,7 +201,7 @@
                                 <p class="catalog-item-service-title">Название</p>
                             </div>
                             <div class="catalog-item-service-img">
-                                <img src="img/product/1.png" alt="">
+                                <img src="{% static 'front/img/product/1.png' %}" alt="">
                             </div>
                             <div class="catalog-item-service-body">
                                 <!-- макс сим. - 100 -->
@@ -219,9 +216,9 @@
                 </div>
 
                 <div class="swiper-pag-div">
-                    <div class="swiper-button-prev"><img src="img/icons/swiper-next.svg" alt=""></div>
+                    <div class="swiper-button-prev"><img src="{% static 'front/img/icons/swiper-next.svg' %}" alt=""></div>
                     <div class="swiper-pagination"></div>
-                    <div class="swiper-button-next"><img src="img/icons/swiper-prev.svg" alt=""></div>
+                    <div class="swiper-button-next"><img src="{% static 'front/img/icons/swiper-prev.svg' %}" alt=""></div>
                 </div>
             </div>
         </div>
@@ -289,7 +286,7 @@
         <h2>Отзывы</h2>
 
         <div class="catalog-item-review" data-toggle="modal" data-target="#review-modal">
-            <img src="img/icons/review.svg" alt="">
+            <img src="{% static 'front/img/icons/review.svg' %}" alt="">
             <p class="catalog-item-review-title">
                 Оставьте свой отзыв
             </p>
@@ -300,7 +297,7 @@
             <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <img src="img/icons/modal-close.svg" alt="">
+                    <img src="{% static 'front/img/icons/modal-close.svg' %}" alt="">
                 </button>
                 <div class="modal-body">
                     <h3>Оставить отзыв</h3>
@@ -363,13 +360,13 @@
         <h2>Партнеры компании</h2>
         <div class="catalog-item-partners-div">
             <a href="" class="catalog-item-partners-item">
-                <img src="img/product/3.png" alt="">
+                <img src="{% static 'front/img/product/3.png' %}" alt="">
             </a>
             <a href="" class="catalog-item-partners-item">
-                <img src="img/product/3.png" alt="">
+                <img src="{% static 'front/img/product/3.png' %}" alt="">
             </a>
             <a href="" class="catalog-item-partners-item">
-                <img src="img/product/3.png" alt="">
+                <img src="{% static 'front/img/product/3.png' %}" alt="">
             </a>
             
         </div>
@@ -387,7 +384,7 @@
                     <div class="swiper-slide">
                         <div class="product-item" data-tilt data-tilt-perspective="5000">
                             <a href="" class="product-img">
-                                <img src="img/product/1.png" alt="">
+                                <img src="{% static 'front/img/product/1.png' %}" alt="">
                             </a>
                             <div class="product-body">
                                 <a href="" class="product-name">BI Group</a>
@@ -400,8 +397,8 @@
                             <div class="product-footer">
                                 <a href="" class="button">Подробнее</a>
                                 <button class="like-btn favorite">
-                                    <img src="img/icons/favourite.svg" class="no-active">
-                                    <img src="img/icons/favourite1.svg" class="active">
+                                    <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
+                                    <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
                                 </button>
                             </div>
                         </div>
@@ -410,7 +407,7 @@
                     <div class="swiper-slide">
                         <div class="product-item" data-tilt data-tilt-perspective="5000">
                             <a href="" class="product-img">
-                                <img src="img/product/1.png" alt="">
+                                <img src="{% static 'front/img/product/1.png' %}" alt="">
                             </a>
                             <div class="product-body">
                                 <a href="" class="product-name">BI Group</a>
@@ -423,8 +420,8 @@
                             <div class="product-footer">
                                 <a href="" class="button">Подробнее</a>
                                 <button class="like-btn favorite">
-                                    <img src="img/icons/favourite.svg" class="no-active">
-                                    <img src="img/icons/favourite1.svg" class="active">
+                                    <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
+                                    <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
                                 </button>
                             </div>
                         </div>
@@ -433,7 +430,7 @@
                     <div class="swiper-slide">
                         <div class="product-item" data-tilt data-tilt-perspective="5000">
                             <a href="" class="product-img">
-                                <img src="img/product/1.png" alt="">
+                                <img src="{% static 'front/img/product/1.png' %}" alt="">
                             </a>
                             <div class="product-body">
                                 <a href="" class="product-name">BI Group</a>
@@ -446,8 +443,8 @@
                             <div class="product-footer">
                                 <a href="" class="button">Подробнее</a>
                                 <button class="like-btn favorite">
-                                    <img src="img/icons/favourite.svg" class="no-active">
-                                    <img src="img/icons/favourite1.svg" class="active">
+                                    <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
+                                    <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
                                 </button>
                             </div>
                         </div>
@@ -456,7 +453,7 @@
                     <div class="swiper-slide">
                         <div class="product-item" data-tilt data-tilt-perspective="5000">
                             <a href="" class="product-img">
-                                <img src="img/product/1.png" alt="">
+                                <img src="{% static 'front/img/product/1.png' %}" alt="">
                             </a>
                             <div class="product-body">
                                 <a href="" class="product-name">BI Group</a>
@@ -469,8 +466,8 @@
                             <div class="product-footer">
                                 <a href="" class="button">Подробнее</a>
                                 <button class="like-btn favorite">
-                                    <img src="img/icons/favourite.svg" class="no-active">
-                                    <img src="img/icons/favourite1.svg" class="active">
+                                    <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
+                                    <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
                                 </button>
                             </div>
                         </div>
@@ -479,7 +476,7 @@
                     <div class="swiper-slide">
                         <div class="product-item" data-tilt data-tilt-perspective="5000">
                             <a href="" class="product-img">
-                                <img src="img/product/1.png" alt="">
+                                <img src="{% static 'front/img/product/1.png' %}" alt="">
                             </a>
                             <div class="product-body">
                                 <a href="" class="product-name">BI Group</a>
@@ -492,8 +489,8 @@
                             <div class="product-footer">
                                 <a href="" class="button">Подробнее</a>
                                 <button class="like-btn favorite">
-                                    <img src="img/icons/favourite.svg" class="no-active">
-                                    <img src="img/icons/favourite1.svg" class="active">
+                                    <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
+                                    <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
                                 </button>
                             </div>
                         </div>
@@ -502,9 +499,9 @@
                 </div>
 
                 <div class="swiper-pag-div">
-                    <div class="swiper-button-prev"><img src="img/icons/swiper-next.svg" alt=""></div>
+                    <div class="swiper-button-prev"><img src="{% static 'front/img/icons/swiper-next.svg' %}" alt=""></div>
                     <div class="swiper-pagination"></div>
-                    <div class="swiper-button-next"><img src="img/icons/swiper-prev.svg" alt=""></div>
+                    <div class="swiper-button-next"><img src="{% static 'front/img/icons/swiper-prev.svg' %}" alt=""></div>
                 </div>
             </div>
             
@@ -519,14 +516,10 @@
 
 
 
-<script src="js/jquery-3.2.1.slim.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/wow.min.js"></script>
-<script src="js/swiper.min.js"></script>
-<script src="js/tilt.jquery.js"></script>
-<script src="js/main.js"></script>
-<script src="js/jquery.fancybox.min.js"></script>
+
+{% block jsLoad %}
+{% include 'front/jsLoader.html' %}
+{% endblock jsLoad %}
 
 </body>
 </html>

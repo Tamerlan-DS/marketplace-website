@@ -1,17 +1,12 @@
-
 {% load static %}
 <!DOCTYPE html>
 <html lang="ru-RU">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'front/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'front/css/swiper.min.css' %}">
-    <link rel="stylesheet" href="{% static 'front/css/animate.css' %}">
-    <link rel="stylesheet" href="{% static 'front/css/style.css' %}">
-    <link rel="stylesheet" href="{% static 'front/css/responsive.css' %}">
-    <link rel="stylesheet" href="{% static 'front/css/jquery.fancybox.min.css' %}" />
-    <link rel="icon" href="{% static 'front/img/favicon.png' %}"/>
+    {% block cssLoader %}
+    {% include 'front/cssloader.html' %}
+    {% endblock %}
     <title></title>
 </head>
 <body class="main-page">
@@ -60,7 +55,7 @@
     <div class="container">
         <div class="nav-div">
             <div class="logo-div">
-                <a href="index.html"><img src="img/logo.svg" alt=""></a> 
+                <a href="index.html"><img src="{% static 'front/img/logo.svg' %}" alt=""></a>
             </div>
             <div class="cont-div">
                 <a href="" class="menu-item">Поиск</a>
@@ -74,7 +69,7 @@
     <div class="nav-bottom">
         <div class="nav-bottom-inner">
             <ul>
-                <li class="catalog-btn"><a href="">Каталог компании</a></li>
+                <li class="catalog-btn"><a href="{% url 'Catalog' %}">Каталог компании</a></li>
                 <li><a href="">Главная страница</a></li>
                 <li><a href="">О проекте</a></li>
                 <li><a href="">Клиентам</a></li>
@@ -147,10 +142,11 @@
                           </div>
                           <div class="col d-md-block d-none">
                             <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                                <option selected>Категория</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                {% for category in categories %}
+                                    <option value="{{ category.pk }}">
+                                {{ category.name }}
+                                    </option>
+                                {% endfor %}
                               </select>
                           </div>
                           <div class="col d-md-block d-none">
@@ -184,7 +180,7 @@
         <div class="view1 product-div">
             <div class="product-item premium" data-tilt data-tilt-perspective="5000">
                 <a href="" class="product-img">
-                    <img src="img/product/1.png" alt="">
+                    <img src="{% static 'front/img/product/1.png' %}" alt="">
                 </a>
                 <div class="product-body">
                     <a href="" class="product-name">BI Group</a>
@@ -197,15 +193,15 @@
                 <div class="product-footer">
                     <a href="" class="button">Подробнее</a>
                     <button class="like-btn favorite">
-                        <img src="img/icons/favourite.svg" class="no-active">
-                        <img src="img/icons/favourite1.svg" class="active">
+                        <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
+                        <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
                     </button>
                 </div>
             </div>
 
             <div class="product-item" data-tilt data-tilt-perspective="5000">
                 <a href="" class="product-img">
-                    <img src="img/product/1.png" alt="">
+                    <img src="{% static 'front/img/product/1.png' %}" alt="">
                 </a>
                 <div class="product-body">
                     <a href="" class="product-name">BI Group</a>
@@ -218,8 +214,8 @@
                 <div class="product-footer">
                     <a href="" class="button">Подробнее</a>
                     <button class="like-btn favorite">
-                        <img src="img/icons/favourite.svg" class="no-active">
-                        <img src="img/icons/favourite1.svg" class="active">
+                        <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
+                        <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
                     </button>
                 </div>
             </div>
@@ -247,7 +243,7 @@
                 <div class="main-about-adv">
                     <div class="main-about-adv-item">
                         <div class="main-about-adv-img">
-                            <img src="img/icons/fb.svg" alt="">
+                            <img src="{% static 'front/img/icons/fb.svg' %}" alt="">
                         </div>
                         <div class="main-about-adv-text">
                             <p class="text">Это текст о компании. Он необходим для дальнейшего продвижения</p>
@@ -255,7 +251,7 @@
                     </div>
                     <div class="main-about-adv-item">
                         <div class="main-about-adv-img">
-                            <img src="img/icons/fb.svg" alt="">
+                            <img src="{% static 'front/img/icons/fb.svg' %}" alt="">
                         </div>
                         <div class="main-about-adv-text">
                             <p class="text">Это текст о компании. Он необходим для дальнейшего продвижения</p>
@@ -263,7 +259,7 @@
                     </div>
                     <div class="main-about-adv-item">
                         <div class="main-about-adv-img">
-                            <img src="img/icons/fb.svg" alt="">
+                            <img src="{% static 'front/img/icons/fb.svg' %}" alt="">
                         </div>
                         <div class="main-about-adv-text">
                             <p class="text">Это текст о компании. Он необходим для дальнейшего продвижения</p>
@@ -271,7 +267,7 @@
                     </div>
                     <div class="main-about-adv-item">
                         <div class="main-about-adv-img">
-                            <img src="img/icons/fb.svg" alt="">
+                            <img src="{% static 'front/img/icons/fb.svg' %}" alt="">
                         </div>
                         <div class="main-about-adv-text">
                             <p class="text">Это текст о компании. Он необходим для дальнейшего продвижения</p>
@@ -301,7 +297,7 @@
 <section id="main-news">
     <div class="main-news-div">
         <div class="main-news-item ">
-            <img src="img/news/1.png" alt="">
+            <img src="{% static 'front/img/news/1.png' %}" alt="">
             <div class="main-news-info">
                 <p class="title">Он необходим для дальнейшего продвижения </p>
                 <p class="desc">Октябрь 20, 2020</p>
@@ -315,7 +311,7 @@
             </div>
         </div>
         <div class="main-news-item ">
-            <img src="img/news/1.png" alt="">
+            <img src="{% static 'front/img/news/1.png' %}" alt="">
             <div class="main-news-info">
                 <p class="title">Он необходим для дальнейшего продвижения </p>
                 <p class="desc">Октябрь 20, 2020</p>
@@ -329,21 +325,21 @@
             </div>
         </div>
         <div class="main-news-item ">
-            <img src="img/news/1.png" alt="">
+            <img src="{% static 'front/img/news/1.png' %}" alt="">
             <div class="main-news-info">
                 <p class="title">Он необходим для дальнейшего продвижения </p>
                 <p class="desc">Октябрь 20, 2020</p>
             </div>
         </div>
         <div class="main-news-item ">
-            <img src="img/news/1.png" alt="">
+            <img src="{% static 'front/img/news/1.png' %}" alt="">
             <div class="main-news-info">
                 <p class="title">Он необходим для дальнейшего продвижения </p>
                 <p class="desc">Октябрь 20, 2020</p>
             </div>
         </div>
         <div class="main-news-item ">
-            <img src="img/news/1.png" alt="">
+            <img src="{% static 'front/img/news/1.png' %}" alt="">
             <div class="main-news-info">
                 <p class="title">Он необходим для дальнейшего продвижения </p>
                 <p class="desc">Октябрь 20, 2020</p>
@@ -360,7 +356,7 @@
         <div class="container">
             <div class="footer-top">
                 <div>
-                    <a href=""><img src="img/logo.svg" alt=""></a>
+                    <a href=""><img src="{% static 'front/img/logo.svg' %}" alt=""></a>
                 </div>
                 <div>
                     <p>Будьте в курсе самых лучших предложений и свежих новостей</p>
@@ -371,10 +367,10 @@
                 </form>
                 <div class="soc-div">
                     <a href="" class="soc-item">
-                        <img src="img/icons/fb.svg" alt="">
+                        <img src="{% static 'front/img/icons/fb.svg' %}" alt="">
                     </a>
                     <a href="" class="soc-item">
-                        <img src="img/icons/inst.svg" alt="">
+                        <img src="{% static 'front/img/icons/inst.svg' %}" alt="">
                     </a>
                 </div>
             </div>
@@ -469,14 +465,9 @@
 
 
 
-<script src="js/jquery-3.2.1.slim.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/wow.min.js"></script>
-<script src="js/swiper.min.js"></script>
-<script src="js/tilt.jquery.js"></script>
-<script src="js/main.js"></script>
-<script src="js/jquery.fancybox.min.js"></script>
+{% block jsLoad %}
+{% include 'front/jsLoader.html' %}
+{% endblock jsLoad %}
 
 </body>
 </html>

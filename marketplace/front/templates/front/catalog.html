@@ -1,15 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru-RU">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/swiper.min.css">
-    <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="css/jquery.fancybox.min.css" />
-    <link rel="icon" href="img/favicon.png"/>
+    {% block cssLoader %}
+    {% include 'front/cssloader.html' %}
+    {% endblock %}
     <title></title>
 </head>
 <body>
@@ -28,7 +25,7 @@
             </div>
 
             <div>
-                <a href="" class="button-r">Добавить Компанию <img src="img/icons/add-company.svg" alt=""></a>
+                <a href="" class="button-r">Добавить Компанию <img src="{% static 'front/img/icons/add-company.svg' %}" alt=""></a>
             </div>
         </div>
     </div>
@@ -81,7 +78,7 @@
         <div class="view2 product-div">
             <div class="product-item premium" data-tilt data-tilt-perspective="5000">
                 <a href="" class="product-img">
-                    <img src="img/product/1.png" alt="">
+                    <img src="{% static 'front/img/product/1.png' %}" alt="">
                 </a>
                 <div class="product-body">
                     <a href="" class="product-name">BI Group</a>
@@ -95,8 +92,8 @@
                     <div class="product-footer">
                         <a href="" class="button">Подробнее</a>
                         <button class="like-btn favorite">
-                            <img src="img/icons/favourite.svg" class="no-active">
-                            <img src="img/icons/favourite1.svg" class="active">
+                            <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
+                            <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
                         </button>
                     </div>
 
@@ -114,14 +111,10 @@
 
 
 
-<script src="js/jquery-3.2.1.slim.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/wow.min.js"></script>
-<script src="js/swiper.min.js"></script>
-<script src="js/tilt.jquery.js"></script>
-<script src="js/main.js"></script>
-<script src="js/jquery.fancybox.min.js"></script>
+
+{% block jsLoad %}
+{% include 'front/jsLoader.html' %}
+{% endblock jsLoad %}
 
 </body>
 </html>

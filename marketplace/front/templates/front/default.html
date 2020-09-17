@@ -1,15 +1,12 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru-RU">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/swiper.min.css">
-    <link rel="stylesheet" href="css/animate.css">
-    <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/responsive.css">
-    <link rel="stylesheet" href="css/jquery.fancybox.min.css" />
-    <link rel="icon" href="img/favicon.png"/>
+    {% block cssLoader %}
+    {% include 'front/cssloader.html' %}
+    {% endblock %}
     <title></title>
 </head>
 <body>
@@ -40,7 +37,7 @@
     <div class="container">
         <div class="default-video-div">
             <div class="default-video-after">
-                <img src="img/default/1.png" alt="">
+                <img src="{% static 'img/default/1.png' %}" alt="">
             </div>
             <iframe class="default-video" width="100%" height="500px" src="https://www.youtube.com/embed/nRTJd91G04Q?rel=0&showinfo=0" frameborder="0" allowfullscreen></iframe>
         </div>
@@ -50,14 +47,14 @@
 <section>
     <div class="container">
         <div class="default-gallery-div">
-            <a href="img/default/1.png" data-fancybox="default-gallery"><img src="img/default/1.png" alt=""></a>
-            <a href="img/default/1.png" data-fancybox="default-gallery"><img src="img/default/1.png" alt=""></a>
-            <a href="img/default/1.png" data-fancybox="default-gallery"><img src="img/default/1.png" alt=""></a>
-            <a href="img/default/1.png" data-fancybox="default-gallery"><img src="img/default/1.png" alt=""></a>
-            <a href="img/default/1.png" data-fancybox="default-gallery"><img src="img/default/1.png" alt=""></a>
-            <a href="img/default/1.png" data-fancybox="default-gallery"><img src="img/default/1.png" alt=""></a>
-            <a href="img/default/1.png" data-fancybox="default-gallery"><img src="img/default/1.png" alt=""></a>
-            <a href="img/default/1.png" data-fancybox="default-gallery"><img src="img/default/1.png" alt=""></a>
+            <a href="{% static 'img/default/1.png' %}" data-fancybox="default-gallery"><img src="{% static 'img/default/1.png' %}" alt=""></a>
+            <a href="{% static 'img/default/1.png' %}" data-fancybox="default-gallery"><img src="{% static 'img/default/1.png' %}" alt=""></a>
+            <a href="{% static 'img/default/1.png' %}" data-fancybox="default-gallery"><img src="{% static 'img/default/1.png' %}" alt=""></a>
+            <a href="{% static 'img/default/1.png' %}" data-fancybox="default-gallery"><img src="{% static 'img/default/1.png' %}" alt=""></a>
+            <a href="{% static 'img/default/1.png' %}" data-fancybox="default-gallery"><img src="{% static 'img/default/1.png' %}" alt=""></a>
+            <a href="{% static 'img/default/1.png' %}" data-fancybox="default-gallery"><img src="{% static 'img/default/1.png' %}" alt=""></a>
+            <a href="{% static 'img/default/1.png' %}" data-fancybox="default-gallery"><img src="{% static 'img/default/1.png' %}" alt=""></a>
+            <a href="{% static 'img/default/1.png' %}" data-fancybox="default-gallery"><img src="{% static 'img/default/1.png' %}" alt=""></a>
         </div>
     </div>
 </section>
@@ -66,14 +63,10 @@
 
 
 
-<script src="js/jquery-3.2.1.slim.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<script src="js/popper.min.js"></script>
-<script src="js/wow.min.js"></script>
-<script src="js/jquery.fancybox.min.js"></script>
-<script src="js/swiper.min.js"></script>
-<script src="js/tilt.jquery.js"></script>
-<script src="js/main.js"></script>
+
+{% block jsLoad %}
+{% include 'front/jsLoader.html' %}
+{% endblock jsLoad %}
 
 
 </body>
