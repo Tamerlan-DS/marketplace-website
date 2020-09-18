@@ -1,11 +1,18 @@
 new WOW().init();
 
+
+$(function() {
+  $('.chosen-select').chosen();
+});
+
+
 $(".favorite").click( function(){
-  $(this).addClass("active")
+  $(this).toggleClass("active")
 })
 
 $(".catalog-filter-more-search").click( function(){
   $(".catalog-filter-body").toggleClass("active")
+  $(this).toggleClass("active")
 })
 
 $(".header-call-btn").click( function(){

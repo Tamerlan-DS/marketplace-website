@@ -10,4 +10,11 @@ urlpatterns = [
 
     path('default', defaultPageView, name='default'),
     path('error', errorPageView, name='error'),
+    path('black-list', blacklistPageView, name='black-list'),
+    path('favourites', favouritesPageView, name='favourites'),
+
+    path('news', newsPageView, name='news'),
+    path('news-item', newsItemPageView, name='news-item'),
+
+
 ]

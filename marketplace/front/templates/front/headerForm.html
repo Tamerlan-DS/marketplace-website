@@ -1,0 +1,75 @@
+{% block header %}
+{% load static %}
+<header id="navbar" class="nonactive">
+    <div class="container">
+        <div class="nav-div">
+            <div class="logo-div">
+                <a href="index.html"><img src="{% static 'front/img/logo.svg' %}" alt=""></a>
+            </div>
+            <div class="cont-div">
+                <a href="" class="menu-item">Поиск</a>
+                <a href="" class="menu-item">Нур-Султан</a>
+                <a href="" class="menu-item">Мой кабинет</a>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="nav-bottom">
+        <div class="nav-bottom-inner">
+            <ul>
+                <li class="catalog-btn"><a href="{% url 'Catalog' %}">Каталог компании</a></li>
+                <li><a href="">Главная страница</a></li>
+                <li><a href="">О проекте</a></li>
+                <li><a href="">Клиентам</a></li>
+                <li><a href="">Партнерам</a></li>
+                <li><a href="">Новости</a></li>
+                <li><a href="">Контакты</a></li>
+            </ul>
+
+            <div class="button-r header-call-btn">Свяжитесь с нами
+                <div class="header-call-btn-div">
+                    <div class="header-call-btn-div-inner">
+                        <div class="header-call-btn-div-item">
+                            <p class="header-call-btn-div-title">Телефоны:</p>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Астана:</td>
+                                        <td>8 700 700 70 70</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Алматы:</td>
+                                        <td>8 700 700 70 70</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Караганда:</td>
+                                        <td>8 700 700 70 70</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="header-call-btn-div-item">
+                            <p class="header-call-btn-div-title">Почта:</p>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Техподдержка:</td>
+                                        <td><a href="mail:support@mail.ru">support@mail.ru</a></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Техподдержка:</td>
+                                        <td><a href="mail:support@mail.ru">support@mail.ru</a></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</header>
+{% endblock header %}

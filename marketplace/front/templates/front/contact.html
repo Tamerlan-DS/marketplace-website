@@ -11,7 +11,9 @@
 </head>
 <body>
 
-
+{% block header %}
+{% include 'front/headerForm.html' %}
+{% endblock %}
 
 <section>
     <div class="container">
@@ -75,6 +77,10 @@
     </div>
 </section>
 
+
+{% block footer %}
+{% include 'front/footerForm.html' %}
+{% endblock footer %}
 
 
 
