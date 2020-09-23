@@ -71,10 +71,22 @@ def companyEditView(request, company_id):
             name = request.POST['name']
             short_description = request.POST['short_description']
             description = request.POST['description']
+            city = request.POST['city']
+            phone = request.POST['phone']
+            email = request.POST['email']
+            site = request.POST['site']
+            worktime = request.POST['worktime']
+            adress = request.POST['adress']
             company_info = company.info
             company_info.name = name
             company_info.short_description = short_description
             company_info.description = description
+            company_info.city = city
+            company_info.phone = phone
+            company_info.email = email
+            company_info.worktime = worktime
+            company_info.adress = adress
+            company_info.site = site
             company_info.save()
         if type == 'category':
             categories_id = request.POST.getlist('categories')

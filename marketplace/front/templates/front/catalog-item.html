@@ -23,9 +23,9 @@
                 <img src="{% static 'front/img/product/2.png' %}" alt="">
 
                 <div class="info">
-                    <h3>BI Group</h3>
-                    <p class="catalog-item-category">Возведение зданий и сооружений</p>
-                    <p class="catalog-item-category">Строительство жилых домов и нежилых зданий</p>
+                    <h3>{{ company.info.name }}</h3>{% for company_category in company.categories.all %}
+                    <p class="catalog-item-category">  {{ company_category.category.name }}</p>
+                    {% endfor %}
                 </div>
 
                 <p class="catalog-item-id">Id: 0000100</p>
@@ -36,9 +36,9 @@
 
         <div class="catalog-item-body">
             <div class="catalog-item-info">
-                <h2>Описание</h2>
+                <h2>{{company.info.description}}</h2>
 
-                <p class="text">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет необходимо предоставить исходные данные, по которым наши копирайтеры составят правильный текст, который будет содержать в себе основную информацию о деятельности Вашей компании. Этот текст будет заменен на новый подходящий текст. Текст будет заменен на новый подходящий текст. Здесь будет мини-описание.Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет необходимо предоставить исходные данные, по которым наши копирайтеры составят правильный текст, который будет содержать в </p>
+                <p class="text">{{company.info.short_description}} </p>
 
                 <a href="" class="cataog-item-character">Характеристика 1</a>
                 <a href="" class="cataog-item-character">Характеристика 1</a>
@@ -51,28 +51,28 @@
                 <table>
                     <tbody> 
                         <tr>
-                            <td>Город:</td>
-                            <td>Нур-Султан</td>
+                            <td>Город: </td>
+                            <td>{{ company.info.city }}</td>
                         </tr>
                         <tr>
                             <td>Адрес:</td>
-                            <td>Жумабаева 25/3</td>
+                            <td>{{ company.info.adress }}</td>
                         </tr>
                         <tr>
                             <td>Время-работы:</td>
-                            <td>с 9:00 - 19:00</td>
+                            <td>с {{ company.info.worktime }}</td>
                         </tr>
                         <tr>
                             <td>Телефоны:</td>
-                            <td>8 707 700 70 70</td>
+                            <td>{{ company.info.phone }}</td>
                         </tr>
                         <tr>
                             <td>Почта:</td>
-                            <td>mymail@mail.ru</td>
+                            <td>{{ company.info.email }}</td>
                         </tr>
                         <tr>
                             <td>Сайт:</td>
-                            <td>bigroup.kz</td>
+                            <td>{{ company.info.site }}</td>
                         </tr>
                     </tbody>
                 </table>

@@ -30,7 +30,7 @@
             <a href="#">Преймущества</a>
         </li>
         <li>
-            <a href="#">Новости</a>
+            <a href="{% url 'news' %}">Новости</a>
         </li>
         <li>
             <a href="#">Контакты</a>
@@ -107,47 +107,31 @@
 <section id="main-product">
     <div class="container">
         <div class="view1 product-div">
+              {% for company in companies %}
             <div class="product-item premium" data-tilt data-tilt-perspective="5000">
                 <a href="" class="product-img">
                     <img src="{% static 'front/img/product/1.png' %}" alt="">
                 </a>
                 <div class="product-body">
-                    <a href="" class="product-name">BI Group</a>
-                    <a href="" class="product-cotegory">Строительство жилых домов</a>
-
+                    <a href="" class="product-name">{{ company.info.name }} </a>
+                    <a href="" class="product-cotegory">  {% for company_category in company.categories.all %}
+                      <li>
+                             {{ company_category.category.name }}
+                     </li>
+                    {% endfor %}</a>
 
                     <!-- макс сим. - 100 -->
-                    <p class="product-desc">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет...</p>
+                    <p class="product-desc">{{ company.info.short_description }}</p>
                 </div>
                 <div class="product-footer">
-                    <a href="" class="button">Подробнее</a>
+                    <a href="{% url 'Catalog-item' company.pk %}" class="button">Подробнее</a>
                     <button class="like-btn favorite">
                         <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
                         <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
                     </button>
                 </div>
             </div>
-
-            <div class="product-item" data-tilt data-tilt-perspective="5000">
-                <a href="" class="product-img">
-                    <img src="{% static 'front/img/product/1.png' %}" alt="">
-                </a>
-                <div class="product-body">
-                    <a href="" class="product-name">BI Group</a>
-                    <a href="" class="product-cotegory">Строительство жилых домов</a>
-
-
-                    <!-- макс сим. - 100 -->
-                    <p class="product-desc">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет...</p>
-                </div>
-                <div class="product-footer">
-                    <a href="" class="button">Подробнее</a>
-                    <button class="like-btn favorite">
-                        <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
-                        <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
-                    </button>
-                </div>
-            </div>
+               {% endfor %}
         </div>
     </div>
 </section>

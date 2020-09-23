@@ -78,6 +78,12 @@
                                                 <span>Информация</span>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link d-flex align-items-center " id="account-pill-service" data-toggle="pill" href="#account-vertical-service" aria-expanded="false">
+                                                <i class="bx bx-link"></i>
+                                                <span>Услуги/Товары</span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                                 <!-- right content section -->
@@ -90,7 +96,7 @@
                                                         <form action="{% url 'company-edit' company.pk %}" method="POST">
                                                                           {% csrf_token %}
 
-            <input type="hidden" name="form" value="info">
+                                                 <input type="hidden" name="form" value="info">
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="form-group">
@@ -119,6 +125,45 @@
                                                                     </div>
                                                                 </div>
 
+                                                                 <div class="col-12">
+                                                                    <div class="form-group">
+                                                                        <div class="controls">
+                                                                            <label>Телефон</label>
+                                                                            <input type="text" class="form-control" required placeholder="Phone number" value="{{ company.info.phone }}" name="phone">
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <div class="form-group">
+                                                                        <label>Сайт</label>
+                                                                        <input type="text" class="form-control" placeholder="Сайт" value="{{ company.info.site }}" name="site">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <div class="form-group">
+                                                                        <label>Почта для получения заявок</label>
+                                                                        <input type="text" class="form-control" placeholder="Почта для получения заявок"  value="{{ company.info.email }}" name="email">
+                                                                    </div>
+                                                                </div>
+                                                                 <div class="col-12">
+                                                                <div class="form-group">
+                                                                    <label>Город</label>
+                                                                    <input type="text" class="form-control" placeholder="Город" value="{{ company.info.city }}" name="city">
+                                                                </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                <div class="form-group">
+                                                                    <label>Адрес</label>
+                                                                    <input type="text" class="form-control" placeholder="Адрес" value="{{ company.info.adress }}" name="adress">
+                                                                </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                <div class="form-group">
+                                                                    <label>Время работы: </label>
+                                                                    <input type="text" class="form-control" placeholder="Время работы:" value="{{ company.info.worktime }}" name="worktime">
+                                                                </div>
+                                                                </div>
+
                                                                 <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                                                                     <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
                                                                     <button type="reset" class="btn btn-light mb-1">Закрыть</button>
@@ -132,7 +177,7 @@
                                                                 <div class="col-12">
                                                                     <div class="form-group">
                                                                         <div class="controls">
-                                                                 в           <label>Старый пароль</label>
+                                                                              <label>Старый пароль</label>
                                                                             <input type="password" class="form-control" required placeholder="Старый пароль" data-validation-required-message="This old password field is required">
                                                                         </div>
                                                                     </div>
@@ -163,15 +208,6 @@
                                                     <div class="tab-pane fade" id="account-vertical-info" role="tabpanel" aria-labelledby="account-pill-info" aria-expanded="false">
                                                     <form action="{% url 'company-edit' company.pk %}" method="POST">
                                                     {% csrf_token %}
-
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Описание</label>
-                                                                        <textarea class="form-control" id="accountTextarea" rows="3" placeholder="Описание..."></textarea>
-                                                                    </div>
-                                                                </div>
-
                                                                 <div class="col-12">
                                                                     <div class="form-group">
                                                                         <label>Категория</label>
@@ -186,263 +222,17 @@
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <div class="controls">
-                                                                            <label>Телефон</label>
-                                                                            <input type="text" class="form-control" required placeholder="Phone number" value="(+656) 254 2568" data-validation-required-message="This phone number field is required">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Сайт</label>
-                                                                        <input type="text" class="form-control" placeholder="Сайт">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Почта для получения заявок</label>
-                                                                        <input type="text" class="form-control" placeholder="Почта для получения заявок">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Город</label>
-                                                                        <select class="form-control" id="musicselect2">
-                                                                            <option value="Rock">Rock</option>
-                                                                            <option value="Jazz" selected>Jazz</option>
-                                                                            <option value="Disco">Disco</option>
-                                                                            <option value="Pop">Pop</option>
-                                                                            <option value="Techno">Techno</option>
-                                                                            <option value="Folk" selected>Folk</option>
-                                                                            <option value="Hip hop">Hip hop</option>
-                                                                        </select>
-                                                                    </div>
-                                                                    <div class="form-group">
-                                                                        <label>Адрес</label>
-                                                                        <input type="text" class="form-control" placeholder="Адрес">
-                                                                    </div>
-                                                                </div>
                                                                 <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                                                                     <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
                                                                     <button type="reset" class="btn btn-light mb-1">Закрыть</button>
                                                                 </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-
-                                                    <div class="tab-pane fade" id="account-vertical-media" role="tabpanel" aria-labelledby="account-pill-info" aria-expanded="false">
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="media">
-                                                                    <a href="javascript: void(0);">
-                                                                        <img src="{% static 'admin_panel/app-assets/images/portrait/small/avatar-s-16.jpg'%}" class="rounded mr-75" alt="profile image" width="64" height="64">
-                                                                    </a>
-                                                                    <div class="media-body mt-25">
-                                                                        <div class="col-12 px-0 d-flex flex-sm-row flex-column justify-content-start">
-                                                                            <label for="select-files" class="btn btn-sm btn-light-primary ml-50 mb-50 mb-sm-0">
-                                                                                <span>Загрузить аватар</span>
-                                                                                <input id="select-files" type="file" hidden="">
-                                                                            </label>
-                                                                            <button class="btn btn-sm btn-light-secondary ml-50">Удалить</button>
-                                                                        </div>
-                                                                        <p class="text-muted ml-1 mt-50"><small>Разрешено JPG, GIF или PNG. Максимальный размер
-                                                                                800kB</small></p>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            
-                                                        </div>
-                                                        
-                                                            <!-- remove thumbnail file upload starts -->
-                                                                <div class="row">
-                                                                    <div class="col-12">
-                                                                        <div class="card">
-                                                                            <div class="card-header">
-                                                                                <h4 class="card-title">Галерея</h4>
-                                                                            </div>
-                                                                            <div class="card-content">
-                                                                                <div class="card-body">
-                                                                                   
-                                                                                    <form action="#" class="dropzone dropzone-area" id="dpz-remove-thumb">
-                                                                                        <div class="dz-message">Drop Files Here To Upload</div>
-                                                                                    </form>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                <!-- remove thumbnail file upload ends -->
-                                                    </div>
-                                                    <div class="tab-pane fade " id="account-vertical-social" role="tabpanel" aria-labelledby="account-pill-social" aria-expanded="false">
-                                                        <form>
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Twitter</label>
-                                                                        <input type="text" class="form-control" placeholder="Add link" value="https://www.twitter.com">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Facebook</label>
-                                                                        <input type="text" class="form-control" placeholder="Add link">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Google+</label>
-                                                                        <input type="text" class="form-control" placeholder="Add link">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>LinkedIn</label>
-                                                                        <input type="text" class="form-control" placeholder="Add link" value="https://www.linkedin.com">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Instagram</label>
-                                                                        <input type="text" class="form-control" placeholder="Add link">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12">
-                                                                    <div class="form-group">
-                                                                        <label>Quora</label>
-                                                                        <input type="text" class="form-control" placeholder="Add link">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
-                                                                    <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
-                                                                    <button type="reset" class="btn btn-light mb-1">Закрыть</button>
-                                                                </div>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                   
-                                                    <div class="tab-pane fade" id="account-vertical-filial" role="tabpanel" aria-labelledby="account-pill-filial" aria-expanded="false">
-                                                        <form>
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <h5>Филиал 1</h5>
-                                                            </div> 
-                                                            <div class="col-6">
-                                                                <div class="form-group">
-                                                                    <label>Город</label>
-                                                                    <input type="text" class="form-control" placeholder="Город">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <div class="form-group">
-                                                                    <label>Адрес</label>
-                                                                    <input type="text" class="form-control" placeholder="Адрес">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <div class="form-group">
-                                                                    <label>Телефон</label>
-                                                                    <input type="text" class="form-control" placeholder="Телефон">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <div class="form-group">
-                                                                    <label>Почта</label>
-                                                                    <input type="text" class="form-control" placeholder="Почта">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-6">
-                                                                <div class="form-group">
-                                                                    <label>Время работы</label>
-                                                                    <input type="text" class="form-control" placeholder="Время работы">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                            <hr>
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <h5>Филиал 2</h5>
-                                                                </div> 
-                                                                <div class="col-6">
-                                                                    <div class="form-group">
-                                                                        <label>Город</label>
-                                                                        <input type="text" class="form-control" placeholder="Город">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <div class="form-group">
-                                                                        <label>Адрес</label>
-                                                                        <input type="text" class="form-control" placeholder="Адрес">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <div class="form-group">
-                                                                        <label>Телефон</label>
-                                                                        <input type="text" class="form-control" placeholder="Телефон">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <div class="form-group">
-                                                                        <label>Почта</label>
-                                                                        <input type="text" class="form-control" placeholder="Почта">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <div class="form-group">
-                                                                        <label>Время работы</label>
-                                                                        <input type="text" class="form-control" placeholder="Время работы">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                                <hr>
-
-                                                                <div class="row">
-                                                                    <div class="col-12">
-                                                                        <h5>Филиал 3</h5>
-                                                                    </div> 
-                                                                    <div class="col-6">
-                                                                        <div class="form-group">
-                                                                            <label>Город</label>
-                                                                            <input type="text" class="form-control" placeholder="Город">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-6">
-                                                                        <div class="form-group">
-                                                                            <label>Адрес</label>
-                                                                            <input type="text" class="form-control" placeholder="Адрес">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-6">
-                                                                        <div class="form-group">
-                                                                            <label>Телефон</label>
-                                                                            <input type="text" class="form-control" placeholder="Телефон">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-6">
-                                                                        <div class="form-group">
-                                                                            <label>Почта</label>
-                                                                            <input type="text" class="form-control" placeholder="Почта">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-6">
-                                                                        <div class="form-group">
-                                                                            <label>Время работы</label>
-                                                                            <input type="text" class="form-control" placeholder="Время работы">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                    <hr>                                                                <div class="row">
-                                                            <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
-                                                                <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
-                                                                <button type="reset" class="btn btn-light mb-1">Закрыть</button>
-                                                            </div>
-                                                        </div>
                                                         </form>
                                                     </div>
 
                                                     <div class="tab-pane fade" id="account-vertical-service" role="tabpanel" aria-labelledby="account-pill-connections" aria-expanded="false">
-                                                        <form>
+                                                        <form action="{% url 'company-edit' company.pk %}" method="post">
+                                                            {% csrf_token %}
+                                                                 <input type="hidden" name="form" value="service">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <h5>Услуга/Товар 1</h5>
@@ -450,19 +240,19 @@
                                                             <div class="col-4">
                                                                 <div class="form-group">
                                                                     <label>Название</label>
-                                                                    <input type="text" class="form-control">
+                                                                    <input type="text" class="form-control" name="name" value="">
                                                                 </div>
                                                             </div>
                                                             <div class="col-4">
                                                                 <div class="form-group">
                                                                     <label>Описание</label>
-                                                                    <input type="text" class="form-control">
+                                                                    <input type="text" class="form-control" name="description" value="">
                                                                 </div>
                                                             </div>
                                                             <div class="col-4">
                                                                 <div class="form-group">
-                                                                    <label>Цена</label>
-                                                                    <input type="text" class="form-control">
+                                                                    <label>Цена </label>
+                                                                    <input type="text" class="form-control" name="price" value="">
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -527,42 +317,12 @@
                                                         </div>
                                                         </form>
                                                     </div>
-                                                    <div class="tab-pane fade" id="account-vertical-connections" role="tabpanel" aria-labelledby="account-pill-connections" aria-expanded="false">
-                                                        <form>
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <div class="form-group">
-                                                                    <label>Партнер 1 (ID)</label>
-                                                                    <input type="text" class="form-control" placeholder="Партнер (ID)">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <div class="form-group">
-                                                                    <label>Партнер 3 (ID)</label>
-                                                                    <input type="text" class="form-control" placeholder="Партнер (ID)">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-12">
-                                                                <div class="form-group">
-                                                                    <label>Партнер 3 (ID)</label>
-                                                                    <input type="text" class="form-control" placeholder="Партнер (ID)">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="row">
-                                                            <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
-                                                                <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
-                                                                <button type="reset" class="btn btn-light mb-1">Закрыть</button>
-                                                            </div>
-                                                        </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
+                                                    </div>
                                 </div>
-                            </div>
+                    </div>
                         </div>
                     </div>
                 </section>

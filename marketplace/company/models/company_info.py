@@ -10,4 +10,9 @@ class CompanyInfo(models.Model):
     name = models.CharField(max_length=255, default="")
     short_description = models.TextField(default="")
     description = models.TextField(default="")
-    # city =
+    city = models.TextField(default="")
+    phone = models.TextField(default="")
+    email = models.TextField(default="")
+    site = models.TextField(default="")
+    worktime = models.TextField(default="")
+    adress = models.TextField(default="")
