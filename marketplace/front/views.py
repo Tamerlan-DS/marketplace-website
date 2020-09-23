@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from company.models import Company
 
 
 def testView(request):
@@ -28,8 +29,10 @@ def catalogPageView(request):
         username = request.user.username
     else:
         username = 'anon'
+    companies = Company.objects.all()
     context = {
         'username': username,
+        'companies': companies,
     }
     return render(request, 'front/catalog.html',context=context)
 
