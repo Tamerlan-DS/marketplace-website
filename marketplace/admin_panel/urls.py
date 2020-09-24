@@ -26,5 +26,8 @@ urlpatterns = [
     path('news', newsView, name='admin-news'),
     path('news-edit/<int:news_id>', newsEditView, name='news-edit'),
     path('news-add', newsAddView, name='news-add'),
+
+    path('reviews', ReviewsView, name='reviews'),
+    path('review-edit/<int:Review_id>', ReviewsEditView, name='review-edit'),
 ]
 

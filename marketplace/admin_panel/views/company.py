@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from company.helper import *
-from company.models import Company, Category, CompanyCategory, news
+from company.models import Company, Category, CompanyCategory, news, Reviews
 from admin_panel.models import Card
 from django.contrib.auth.decorators import login_required
 from admin_panel.decorators import *
@@ -242,3 +242,40 @@ def newsAddView(request):
         New.text = text
         New.save()
     return  render(request,'admin_panel/admin-news-add.html', context=context)
+
+@login_required
+@user_is_moder
+def ReviewsView(request,):
+    Review = Reviews.objects.all()
+    companies = Company.objects.all()
+    context = {
+     'companies': companies,
+     'Reviews': Review,
+    }
+    return  render(request,'admin_panel/admin-reviews.html', context=context)
+
+
+@login_required
+@user_is_moder
+def ReviewsEditView(request, Review_id):
+    Review = get_object_or_404(Reviews, pk=Review_id)
+    context = {
+        'Reviews': Review,
+    }
+    if request.method == 'POST':
+        name = request.POST['name']
+        email = request.POST['email']
+        review = request.POST['review']
+        status = request.POST['status']
+        Review.name = name
+        Review.email = email
+        Review.review = review
+        if status == '0':
+            Review.status = Review.StatusChoices.ACTIVE
+        elif status == '1':
+            Review.status = Review.StatusChoices.DELETED
+        else:
+            Review.status = Review.StatusChoices.PENDING
+        Review.save()
+
+    return render(request, 'admin_panel/admin-reviews-edit.html', context=context)

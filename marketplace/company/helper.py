@@ -26,3 +26,7 @@ def create_company_files(company):
 def add_news(news):
     news = News.objects.create(news=news)
     news.save()
+
+def add_Review(Reviews):
+    Review = Reviews.objects.create(Reviews=Reviews)
+    Review.save()
