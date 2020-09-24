@@ -1,6 +1,8 @@
 new WOW().init();
 
 
+
+
 $(function() {
   $('.chosen-select').chosen();
 });
@@ -63,6 +65,7 @@ var swiper = new Swiper('.catalog-item-services', {
       }
     }
 });
+
 
 var swiper = new Swiper('.catalog-item-sale', {
   slidesPerView: 4,
@@ -259,7 +262,6 @@ var ymap = function() {
 $(function() {
   ymap();
 });
-
 
 
 

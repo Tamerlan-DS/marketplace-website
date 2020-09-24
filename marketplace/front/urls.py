@@ -13,9 +13,10 @@ urlpatterns = [
     path('error', errorPageView, name='error'),
     path('black-list', blacklistPageView, name='black-list'),
     path('favourites', favouritesPageView, name='favourites'),
+    path('mobile-search', mobileSearchPageView, name='mobile-search'),
 
     path('news', newsPageView, name='news'),
-    path('news-item', newsItemPageView, name='news-item'),
+    path('news-item/<int:news_id>', newsItemPageView, name='news-item'),
 
 
 ]

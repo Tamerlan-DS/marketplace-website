@@ -26,16 +26,19 @@
                         </li>
                         <li><a href="{% url 'company-category' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Категории компаний</span></a>
                         </li>
-
-
                     </ul>
                 </li>
 
                 <li class=" navigation-header"><span>Страницы</span>
                 </li>
 
-                <li class=" nav-item"><a href="page-account-settings.html"><i class="menu" data-icon="wrench"></i><span class="menu-title" data-i18n="Account Settings">Настройки аккаунта</span></a>
+                <li class="nav-item"><a href="#"><i class="menu" data-icon="users"></i><span class="menu-title" data-i18n="User">Новости</span></a>
+                <ul class="menu-content">
+                <li><a href="{% url 'admin-news' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Список новостей</span></a>
+                <li><a href="{% url 'news-add' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Добавить новость</span></a>
+                </ul>
                 </li>
+
                 <li class=" nav-item"><a href="#"><i class="menu" data-icon="users"></i><span class="menu-title" data-i18n="User">Пользователи</span></a>
                     <ul class="menu-content">
                         <li><a href="{% url 'employees' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Список сотрудников</span></a>
@@ -46,6 +49,7 @@
                     </ul>
                 </li>
             </ul>
+
         </div>
     </div>
     <!-- END: Main Menu-->

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from company.helper import *
-from company.models import Company, Category, CompanyCategory
+from company.models import Company, Category, CompanyCategory, news
 from admin_panel.models import Card
 from django.contrib.auth.decorators import login_required
 from admin_panel.decorators import *
@@ -198,3 +198,47 @@ def balanceChargeView(request, user_id):
         invoice.save()
         invoice.update()
     return render(request, 'admin_panel/test/balance_charge.html', context=context)
+
+
+@login_required
+@user_is_moder
+def newsView(request):
+    New = News.objects.all()
+    context = {
+        'New': New,
+    }
+    return  render(request,'admin_panel/admin-news.html', context=context)
+
+@login_required
+@user_is_moder
+def newsEditView(request,news_id):
+    new = get_object_or_404(News, pk=news_id)
+    context = {
+        'new': new,
+    }
+    if request.method == 'POST':
+        title = request.POST['title']
+        description = request.POST['description']
+        text = request.POST['text']
+        New = new
+        New.title = title
+        New.description = description
+        New.text = text
+        New.save()
+    return  render(request,'admin_panel/admin-news-edit.html', context=context)
+
+@login_required
+@user_is_moder
+def newsAddView(request):
+    context = {
+    }
+    if request.method == 'POST':
+        title = request.POST['title']
+        description = request.POST['description']
+        text = request.POST['text']
+        New = News.objects.create(title=title,description=description,text=text)
+        New.title = title
+        New.description = description
+        New.text = text
+        New.save()
+    return  render(request,'admin_panel/admin-news-add.html', context=context)

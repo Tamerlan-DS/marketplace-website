@@ -21,3 +21,13 @@ def favouritesPageView(request):
         'username': username,
     }
     return render(request, 'front/favourites.html',context=context)
+
+def mobileSearchPageView(request):
+    if request.user.is_authenticated:
+        username = request.user.username
+    else:
+        username = 'anon'
+    context = {
+        'username': username,
+    }
+    return render(request, 'front/mobile-search.html',context=context)

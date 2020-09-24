@@ -149,8 +149,8 @@ h3{
 .swiper-button-next, .swiper-button-prev {
     position: relative;
     top: unset;
-    width: auto;
-    height: auto;
+    width: 15px;
+    height: 15px;
     margin-top: unset;
     z-index: 10;
     cursor: pointer;
@@ -178,7 +178,9 @@ h3{
     left: auto;
 }
 .swiper-button-prev img, .swiper-button-next img{
-    margin:0px 5px
+    margin:0px 5px;
+    width: 100% !important;
+    height: 100% !important;
 }
 
 .swiper-pagination {
@@ -394,7 +396,7 @@ background: #FFCE00;
     left: 0;
     bottom: 0;
     text-align: center;
-    background: #FFF;
+    background: #FFCE00;
     opacity: 0;
     z-index: -1;
     visibility: hidden;
@@ -414,35 +416,52 @@ background: #FFCE00;
     bottom: 0;
     left: 0;
     right: -15px;
-    background: #141414;
+    background: #FFF;
     transform-origin: 0 0;
     transform: skew(-14deg) translateX(-120%);
     transition: all .275s .1s;
 }
 
 .main-nav.is-open::before {
-    transform: skew(-14deg) translateX(0);
+    transform: skew(10deg) translateX(0);
 }
 
 .main-nav ul {
     display: inline-flex;
     flex-direction: column;
-    height: 93%; /* Should be 100%, but we have a notice message :D */
-    align-items: flex-end;
+    height: 93%; 
     justify-content: center;
-    transform: translateX(-5%) skew(-14deg);
+    transform: translateX(-15%) skew(10deg);
 }
 
 .main-nav li {
     display: block;
     margin: .5rem 0;
-    text-align: right;
-    transform: skew(16deg);
+    text-align: left;
+    transform: skew(-10deg);
 }
 
 .main-nav a {
     opacity: 0;
     transform: translateY(-10px);
+}
+
+.main-nav a.active{
+    color: #F4C500;
+}
+
+.main-nav a.active:after{
+    content: '';
+	display: block;
+	height: 100%;
+	background: #FFCE00;
+	transition: all .275s;
+    transform: translateY(-12px) translateX(-2px) skew(-20deg);
+    position: absolute;
+    bottom: -10px;
+    width: 70px;
+    left: 0px;
+    height: 5px;
 }
 
 .main-nav.is-open a {
@@ -485,10 +504,12 @@ background: #FFCE00;
 .main-nav a {
 	display: block;
 	padding: 5px 0;
-	color: #FFF;
-	font-size: 20px;
+    font-family: Rubik;
+    font-size: 20px;
+    line-height: 149.8%;
+    color: #141414;
 	text-decoration: none;
-	font-weight: bold;
+	font-weight: normal;
 }
 
 .open-main-nav {
@@ -1427,6 +1448,7 @@ footer{
     padding: 15px 30px;
 }
 
+
 .catalog-item-contact{
     background: #FFFFFF;
     box-shadow: 0px 4px 7px rgba(0, 0, 0, 0.15);
@@ -1434,7 +1456,7 @@ footer{
     padding: 15px 30px;
 }
 
-.cataog-item-character{
+.catalog-item-character{
     font-family: IBM Plex Sans;
     font-size: 14px;
     line-height: 149.8%;
@@ -1451,7 +1473,7 @@ footer{
     transition: all 0.2s ease;
 }
 
-.cataog-item-character:hover{
+.catalog-item-character:hover{
     transform: scale(0.97);
 }
 
@@ -2426,3 +2448,24 @@ footer{
 }
 
 
+/* mobile-search */
+
+.mobile-search-logo {
+    display: none;
+    margin: 0px auto 30px;
+    width: 100px;
+}
+
+
+
+
+
+
+/* city select */
+
+.main-nav .__select {
+    position: absolute;
+    top: 30px;
+    left: 60px;
+    z-index: 2;
+}

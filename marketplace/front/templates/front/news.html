@@ -1,4 +1,4 @@
-{% load static %}d
+{% load static %}
 <!DOCTYPE html>
 <html lang="ru-RU">
 <head>
@@ -31,68 +31,28 @@
         </div>
     </div>
 </section>
-
 <section>
     <div class="container">
         <h2>Новости</h2>
         <div class="news-div">
+            {% for news in New %}
             <div class="news-item">
-                <a href="" class="news-img">
+                <a href="{% url 'news-item' news.pk %}" class="news-img">
                     <img src="{% static 'front/img/news/1.png' %} " alt="">
                 </a>
                 <div class="news-body">
                     <p class="news-date">Октябрь 20, 2020</p>
-
-                    <a href="" class="news-name">Это текст о компании. Он необходим для д</a>
-
+                    <a href="{% url 'news-item' news.pk %}" class="news-name">{{ news.title}}</a>
                     <!-- макс сим. - 100 -->
-                    <p class="news-desc">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет необходимо предоставить исходные данные, по которым наши копирайтеры ...</p>
-
+                    <p class="news-desc">{{ news.description}}</p>
                     <div class="news-footer">
-                        <a href="" class="news-link">Читать больше</a>
+                        <a href="{% url 'news-item' news.pk %}" class="news-link">Читать больше</a>
                     </div>
 
                 </div>
             </div>
-            <div class="news-item">
-                <a href="" class="news-img">
-                    <img src="{% static 'front/img/news/1.png' %} " alt="">
-                </a>
-                <div class="news-body">
-                    <p class="news-date">Октябрь 20, 2020</p>
-
-                    <a href="" class="news-name">Это текст о компании. Он необходим для д</a>
-
-                    <!-- макс сим. - 100 -->
-                    <p class="news-desc">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет необходимо предоставить исходные данные, по которым наши копирайтеры ...</p>
-
-                    <div class="news-footer">
-                        <a href="" class="news-link">Читать больше</a>
-                    </div>
-
-                </div>
-            </div>
-            <div class="news-item">
-                <a href="" class="news-img">
-                    <img src="{% static 'front/img/news/1.png' %} " alt="">
-                </a>
-                <div class="news-body">
-                    <p class="news-date">Октябрь 20, 2020</p>
-
-                    <a href="" class="news-name">Это текст о компании. Он необходим для д</a>
-
-                    <!-- макс сим. - 100 -->
-                    <p class="news-desc">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет необходимо предоставить исходные данные, по которым наши копирайтеры ...</p>
-
-                    <div class="news-footer">
-                        <a href="" class="news-link">Читать больше</a>
-                    </div>
-
-                </div>
-            </div>
+{% endfor %}
         </div>
-
-
         <div class="pagination">
             <div class="pagination-div">
                 <a href="" class="arrow">

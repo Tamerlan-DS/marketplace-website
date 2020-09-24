@@ -37,38 +37,57 @@
             <div class="catalog-filter-header">
                 <p class="catalog-filter-more-search">Расширенный поиск</p>
                 <div class="catalog-filter-select">
-                    <p>Регион: </p>
+                    <p>Сортировать по: </p>
                     <select class="catalog-select">
-                        <option>Астана</option>
-                        <option>Астана</option>
-                        <option>Астана</option>
+                        <option>Новизне</option>
+                        <option>Названию</option>
+                        <option>Рейтингу</option>
                     </select>
                 </div>
             </div>
             <div class="catalog-filter-body">
                 <div class="catalog-filter-body-inner">
-                    <div class="catalog-filter-nav-pils">
-                        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                            <a class="nav-link active" id="v-pills1" data-toggle="pill" href="#v-pills1" role="tab" aria-controls="v-pills1" aria-selected="true">Строительство </a>
-                            <a class="nav-link" id="v-pills2" data-toggle="pill" href="#v-pills2" role="tab" aria-controls="v-pills2" aria-selected="false">Инженерные сети</a>
-                            <a class="nav-link" id="v-pills3" data-toggle="pill" href="#v-pills3" role="tab" aria-controls="v-pills3" aria-selected="false">Возведение зданий и сооружений</a>
-                            <a class="nav-link" id="v-pills4" data-toggle="pill" href="#v-pills4" role="tab" aria-controls="v-pills4" aria-selected="false">Продажа</a>
+                    <form action="">
+                    <div class="catalog-filter-categories-div">
+                   {% for category in categories %}
+                        <div class="catalog-filter-categories-item">
+                            {% if category.parent %}
+                            <div>
+                                <p class="catalog-filter-categories-title">{{ category.parent.name }}  </p>
+                            </div>
+                            <div>
+                                <input type="checkbox" id="{{ category.pk }}" name="filter-category" value="1">
+                                <label for="{{ category.pk }}">   {{ category.name }} </label>
+                            </div>
+                            {% else %}
+                            <div>
+                                <p class="catalog-filter-categories-title">{{ category.name }}  </p>
+                            </div>
+                             <div>
+                                <input type="checkbox" id="{{ category.pk }}" name="filter-category" value="1">
+                                <label for="{{ category.pk }}">   {{ category.name }} </label>
+                            </div>
+
+                                 {% endif %}
                         </div>
-                        <div class="tab-content" id="v-pills-tabContent">
-                            <div class="tab-pane fade show active" id="v-pills1" role="tabpanel" aria-labelledby="v-pills1">
+                     {% endfor %}
 
-                            </div>
-                            <div class="tab-pane fade" id="v-pills2" role="tabpanel" aria-labelledby="v-pills2">
-
-                            </div>
-                            <div class="tab-pane fade" id="v-pills3" role="tabpanel" aria-labelledby="v-pills3">
-
-                            </div>
-                            <div class="tab-pane fade" id="v-pills4" role="tabpanel" aria-labelledby="v-pills4">
-
-                            </div>
-                        </div>
                     </div>
+
+
+                    <select data-placeholder="Характеристики..." multiple class="chosen-select" tabindex="8">
+                        <option value=""></option>
+                        <option>American Black Bear</option>
+                        <option>Asiatic Black Bear</option>
+                        <option>Brown Bear</option>
+                        <option>Giant Panda</option>
+                        <option>Sloth Bear</option>
+                        <option selected>Polar Bear</option>
+                      </select>
+
+                      <button type="submit" class="button">Искать</button>
+                    </form>
+
                 </div>
             </div>
         </div>
@@ -79,15 +98,18 @@
     <div class="container">
         <div class="view2 product-div">
                  {% for company in companies %}
-            <div class="product-item premium" data-tilt data-tilt-perspective="5000">
-                <a href="" class="product-img">
+            <div class="product-item " data-tilt data-tilt-perspective="5000">
+                <a href="{% url 'Catalog-item' company.pk %}" class="product-img">
                     <img src="{% static 'front/img/product/1.png' %}" alt="">
                 </a>
                 <div class="product-body">
-                    <a href="" class="product-name">{{ company.info.name }}</a>
-                    <a href="" class="product-cotegory">Строительство жилых домов</a>
+                    <a href="{% url 'Catalog-item' company.pk %}" class="product-name">{{ company.info.name }}</a>
+                    <a href="" class="product-cotegory"> {% for company_category in company.categories.all %}
+                     {{ company_category.category.name }}
+                     {% endfor %}
+                    </a>
                     <!-- макс сим. - 100 -->
-                    <p class="product-desc">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет...</p>
+                    <p class="product-desc">{{ company.info.short_description }}</p>
                     <div class="product-footer">
                         <a href="{% url 'Catalog-item' company.pk %}" class="button">Подробнее</a>
                         <button class="like-btn favorite">

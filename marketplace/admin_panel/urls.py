@@ -22,5 +22,9 @@ urlpatterns = [
     path('balance-charge/<int:user_id>', balanceChargeView, name='balance-charge'),
 
     path('takeout/company/<int:company_id>', companyTakeoutView, name='takeout-company'),
+
+    path('news', newsView, name='admin-news'),
+    path('news-edit/<int:news_id>', newsEditView, name='news-edit'),
+    path('news-add', newsAddView, name='news-add'),
 ]
 

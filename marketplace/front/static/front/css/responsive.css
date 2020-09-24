@@ -116,6 +116,9 @@
 }
 
 @media all and (max-width:768px){
+    .mobile-search-logo {
+        display: block;
+    }
     .main-news-info .title {
         font-size: 12px;
     }

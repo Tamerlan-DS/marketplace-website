@@ -22,3 +22,7 @@ def create_company_contacts(company):
 def create_company_files(company):
     company_files = CompanyFiles.objects.create(company=company)
     company_files.save()
+
+def add_news(news):
+    news = News.objects.create(news=news)
+    news.save()

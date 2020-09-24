@@ -7,9 +7,11 @@ def catalogPageView(request):
     else:
         username = 'anon'
     companies = Company.objects.all()
+    categories = Category.objects.all()
     context = {
         'username': username,
         'companies': companies,
+        'categories': categories,
     }
     return render(request, 'front/catalog.html',context=context)
 
