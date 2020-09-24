@@ -7,7 +7,9 @@ class Category(models.Model):
         ACTIVE = 'ACTIVE', 'active'
         DELETED = 'DELETED', 'deleted'
 
-    parent = models.ForeignKey("self", null=True, on_delete=models.SET_NULL)
+    parent = models.ForeignKey("self", null=True, on_delete=models.SET_NULL,
+                               related_name="childs",
+                               )
     name = models.CharField(max_length=255)
     status = models.CharField(max_length=255,
                               choices=StatusChoices.choices,

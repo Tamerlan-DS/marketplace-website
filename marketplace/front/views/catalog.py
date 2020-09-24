@@ -7,7 +7,7 @@ def catalogPageView(request):
     else:
         username = 'anon'
     companies = Company.objects.all()
-    categories = Category.objects.all()
+    categories = Category.objects.filter(parent__isnull=True).all()
     context = {
         'username': username,
         'companies': companies,

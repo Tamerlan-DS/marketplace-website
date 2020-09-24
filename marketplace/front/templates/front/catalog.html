@@ -49,28 +49,20 @@
                 <div class="catalog-filter-body-inner">
                     <form action="">
                     <div class="catalog-filter-categories-div">
-                   {% for category in categories %}
-                        <div class="catalog-filter-categories-item">
-                            {% if category.parent %}
-                            <div>
-                                <p class="catalog-filter-categories-title">{{ category.parent.name }}  </p>
-                            </div>
-                            <div>
-                                <input type="checkbox" id="{{ category.pk }}" name="filter-category" value="1">
-                                <label for="{{ category.pk }}">   {{ category.name }} </label>
-                            </div>
-                            {% else %}
-                            <div>
-                                <p class="catalog-filter-categories-title">{{ category.name }}  </p>
-                            </div>
-                             <div>
-                                <input type="checkbox" id="{{ category.pk }}" name="filter-category" value="1">
-                                <label for="{{ category.pk }}">   {{ category.name }} </label>
-                            </div>
 
-                                 {% endif %}
+                        {% for category in categories %}
+                        <div class="catalog-filter-categories-item">
+                            <div>
+                                <p class="catalog-filter-categories-title">{{ category.name }}</p>
+                            </div>
+                        {% for child in category.childs.all %}
+                            <div>
+                                <input type="checkbox" id="{{ category.pk }}" name="filter-category" value="1">
+                                <label for="{{ category.pk }}">   {{ child.name }} </label>
+                            </div>
+                        {% endfor %}
                         </div>
-                     {% endfor %}
+                        {% endfor %}
 
                     </div>
 
