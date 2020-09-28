@@ -13,6 +13,7 @@ class Card(models.Model):
     class StatusChoices(models.TextChoices):
         ACTIVE = 'ACTIVE', 'active'
         DELETED = 'DELETED', 'deleted'
+        BANNED = 'BANNED', 'banned'
 
     owner = models.OneToOneField(User,
                                  on_delete=models.CASCADE,

@@ -90,6 +90,7 @@
     <div class="container">
         <div class="view2 product-div">
                  {% for company in companies %}
+            {% if company.status == company.StatusChoices.ACCEPTED %}
             <div class="product-item " data-tilt data-tilt-perspective="5000">
                 <a href="{% url 'Catalog-item' company.pk %}" class="product-img">
                     <img src="{% static 'front/img/product/1.png' %}" alt="">
@@ -104,13 +105,14 @@
                     <p class="product-desc">{{ company.info.short_description }}</p>
                     <div class="product-footer">
                         <a href="{% url 'Catalog-item' company.pk %}" class="button">Подробнее</a>
-                        <button class="like-btn favorite">
+                        <button class="like-btn favorite" value="{{ company.pk }}">
                             <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
                             <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
                         </button>
                     </div>
                 </div>
             </div>
+            {% endif %}
             {% endfor %}
         </div>
     </div>
@@ -118,19 +120,12 @@
 
 
 
-    {% block footer %}
-    {% include 'front/footerForm.html' %}
-    {% endblock footer %}
-
-
-
-
-
-
-
 {% block jsLoad %}
 {% include 'front/jsLoader.html' %}
 {% endblock jsLoad %}
 
+  {% block footer %}
+    {% include 'front/footerForm.html' %}
+    {% endblock footer %}
 </body>
 </html>

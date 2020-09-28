@@ -7,6 +7,7 @@ class Company(models.Model):
         PENDING = 'PENDING', 'pending'
         ACCEPTED = 'ACCEPTED', 'accepted'
         CLOSED = 'CLOSED', 'closed'
+        BANNED = 'BANNED', 'banned'
 
     owner = models.OneToOneField(User,
                                  on_delete=models.CASCADE,

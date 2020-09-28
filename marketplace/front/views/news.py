@@ -5,7 +5,8 @@ from admin_panel.models import Card
 from django.contrib.auth.decorators import login_required
 from admin_panel.decorators import *
 from company_panel.models import Balance, Invoice
-
+from django.core.paginator import Paginator
+from django.views.generic import ListView
 
 def newsPageView(request):
     if request.user.is_authenticated:
@@ -13,11 +14,17 @@ def newsPageView(request):
     else:
         username = 'anon'
 
-    New = News.objects.all()
+
+    New = News.objects.order_by('-pk')
+
+    class NewsList(ListView):
+        paginate_by = 4
+        model = New
 
     context = {
         'username': username,
         'New': New,
+
     }
     return render(request, 'front/news.html',context=context)
 

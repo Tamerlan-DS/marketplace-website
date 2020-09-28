@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from company.helper import *
-from company.models import Company, Category, CompanyCategory, news, Reviews
+from company.models import Company, Category, CompanyCategory, news, Reviews, Services, branches
 from admin_panel.models import Card
 from django.contrib.auth.decorators import login_required
 from admin_panel.decorators import *
@@ -57,13 +57,17 @@ def companyAddView(request):
 @user_is_moder
 def companyEditView(request, company_id):
     company = get_object_or_404(Company, pk=company_id)
+    services = Services.objects.all()
     categories = Category.objects.all()
+    branche = Branches.objects.all()
     company_categories = Category.objects.filter(
         pk__in=CompanyCategory.objects.filter(company=company).values_list('category'))
     context = {
         'company': company,
         'categories': categories,
         'company_categories': company_categories,
+        'services': services,
+        'branches': branche,
     }
     if request.method == 'POST':
         type = request.POST['form']
@@ -77,6 +81,8 @@ def companyEditView(request, company_id):
             site = request.POST['site']
             worktime = request.POST['worktime']
             adress = request.POST['adress']
+            status = request.POST['status']
+
             company_info = company.info
             company_info.name = name
             company_info.short_description = short_description
@@ -87,7 +93,17 @@ def companyEditView(request, company_id):
             company_info.worktime = worktime
             company_info.adress = adress
             company_info.site = site
+
+            if status == '0':
+                company.status = company.StatusChoices.ACCEPTED
+            elif status == '1':
+                company.status = company.StatusChoices.PENDING
+            elif status == '2':
+                company.status = company.StatusChoices.BANNED
             company_info.save()
+            company.save()
+            return render(request, 'front/catalog-item.html', context=context)
+
         if type == 'category':
             categories_id = request.POST.getlist('categories')
             company_categories = CompanyCategory.objects.filter(company=company)
@@ -96,6 +112,25 @@ def companyEditView(request, company_id):
             for category_id in categories_id:
                 category = Category.objects.get(pk=category_id)
                 CompanyCategory(company=company, category=category).save()
+            return render(request, 'front/catalog-item.html', context=context)
+
+        if type == 'service':
+            name = request.POST['name']
+            description = request.POST['description']
+            price = request.POST['price']
+            Services.objects.create(name=name,description=description,price= price, company_fk = company.pk)
+            return render(request, 'front/catalog-item.html', context=context)
+
+        if type == 'branches':
+            city = request.POST['city']
+            address = request.POST['address']
+            phone = request.POST['phone']
+            email = request.POST['email']
+            worktime = request.POST['worktime']
+
+            Branches.objects.create(city=city,address=address,phone=phone,email=email,worktime=worktime, company_fk= company.pk)
+            return render(request, 'admin_panel/admin-company-edit.html', context=context)
+
 
     else:
         pass
@@ -125,6 +160,8 @@ def companytestEditView(request, company_id):
             company_info.short_description = short_description
             company_info.description = description
             company_info.save()
+            return render(request, 'front/catalog-item.html', context=context)
+
         if type == 'category':
             categories_id = request.POST.getlist('categories')
             company_categories = CompanyCategory.objects.filter(company=company)
@@ -133,6 +170,8 @@ def companytestEditView(request, company_id):
             for category_id in categories_id:
                 category = Category.objects.get(pk=category_id)
                 CompanyCategory(company=company, category=category).save()
+        return render(request, 'front/catalog-item.html', context=context)
+
 
     else:
         pass
@@ -277,5 +316,6 @@ def ReviewsEditView(request, Review_id):
         else:
             Review.status = Review.StatusChoices.PENDING
         Review.save()
+        return render(request, 'admin_panel/admin-reviews-edit.html', context=context)
 
     return render(request, 'admin_panel/admin-reviews-edit.html', context=context)

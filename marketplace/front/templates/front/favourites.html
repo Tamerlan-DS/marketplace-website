@@ -9,7 +9,7 @@
     {% endblock %}
     <title></title>
 </head>
-<body>
+<body onload="checkCookie();">
 {% block header %}
 {% include 'front/headerForm.html' %}
 {% endblock %}
@@ -36,12 +36,16 @@
 <section>
     <div class="container">
         <div class="view2 product-div">
+            {{cookies}}
+        {% for company in companies %}
+            {% if company.pk == cookies %}
+
             <div class="product-item premium" data-tilt data-tilt-perspective="5000">
                 <a href="" class="product-img">
                     <img src="{% static 'front/img/product/1.png' %}" alt="">
                 </a>
                 <div class="product-body">
-                    <a href="" class="product-name">BI Group</a>
+                    <a href="" class="product-name"></a>
                     <a href="" class="product-cotegory">Строительство жилых домов</a>
 
 
@@ -58,69 +62,10 @@
                     </div>
                 </div>
             </div>
-             <div class="product-item " data-tilt data-tilt-perspective="5000">
-                <a href="" class="product-img">
-                    <img src="{% static 'front/img/product/1.png' %}" alt="">
-                </a>
-                <div class="product-body">
-                    <a href="" class="product-name">BI Group</a>
-                    <a href="" class="product-cotegory">Строительство жилых домов</a>
 
+            {% endif %}
+        {% endfor %}
 
-                    <!-- макс сим. - 100 -->
-                    <p class="product-desc">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет...</p>
-
-
-                    <div class="product-footer">
-                        <a href="" class="button">Подробнее</a>
-                        <button class="like-btn favorite active">
-                            <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
-                            <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
-                        </button>
-                    </div>
-                </div>
-            </div> <div class="product-item " data-tilt data-tilt-perspective="5000">
-                <a href="" class="product-img">
-                    <img src="{% static 'front/img/product/1.png' %}" alt="">
-                </a>
-                <div class="product-body">
-                    <a href="" class="product-name">BI Group</a>
-                    <a href="" class="product-cotegory">Строительство жилых домов</a>
-
-
-                    <!-- макс сим. - 100 -->
-                    <p class="product-desc">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет...</p>
-
-
-                    <div class="product-footer">
-                        <a href="" class="button">Подробнее</a>
-                        <button class="like-btn favorite active">
-                            <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
-                            <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
-                        </button>
-                    </div>
-                </div>
-            </div> <div class="product-item " data-tilt data-tilt-perspective="5000">
-                <a href="" class="product-img">
-                    <img src="{% static 'front/img/product/1.png' %}" alt="">
-                </a>
-                <div class="product-body">
-                    <a href="" class="product-name">BI Group</a>
-                    <a href="" class="product-cotegory">Строительство жилых домов</a>
-
-
-                    <!-- макс сим. - 100 -->
-                    <p class="product-desc">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет...</p>
-
-
-                    <div class="product-footer">
-                        <a href="" class="button">Подробнее</a>
-                        <button class="like-btn favorite active">
-                            <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
-                            <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
-                        </button>
-                    </div>
-                </div>
             </div>
     </div>
 </section>

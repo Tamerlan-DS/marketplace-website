@@ -104,4 +104,19 @@
     </div>
 
 </footer>
+
+<script>
+    var myArray = [];
+    $(".like-btn").click(function(){
+      var buttonValue = $(this).val();
+       myArray.push(buttonValue)
+        $.ajax({
+         url: '{% url 'favourites' %}',
+         type: 'POST',
+         data: {'arr': myArray},
+        });
+    });
+
+</script>
+
 {% endblock footer %}

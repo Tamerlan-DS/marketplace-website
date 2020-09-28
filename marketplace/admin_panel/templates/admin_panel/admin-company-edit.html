@@ -167,6 +167,16 @@
                                                                     <input type="text" class="form-control" placeholder="Время работы:" value="{{ company.info.worktime }}" name="worktime">
                                                                 </div>
                                                                 </div>
+                                                                <div class="col-12">
+                                                                <div class="form-group">
+                                                                   <label>Статус</label>
+                                                                     <select class="form-control" name="status">
+                                                                      <option value="0" {% if company.status == company.StatusChoices.ACCEPTED %} selected {% endif %}>Accepted</option>
+                                                                      <option value="1" {% if company.status == company.StatusChoices.PENDING %} selected {% endif %}>Pending</option>
+                                                                      <option value="2" {% if company.status == company.StatusChoices.BANNED %} selected {% endif %}>Черный список</option>
+                                                                     </select>
+                                                                </div>
+                                                                </div>
 
                                                                 <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                                                                     <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
@@ -239,7 +249,7 @@
                                                                  <input type="hidden" name="form" value="service">
                                                         <div class="row">
                                                             <div class="col-12">
-                                                                <h5>Услуга/Товар 1</h5>
+                                                                <h5>Услуга/Товар</h5>
                                                             </div> 
                                                             <div class="col-4">
                                                                 <div class="form-group">
@@ -260,59 +270,28 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-
-                                                        <hr>
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <h5>Услуга/Товар 2</h5>
-                                                            </div> 
-                                                            <div class="col-4">
-                                                                <div class="form-group">
-                                                                    <label>Название</label>
-                                                                    <input type="text" class="form-control">
-                                                                </div>
-                                                             </div>
-                                                            <div class="col-4">
-                                                                <div class="form-group">
-                                                                    <label>Описание</label>
-                                                                    <input type="text" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-4">
-                                                                <div class="form-group">
-                                                                    <label>Цена</label>
-                                                                    <input type="text" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <hr>
-                                                        <div class="row">
-                                                            <div class="col-12">
-                                                                <h5>Услуга/Товар 3</h5>
-                                                            </div> 
-                                                            <div class="col-4">
-                                                                <div class="form-group">
-                                                                    <label>Название</label>
-                                                                    <input type="text" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-4">
-                                                                <div class="form-group">
-                                                                    <label>Описание</label>
-                                                                    <input type="text" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-4">
-                                                                <div class="form-group">
-                                                                    <label>Цена</label>
-                                                                    <input type="text" class="form-control">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <hr>
-
+                                                            <div class="table-responsive">
+                                        <table id="users-list-datatable" class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>Название</th>
+                                                    <th>Описание</th>
+                                                    <th>Цена</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                  {% for service in services %}
+                                                       {% if service.company_fk == company.pk %}
+                                                   <tr>
+                                                    <td>{{ service.name }}</td>
+                                                    <td>{{ service.description }}</td>
+                                                    <td>{{ service.price }}</td>
+                                                   </tr>
+                                                     {% endif %}
+                                                  {% endfor %}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                                         <div class="row">
                                                             <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                                                                 <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
@@ -322,121 +301,77 @@
                                                         </form>
                                                     </div>
                                                     <div class="tab-pane fade active show" id="account-vertical-filial" role="tabpanel" aria-labelledby="account-pill-filial" aria-expanded="false">
-                                                        <form>
+                                                        <form action="{% url 'company-edit' company.pk %}" method="post">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" name="form" value="branches">
                                                         <div class="row">
                                                             <div class="col-12">
-                                                                <h5>Филиал 1</h5>
+                                                                <h5>Филиалы</h5>
                                                             </div>
                                                             <div class="col-6">
                                                                 <div class="form-group">
                                                                     <label>Город</label>
-                                                                    <input type="text" class="form-control" placeholder="Город">
+                                                                    <input type="text" class="form-control" placeholder="Город" name="city">
                                                                 </div>
                                                             </div>
                                                             <div class="col-6">
                                                                 <div class="form-group">
                                                                     <label>Адрес</label>
-                                                                    <input type="text" class="form-control" placeholder="Адрес">
+                                                                    <input type="text" class="form-control" placeholder="Адрес" name="address">
                                                                 </div>
                                                             </div>
                                                             <div class="col-6">
                                                                 <div class="form-group">
                                                                     <label>Телефон</label>
-                                                                    <input type="text" class="form-control" placeholder="Телефон">
+                                                                    <input type="text" class="form-control" placeholder="Телефон" name="phone">
                                                                 </div>
                                                             </div>
                                                             <div class="col-6">
                                                                 <div class="form-group">
                                                                     <label>Почта</label>
-                                                                    <input type="text" class="form-control" placeholder="Почта">
+                                                                    <input type="text" class="form-control" placeholder="Почта" name="email">
                                                                 </div>
                                                             </div>
                                                             <div class="col-6">
                                                                 <div class="form-group">
                                                                     <label>Время работы</label>
-                                                                    <input type="text" class="form-control" placeholder="Время работы">
+                                                                    <input type="text" class="form-control" placeholder="Время работы" name="worktime">
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                            <hr>
-                                                            <div class="row">
-                                                                <div class="col-12">
-                                                                    <h5>Филиал 2</h5>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <div class="form-group">
-                                                                        <label>Город</label>
-                                                                        <input type="text" class="form-control" placeholder="Город">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <div class="form-group">
-                                                                        <label>Адрес</label>
-                                                                        <input type="text" class="form-control" placeholder="Адрес">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <div class="form-group">
-                                                                        <label>Телефон</label>
-                                                                        <input type="text" class="form-control" placeholder="Телефон">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <div class="form-group">
-                                                                        <label>Почта</label>
-                                                                        <input type="text" class="form-control" placeholder="Почта">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-6">
-                                                                    <div class="form-group">
-                                                                        <label>Время работы</label>
-                                                                        <input type="text" class="form-control" placeholder="Время работы">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                                <hr>
+                                                            <div class="table-responsive">
+                                                                <table id="users-list-datatable" class="table">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>Город</th>
+                                                                        <th>Адрес</th>
+                                                                        <th>Телефон</th>
+                                                                        <th>Почта</th>
+                                                                        <th>Время работы</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                      {% for branch in branches %}
+                                                                          {% if branch.company_fk == company.pk %}
+                                                                       <tr>
+                                                                        <td>{{ branch.city }}</td>
+                                                                        <td>{{ branch.address }}</td>
+                                                                        <td>{{ branch.phone }}</td>
+                                                                        <td>{{ branch.email }}</td>
+                                                                        <td>{{ branch.worktime }}</td>
+                                                                       </tr>
+                                                                         {% endif %}
+                                                                      {% endfor %}
+                                                                </tbody>
+                                                            </table>
+                                                          </div>
 
-                                                                <div class="row">
-                                                                    <div class="col-12">
-                                                                        <h5>Филиал 3</h5>
-                                                                    </div>
-                                                                    <div class="col-6">
-                                                                        <div class="form-group">
-                                                                            <label>Город</label>
-                                                                            <input type="text" class="form-control" placeholder="Город">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-6">
-                                                                        <div class="form-group">
-                                                                            <label>Адрес</label>
-                                                                            <input type="text" class="form-control" placeholder="Адрес">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-6">
-                                                                        <div class="form-group">
-                                                                            <label>Телефон</label>
-                                                                            <input type="text" class="form-control" placeholder="Телефон">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-6">
-                                                                        <div class="form-group">
-                                                                            <label>Почта</label>
-                                                                            <input type="text" class="form-control" placeholder="Почта">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-6">
-                                                                        <div class="form-group">
-                                                                            <label>Время работы</label>
-                                                                            <input type="text" class="form-control" placeholder="Время работы">
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                                    <hr>                                                                <div class="row">
+                                                            <div class="row">
                                                             <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                                                                 <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
                                                                 <button type="reset" class="btn btn-light mb-1">Закрыть</button>
                                                             </div>
-                                                        </div>
+                                                         </div>
                                                         </form>
                                                     </div>
                                             </div>

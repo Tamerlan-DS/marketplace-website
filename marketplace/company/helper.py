@@ -30,3 +30,11 @@ def add_news(news):
 def add_Review(Reviews):
     Review = Reviews.objects.create(Reviews=Reviews)
     Review.save()
+
+def add_Services(Services):
+    Services = Services.objects.create(Services=Services)
+    Services.save()
+
+def add_branches(branches):
+    branches = branches.objects.create(branches=branches)
+    branches.save()

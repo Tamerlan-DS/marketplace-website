@@ -45,26 +45,7 @@
             <div class="content-body">
                 <!-- users list start -->
                 <section class="users-list-wrapper">
-                    <div class="users-list-filter px-1">
-                        <form>
-                            <div class="row border rounded py-2 mb-2">
-                                <div class="col-12 col-sm-6 col-lg-3">
-                                    <label for="users-list-status">Статус</label>
-                                    <fieldset class="form-group">
-                                        <select class="form-control" id="users-list-status">
-                                            <option value="">Все</option>
-                                            <option value="Активный">Активный</option>
-                                            <option value="Удаленный">Удаленный</option>
-                                            <option value="На рассмотрении">На рассмотрении</option>
-                                        </select>
-                                    </fieldset>
-                                </div>
-                                <div class="col-12 col-sm-6 col-lg-3 d-flex align-items-center">
-                                    <button type="reset" class="btn btn-primary btn-block glow users-list-clear mb-0">Очистить</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
+
                     <div class="users-list-table">
                         <div class="card">
                             <div class="card-content">
@@ -96,7 +77,13 @@
                                                         {{ category.category.name }}
                                                         {% endfor %}
                                                     </td>
-                                                      <td><span class="badge badge-light-success">{{ company.status }}</span></td>
+                                                      {% if company.status == company.StatusChoices.PENDING %}
+                                                      <td><span class="badge badge-light-warning ">{{ company.status }}</span></td>
+                                                      {% elif company.status == company.StatusChoices.ACCEPTED %}
+                                                      <td><span class="badge badge-light-success ">{{ company.status }}</span></td>
+                                                      {% elif company.status == company.StatusChoices.BANNED %}
+                                                      <td><span class="badge badge-light-dark ">{{ company.status }}</span></td>
+                                                      {% endif %}
                                                       <td><a href="{% url 'company-edit' company.pk %}"><i class="bx bx-edit-alt"></i></a></td>
                                                 </tr>
                                                   {% endfor %}

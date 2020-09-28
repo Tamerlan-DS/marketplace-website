@@ -33,26 +33,28 @@
 </section>
 <section>
     <div class="container">
-        <h2>Новости</h2>
+     <h2>Новости</h2>
         <div class="news-div">
             {% for news in New %}
+
             <div class="news-item">
-                <a href="{% url 'news-item' news.pk %}" class="news-img">
+                 <a href="{% url 'news-item' news.pk %}" class="news-img">
                     <img src="{% static 'front/img/news/1.png' %} " alt="">
-                </a>
+                 </a>
                 <div class="news-body">
                     <p class="news-date">Октябрь 20, 2020</p>
                     <a href="{% url 'news-item' news.pk %}" class="news-name">{{ news.title}}</a>
                     <!-- макс сим. - 100 -->
-                    <p class="news-desc">{{ news.description}}</p>
+                    <p class="news-desc">{{ news.description }} </p>
                     <div class="news-footer">
                         <a href="{% url 'news-item' news.pk %}" class="news-link">Читать больше</a>
                     </div>
 
                 </div>
             </div>
-{% endfor %}
+        {% endfor %}
         </div>
+
         <div class="pagination">
             <div class="pagination-div">
                 <a href="" class="arrow">

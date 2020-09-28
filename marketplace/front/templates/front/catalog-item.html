@@ -115,106 +115,36 @@
 
 <section>
     <div class="container">
+
         <h2>Услуги</h2>
 
         <div class="catalog-item-services-div">
             <!-- Swiper -->
             <div class="swiper-container catalog-item-services">
                 <div class="swiper-wrapper">
+                  {% for service in services %}
+                      {% if service.company_fk == company.pk %}
                     <div class="swiper-slide">
                         <div class="catalog-item-service">
                             <div class="catalog-item-service-header">
-                                <p class="catalog-item-service-title">Название</p>
+                                <p class="catalog-item-service-title">{{ service.name }}</p>
                             </div>
                             <div class="catalog-item-service-img">
                                 <img src="{% static 'front/img/product/1.png' %}" alt="">
                             </div>
                             <div class="catalog-item-service-body">
                                 <!-- макс сим. - 100 -->
-                                <p class="catalog-item-service-desc">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет...</p>
+                                <p class="catalog-item-service-desc">{{ service.description }}</p>
                             </div>
                             <div class="catalog-item-service-footer">
                                 <a href="" class="button">Оставить заявку</a>
-                                <p class="catalog-item-service-title">5 000 тг</p>
+                                <p class="catalog-item-service-title">{{ service.price }} тг. </p>
                             </div>
                         </div>
                     </div>
+                    {% endif %}
+                    {% endfor %}
 
-                    <div class="swiper-slide">
-                        <div class="catalog-item-service">
-                            <div class="catalog-item-service-header">
-                                <p class="catalog-item-service-title">Название</p>
-                            </div>
-                            <div class="catalog-item-service-img">
-                                <img src="{% static 'front/img/product/1.png' %}" alt="">
-                            </div>
-                            <div class="catalog-item-service-body">
-                                <!-- макс сим. - 100 -->
-                                <p class="catalog-item-service-desc">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет...</p>
-                            </div>
-                            <div class="catalog-item-service-footer">
-                                <a href="" class="button">Оставить заявку</a>
-                                <p class="catalog-item-service-title">5 000 тг</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="catalog-item-service">
-                            <div class="catalog-item-service-header">
-                                <p class="catalog-item-service-title">Название</p>
-                            </div>
-                            <div class="catalog-item-service-img">
-                                <img src="{% static 'front/img/product/1.png' %}" alt="">
-                            </div>
-                            <div class="catalog-item-service-body">
-                                <!-- макс сим. - 100 -->
-                                <p class="catalog-item-service-desc">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет...</p>
-                            </div>
-                            <div class="catalog-item-service-footer">
-                                <a href="" class="button">Оставить заявку</a>
-                                <p class="catalog-item-service-title">5 000 тг</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="catalog-item-service">
-                            <div class="catalog-item-service-header">
-                                <p class="catalog-item-service-title">Название</p>
-                            </div>
-                            <div class="catalog-item-service-img">
-                                <img src="{% static 'front/img/product/1.png' %}" alt="">
-                            </div>
-                            <div class="catalog-item-service-body">
-                                <!-- макс сим. - 100 -->
-                                <p class="catalog-item-service-desc">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет...</p>
-                            </div>
-                            <div class="catalog-item-service-footer">
-                                <a href="" class="button">Оставить заявку</a>
-                                <p class="catalog-item-service-title">5 000 тг</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="swiper-slide">
-                        <div class="catalog-item-service">
-                            <div class="catalog-item-service-header">
-                                <p class="catalog-item-service-title">Название</p>
-                            </div>
-                            <div class="catalog-item-service-img">
-                                <img src="{% static 'front/img/product/1.png' %}" alt="">
-                            </div>
-                            <div class="catalog-item-service-body">
-                                <!-- макс сим. - 100 -->
-                                <p class="catalog-item-service-desc">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет...</p>
-                            </div>
-                            <div class="catalog-item-service-footer">
-                                <a href="" class="button">Оставить заявку</a>
-                                <p class="catalog-item-service-title">5 000 тг</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="swiper-pag-div">
@@ -232,7 +162,7 @@
     <div class="container">
         <div class="catalog-item-filials-div">
             <table>
-                <tbody> 
+                <thead>
                     <tr>
                         <th>Город </th>
                         <th>Адрес </th>
@@ -240,42 +170,26 @@
                         <th>Почта </th>
                         <th>Время работы </th>
                     </tr>
-                    <tr>
-                        <td>Это текст о компании</td>
-                        <td>Это текст о компании</td>
-                        <td>Это текст о компании</td>
-                        <td>Это текст о компании</td>
-                        <td>Это текст о компании</td>
-                    </tr>
-                    <tr>
-                        <td>Это текст о компании</td>
-                        <td>Это текст о компании</td>
-                        <td>Это текст о компании</td>
-                        <td>Это текст о компании</td>
-                        <td>Это текст о компании</td>
-                    </tr>
-                    <tr>
-                        <td>Это текст о компании</td>
-                        <td>Это текст о компании</td>
-                        <td>Это текст о компании</td>
-                        <td>Это текст о компании</td>
-                        <td>Это текст о компании</td>
-                    </tr>
-                    <tr>
-                        <td>Это текст о компании</td>
-                        <td>Это текст о компании</td>
-                        <td>Это текст о компании</td>
-                        <td>Это текст о компании</td>
-                        <td>Это текст о компании</td>
-                    </tr>
-                    <tr>
-                        <td>Это текст о компании</td>
-                        <td>Это текст о компании</td>
-                        <td>Это текст о компании</td>
-                        <td>Это текст о компании</td>
-                        <td>Это текст о компании</td>
-                    </tr>
-                </tbody>
+                </thead>
+                    <tbody>
+
+                                                {% for branch in branches %}
+                                                {% if branch.company_fk == company.pk  %}
+                                                                       <tr>
+                                                                        <td>{{ branch.city }}</td>
+                                                                        <td>{{ branch.address }}</td>
+                                                                        <td>{{ branch.phone }}</td>
+                                                                        <td>{{ branch.email }}</td>
+                                                                        <td>{{ branch.worktime }}</td>
+                                                                       </tr>
+                                                {% elif not branch.pk %}
+                                                   <tr>
+                                                                        <td>Не существует</td>
+
+                                                                       </tr>
+                                                {% endif %}
+                                                {% endfor %}
+                   </tbody>
             </table>
         </div>
     </div>
