@@ -74,6 +74,7 @@
     <div class="container">
         <div class="view1 product-div">
               {% for company in companies %}
+             {% if company.status == company.StatusChoices.ACCEPTED %}
             <div class="product-item premium" data-tilt data-tilt-perspective="5000">
                 <a href="" class="product-img">
                     <img src="{% static 'front/img/product/1.png' %}" alt="">
@@ -95,6 +96,7 @@
                     </button>
                 </div>
             </div>
+            {% endif %}
                {% endfor %}
         </div>
     </div>

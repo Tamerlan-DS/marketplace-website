@@ -97,10 +97,10 @@
             </div>
             <div class="cont-div">
                 <div class="main-cont-form">
-                    <form>
+                    <form action="{% url 'Catalog' %}">
                         <div class="row">
                           <div class="col">
-                            <input type="text" class="form-control" placeholder="Я хочу найти..." required>
+                            <input type="text" class="form-control" placeholder="Я хочу найти..." required name="search">
                           </div>
                           <div class="col-auto">
                             <button type="submit" class="button">

@@ -5,11 +5,37 @@ from django.core.paginator import Paginator
 
 def catalogPageView(request):
 
+    search_query = request.GET.get('search', '')
+
+    if search_query:
+        companies = Company.objects.filter( info__name = search_query)
+    else:
+        print("ne to bratan!")
+        companies = Company.objects.all()
+
+    paginator = Paginator(companies , 10)
+
+
+    page_number =  request.GET.get('page',1)
+    page = paginator.get_page(page_number)
+
+    is_paginated = page.has_other_pages()
+
+    if page.has_previous():
+        prev_url = '?page={}'.format(page.previous_page_number())
+    else:
+        prev_url = ''
+
+    if page.has_next():
+        next_url = '?page={}'.format(page.next_page_number())
+    else:
+        next_url = ''
+
     if request.user.is_authenticated:
         username = request.user.username
     else:
         username = 'anon'
-    companies = Company.objects.all()
+
 
 
     categories = Category.objects.filter(parent__isnull=True).all()
@@ -17,7 +43,10 @@ def catalogPageView(request):
         'username': username,
         'companies': companies,
         'categories': categories,
-        'p' : p,
+        'is_paginated': is_paginated,
+        'next_url': next_url,
+        'prev_url': prev_url,
+
     }
     return render(request, 'front/catalog.html',context=context)
 
