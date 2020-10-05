@@ -47,9 +47,8 @@
             </div>
             <div class="catalog-filter-body">
                 <div class="catalog-filter-body-inner">
-                    <form action="">
+                    <form action="{% url 'Catalog' %}" method="get">
                     <div class="catalog-filter-categories-div">
-
                         {% for category in categories %}
                         <div class="catalog-filter-categories-item">
                             <div>
@@ -57,16 +56,13 @@
                             </div>
                         {% for child in category.childs.all %}
                             <div>
-                                <input type="checkbox" id="{{ category.pk }}" name="filter-category" value="1">
+                                <input type="checkbox" id="{{ category.pk }}" name="filter-category" value="{{ category.pk }}">
                                 <label for="{{ category.pk }}">   {{ child.name }} </label>
                             </div>
                         {% endfor %}
                         </div>
                         {% endfor %}
-
                     </div>
-
-
                     <select data-placeholder="Характеристики..." multiple class="chosen-select" tabindex="8">
                         <option value=""></option>
                         <option>American Black Bear</option>
