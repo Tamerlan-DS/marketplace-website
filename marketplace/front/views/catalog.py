@@ -2,15 +2,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 from company.models import Company, Category, CompanyCategory , Reviews, Services, Branches
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator
+from django.db.models import Q
 
 def catalogPageView(request):
 
     search_query = request.GET.get('search', '')
 
     if search_query:
-        companies = Company.objects.filter( info__name = search_query)
+        companies = Company.objects.filter( Q(info__name = search_query) | Q(info__description = search_query))
     else:
-        print("ne to bratan!")
         companies = Company.objects.all()
 
     paginator = Paginator(companies , 10)
