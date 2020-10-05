@@ -2,24 +2,17 @@ from django.shortcuts import render, redirect, get_object_or_404
 from company.models import Company, Category, CompanyCategory, Reviews, Services, Branches
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator
-<<<<<<< HEAD
 from search.company import search_company
-=======
 from django.db.models import Q
->>>>>>> fb5fa010fdd313817a1fd9b32d58d8d6a0e41c98
 
 
 def catalogPageView(request):
     search_query = request.GET.get('search', '')
 
     if search_query:
-<<<<<<< HEAD
         companies = search_company(
             search_text=search_query,
         )
-=======
-        companies = Company.objects.filter( Q(info__name = search_query) | Q(info__description = search_query))
->>>>>>> fb5fa010fdd313817a1fd9b32d58d8d6a0e41c98
     else:
         companies = Company.objects.all()
 
