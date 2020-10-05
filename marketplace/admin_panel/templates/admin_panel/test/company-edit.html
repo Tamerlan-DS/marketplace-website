@@ -23,3 +23,13 @@
 </form>
 
 <hr/>
+
+<form action="{% url 'company-testedit' company.pk %}" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    <input type="hidden" name="form" value="files">
+    <input type="file" name="banner" value="banner">
+    <input type="file" name="picture" value="picture">
+    <button type="submit">Сохранить</button>
+</form>
+
+<hr/>

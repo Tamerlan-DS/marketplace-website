@@ -118,7 +118,7 @@ def companyEditView(request, company_id):
             name = request.POST['name']
             description = request.POST['description']
             price = request.POST['price']
-            Services.objects.create(name=name,description=description,price= price, company_fk = company.pk)
+            Services.objects.create(name=name, description=description, price=price, company_fk=company.pk)
             return render(request, 'front/catalog-item.html', context=context)
 
         if type == 'branches':
@@ -128,8 +128,15 @@ def companyEditView(request, company_id):
             email = request.POST['email']
             worktime = request.POST['worktime']
 
-            Branches.objects.create(city=city,address=address,phone=phone,email=email,worktime=worktime, company_fk= company.pk)
+            Branches.objects.create(city=city, address=address, phone=phone, email=email, worktime=worktime,
+                                    company_fk=company.pk)
             return render(request, 'admin_panel/admin-company-edit.html', context=context)
+
+        if type == 'files':
+            files = company.files
+            files.banner = request.FILES.get('banner', None)
+            files.picture = request.FILES.get('picture', None)
+            files.save()
 
 
     else:
@@ -143,7 +150,8 @@ def companyEditView(request, company_id):
 def companytestEditView(request, company_id):
     company = get_object_or_404(Company, pk=company_id)
     categories = Category.objects.all()
-    company_categories = Category.objects.filter(pk__in=CompanyCategory.objects.filter(company=company).values_list('category'))
+    company_categories = Category.objects.filter(
+        pk__in=CompanyCategory.objects.filter(company=company).values_list('category'))
     context = {
         'company': company,
         'categories': categories,
@@ -170,8 +178,12 @@ def companytestEditView(request, company_id):
             for category_id in categories_id:
                 category = Category.objects.get(pk=category_id)
                 CompanyCategory(company=company, category=category).save()
-        return render(request, 'front/catalog-item.html', context=context)
 
+        if type == 'files':
+            files = company.files
+            files.banner = request.FILES.get('banner', None)
+            files.picture = request.FILES.get('picture', None)
+            files.save()
 
     else:
         pass
@@ -225,6 +237,7 @@ def companyCategoryEditView(request, category_id):
             context['error'] = 0
     return render(request, 'admin_panel/admin-company-category-edit.html', context=context)
 
+
 @login_required
 @user_is_moder
 def balanceChargeView(request, user_id):
@@ -248,11 +261,12 @@ def newsView(request):
     context = {
         'New': New,
     }
-    return  render(request,'admin_panel/admin-news.html', context=context)
+    return render(request, 'admin_panel/admin-news.html', context=context)
+
 
 @login_required
 @user_is_moder
-def newsEditView(request,news_id):
+def newsEditView(request, news_id):
     new = get_object_or_404(News, pk=news_id)
     context = {
         'new': new,
@@ -266,7 +280,8 @@ def newsEditView(request,news_id):
         New.description = description
         New.text = text
         New.save()
-    return  render(request,'admin_panel/admin-news-edit.html', context=context)
+    return render(request, 'admin_panel/admin-news-edit.html', context=context)
+
 
 @login_required
 @user_is_moder
@@ -277,23 +292,24 @@ def newsAddView(request):
         title = request.POST['title']
         description = request.POST['description']
         text = request.POST['text']
-        New = News.objects.create(title=title,description=description,text=text)
+        New = News.objects.create(title=title, description=description, text=text)
         New.title = title
         New.description = description
         New.text = text
         New.save()
-    return  render(request,'admin_panel/admin-news-add.html', context=context)
+    return render(request, 'admin_panel/admin-news-add.html', context=context)
+
 
 @login_required
 @user_is_moder
-def ReviewsView(request,):
+def ReviewsView(request, ):
     Review = Reviews.objects.all()
     companies = Company.objects.all()
     context = {
-     'companies': companies,
-     'Reviews': Review,
+        'companies': companies,
+        'Reviews': Review,
     }
-    return  render(request,'admin_panel/admin-reviews.html', context=context)
+    return render(request, 'admin_panel/admin-reviews.html', context=context)
 
 
 @login_required
