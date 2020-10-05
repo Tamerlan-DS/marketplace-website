@@ -25,7 +25,6 @@ def search_company(
         'categories',
         # 'properties',
     ).all()
-
     if categories:
         qs = qs.filter(categories__category__in=categories)
     if properties:

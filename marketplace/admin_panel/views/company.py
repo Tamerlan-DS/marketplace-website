@@ -183,8 +183,10 @@ def companytestEditView(request, company_id):
 @user_is_moder
 def companyCategoryView(request):
     categories = Category.objects.all()
+    parents = categories.filter(parent__isnull=True)
     context = {
         'categories': categories,
+        'parents': parents,
     }
     if request.method == 'POST':
         name = request.POST['name']
