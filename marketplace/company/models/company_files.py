@@ -13,7 +13,7 @@ class CompanyFiles(models.Model):
 
 class File(models.Model):
     company_files = models.ForeignKey(CompanyFiles,
-                                      on_delete=models.CASCADE,
+                                          on_delete=models.CASCADE,
                                       related_name='files',
                                       )
     file = models.FileField(upload_to='company_files/files')
