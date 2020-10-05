@@ -77,6 +77,12 @@
                                                 <span>Информация</span>
                                             </a>
                                         </li>
+                                           <li class="nav-item">
+                                            <a class="nav-link d-flex align-items-center" id="account-pill-info" data-toggle="pill" href="#account-vertical-media" aria-expanded="false">
+                                                <i class="bx bx-info-circle"></i>
+                                                <span>Медиа</span>
+                                            </a>
+                                        </li>
                                         <li class="nav-item">
                                             <a class="nav-link d-flex align-items-center " id="account-pill-service" data-toggle="pill" href="#account-vertical-service" aria-expanded="false">
                                                 <i class="bx bx-link"></i>
@@ -374,6 +380,30 @@
                                                          </div>
                                                         </form>
                                                     </div>
+
+                                                    <div class="tab-pane fade" id="account-vertical-media" role="tabpanel" aria-labelledby="account-pill-info" aria-expanded="false">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <div class="media">
+                                                                    <a href="javascript: void(0);">
+                                                                        <img src="{% static 'admin_panel/app-assets/images/portrait/small/avatar-s-16.jpg' %}" class="rounded mr-75" alt="profile image" width="64" height="64">
+                                                                    </a>
+                                                                    <div class="media-body mt-25">
+                                                                        <div class="col-12 px-0 d-flex flex-sm-row flex-column justify-content-start">
+                                                                            <label for="select-files" class="btn btn-sm btn-light-primary ml-50 mb-50 mb-sm-0">
+                                                                                <span>Загрузить аватар</span>
+                                                                                <input id="select-files" type="file" hidden="">
+                                                                            </label>
+                                                                            <button class="btn btn-sm btn-light-secondary ml-50">Удалить</button>
+                                                                        </div>
+                                                                        <p class="text-muted ml-1 mt-50"><small>Разрешено JPG, GIF или PNG. Максимальный размер
+                                                                                800kB</small></p>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
                                             </div>
                                         </div>
                                     </div>
@@ -384,6 +414,7 @@
                         </div>
                 </section>
                 <!-- account setting page ends -->
+
             </div>
         </div>
     </div>
