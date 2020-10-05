@@ -1,22 +1,23 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from company.models import Company, Category, CompanyCategory , Reviews, Services, Branches
+from company.models import Company, Category, CompanyCategory, Reviews, Services, Branches
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator
+from search.company import search_company
+
 
 def catalogPageView(request):
-
     search_query = request.GET.get('search', '')
 
     if search_query:
-        companies = Company.objects.filter( info__name = search_query)
+        companies = search_company(
+            search_text=search_query,
+        )
     else:
-        print("ne to bratan!")
         companies = Company.objects.all()
 
-    paginator = Paginator(companies , 10)
+    paginator = Paginator(companies, 10)
 
-
-    page_number =  request.GET.get('page',1)
+    page_number = request.GET.get('page', 1)
     page = paginator.get_page(page_number)
 
     is_paginated = page.has_other_pages()
@@ -36,8 +37,6 @@ def catalogPageView(request):
     else:
         username = 'anon'
 
-
-
     categories = Category.objects.filter(parent__isnull=True).all()
     context = {
         'username': username,
@@ -48,7 +47,7 @@ def catalogPageView(request):
         'prev_url': prev_url,
 
     }
-    return render(request, 'front/catalog.html',context=context)
+    return render(request, 'front/catalog.html', context=context)
 
 
 def catalogItemPageView(request, company_id):
@@ -72,10 +71,8 @@ def catalogItemPageView(request, company_id):
         name = request.POST['name']
         email = request.POST['email']
         review_text = request.POST['review']
-        Review = Reviews.objects.create(name=name,pk_number=pk,email=email,review=review_text)
+        Review = Reviews.objects.create(name=name, pk_number=pk, email=email, review=review_text)
         Review.save()
-        return render(request, 'front/catalog-item.html',context=context)
+        return render(request, 'front/catalog-item.html', context=context)
 
-
-    return render(request, 'front/catalog-item.html',context=context)
-
+    return render(request, 'front/catalog-item.html', context=context)

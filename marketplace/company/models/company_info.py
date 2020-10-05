@@ -16,3 +16,10 @@ class CompanyInfo(models.Model):
     site = models.TextField(default="")
     worktime = models.TextField(default="")
     adress = models.TextField(default="")
+
+    search_info = models.TextField(default="")
+
+    def save(self):
+        self.search_info = self.name + self.description + self.short_description
+        self.search_info = self.search_info.lower()
+        super(CompanyInfo, self).save()
