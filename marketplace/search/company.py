@@ -23,12 +23,13 @@ def search_company(
         'info',
     ).prefetch_related(
         'categories',
-        # 'properties',
+        'categories_properties',
     ).all()
+
     if categories:
         qs = qs.filter(categories__category__in=categories)
     if properties:
-        qs = qs.filter(properties__in=properties)
+        qs = qs.filter(categories__properties__in=properties)
     if city:
         qs = qs.filter(info__city=city)
 
