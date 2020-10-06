@@ -10,12 +10,12 @@ def catalogPageView(request):
     search_query = request.GET.get('search', None)
     category_ids = request.GET.getlist('filter-category', [])
     categories = Category.objects.filter(Q(id__in=category_ids) | Q(parent__id__in=category_ids))
-
+    print(categories)
     companies = search_company(
         search_text=search_query,
         categories=categories,
     )
-
+    print(companies)
     paginator = Paginator(companies, 10)
 
     page_number = request.GET.get('page', 1)
@@ -74,6 +74,6 @@ def catalogItemPageView(request, company_id):
         review_text = request.POST['review']
         Review = Reviews.objects.create(name=name, pk_number=pk, email=email, review=review_text)
         Review.save()
-        return render(request, 'front/catalog-item.html', context=context)
+        return redirect('Catalog-item',company_id)
 
     return render(request, 'front/catalog-item.html', context=context)

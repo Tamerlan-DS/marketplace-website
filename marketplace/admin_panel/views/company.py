@@ -71,7 +71,7 @@ def companyEditView(request, company_id):
     }
     if request.method == 'POST':
         type = request.POST['form']
-        if type == 'info':
+        if type == 'info' and request.POST['email']:
             name = request.POST['name']
             short_description = request.POST['short_description']
             description = request.POST['description']
@@ -82,7 +82,6 @@ def companyEditView(request, company_id):
             worktime = request.POST['worktime']
             adress = request.POST['adress']
             status = request.POST['status']
-
             company_info = company.info
             company_info.name = name
             company_info.short_description = short_description
@@ -132,11 +131,16 @@ def companyEditView(request, company_id):
                                     company_fk=company.pk)
             return render(request, 'admin_panel/admin-company-edit.html', context=context)
 
+
         if type == 'files':
             files = company.files
-            files.banner = request.FILES.get('banner', None)
-            files.picture = request.FILES.get('picture', None)
+            print('!!!!')
+            print(request.FILES.get('myfile'))
+            print('!!!!')
+            files.picture = request.FILES.get('picture')
+            files.banner = request.FILES.get('banner')
             files.save()
+
 
 
     else:
@@ -337,3 +341,81 @@ def ReviewsEditView(request, Review_id):
         return render(request, 'admin_panel/admin-reviews-edit.html', context=context)
 
     return render(request, 'admin_panel/admin-reviews-edit.html', context=context)
+
+
+@login_required
+@user_is_moder
+def TarifView(request,company_id):
+    company = get_object_or_404(Company, pk=company_id)
+    tarifes=Tarif.objects.all()
+    if request.method == 'POST':
+        company_tarifes = CompanyTarif.objects.filter(company=company)
+        tarif_id = request.POST.getlist('tarif')
+        print(tarif_id)
+        for company_tarif in company_tarifes:
+            company_tarif.delete()
+        for tarify in tarif_id:
+            tarif=Tarif.objects.get(pk=tarify)
+            CompanyTarif(company=company,tarif=tarif).save()
+
+    context = {
+        'company':company,
+        'tarifes':tarifes,
+    }
+    return render(request, 'admin_panel/admin-tarif.html', context=context)
+
+@login_required
+@user_is_moder
+def TarifAddView(request):
+
+    if request.method == 'POST':
+        name = request.POST['name']
+        price = request.POST['price']
+        timeleft = request.POST['timeleft']
+        tarif = Tarif.objects.create(name=name,price=price,timeleft=timeleft)
+    context = {
+    }
+    return render(request, 'admin_panel/admin-tarif-add.html', context=context)
+
+@login_required
+@user_is_moder
+def BalanceView(request):
+    user = request.user
+    company = Company.objects.get(owner=user)
+    company_tarifes = CompanyTarif.objects.filter(company=company)
+    try:
+        balance = user.balance
+    except Balance.DoesNotExist:
+        balance = Balance(owner=user)
+        balance.save()
+    if request.method == 'POST':
+        type = request.POST['charge']
+        if type=='charge':
+            if(company.charged==False):
+               for company_tarif in company_tarifes:
+                   print(user.balance.value)
+                   local_time = company_tarif.tarif.timeleft
+                   print(company.status)
+                   company.charged = True
+                   company.save()
+                   Charge(company_tarif,user)
+
+
+
+    context = {
+        'balance':balance,
+        'user': user,
+        'company': company,
+    }
+    return render(request, 'admin_panel/admin-balance.html', context=context)
+
+
+def Charge(company_tarif,user):
+
+    tarif_price = company_tarif.tarif.price
+    user.balance.value = user.balance.value - tarif_price
+    user.save()
+
+
+    return
+

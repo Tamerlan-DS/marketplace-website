@@ -83,8 +83,11 @@
                                                       <td><span class="badge badge-light-success ">{{ company.status }}</span></td>
                                                       {% elif company.status == company.StatusChoices.BANNED %}
                                                       <td><span class="badge badge-light-dark ">{{ company.status }}</span></td>
+                                                      {% elif company.status == company.StatusChoices.CLOSED %}
+                                                      <td><span class="badge badge-light-dark ">{{ company.status }}</span></td>
                                                       {% endif %}
                                                       <td><a href="{% url 'company-edit' company.pk %}"><i class="bx bx-edit-alt"></i></a></td>
+                                                      <td><a href="{% url 'tarif' company.pk %}"><i class="bx bx-edit-alt"></i></a></td>
                                                 </tr>
                                                   {% endfor %}
                                             </tbody>

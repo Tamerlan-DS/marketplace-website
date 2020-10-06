@@ -17,10 +17,10 @@
     <div class="container">
         <div class="catalog-item-header">
             <div class="catalog-item-logo">
-                <img src="{% static 'front/img/product/3.png' %}" alt="">
+                <img src="/media/{{ company.files.picture }}" alt="">
             </div>
             <div class="catalog-item-banner">
-                <img src="{% static 'front/img/product/2.png' %}" alt="">
+                <img src="/media/{{ company.files.banner }}" alt="">
 
                 <div class="info">
                     <h3>{{ company.info.name }}</h3>{% for company_category in company.categories.all %}
@@ -29,8 +29,15 @@
                 </div>
 
                 <p class="catalog-item-id">Id: 0000100</p>
+  {% for tarif in company.tarifes.all %}
+            {% if tarif.tarif.name == 'PREMIUM' %}
+         <div class="catalog-item-premium active">premium</div>
+                {% else %}
+         <div class="catalog-item-premium ">premium</div>
+                   {% endif %}
+                {% endfor%}
 
-                <div class="catalog-item-premium active">premium</div>
+
             </div>
         </div>
 

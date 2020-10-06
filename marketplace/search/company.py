@@ -23,7 +23,6 @@ def search_company(
         'info',
     ).prefetch_related(
         'categories',
-        'categories_properties',
     ).all()
 
     if categories:

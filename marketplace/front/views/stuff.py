@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from company.models import Company
+from company.models import Company, Category
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 
@@ -41,3 +41,9 @@ def mobileSearchPageView(request):
         'username': username,
     }
     return render(request, 'front/mobile-search.html',context=context)
+
+
+def RegisterView(request):
+    context = {
+     }
+    return render(request, 'front/auth-register.html', context=context)

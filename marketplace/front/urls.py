@@ -13,6 +13,8 @@ urlpatterns = [
     path('error', errorPageView, name='error'),
     path('black-list', blacklistPageView, name='black-list'),
     path('favourites', favouritesPageView, name='favourites'),
+    path('auth-register', RegisterView, name='auth-register'),
+
 
     path('mobile-search', mobileSearchPageView, name='mobile-search'),
 

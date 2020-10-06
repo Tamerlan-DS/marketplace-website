@@ -15,11 +15,15 @@ urlpatterns = [
     path('login', loginView, name='login'),
     path('logout', logoutView, name='logout'),
 
+
     path('employees', employeesView, name='employees'),
     path('employee-add', employeeAddView, name='employee-add'),
     path('employee-edit/<int:employee_card_id>', employeeEditView, name='employee-edit'),
 
     path('balance-charge/<int:user_id>', balanceChargeView, name='balance-charge'),
+    path('select-tarif/<int:company_id>', TarifView, name='tarif'),
+    path('tarif-add', TarifAddView, name='tarif-add'),
+    path('my-balance', BalanceView, name='my-balance'),
 
     path('takeout/company/<int:company_id>', companyTakeoutView, name='takeout-company'),
 

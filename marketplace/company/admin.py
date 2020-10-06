@@ -24,3 +24,6 @@ admin.site.register(Reviews)
 
 admin.site.register(Services)
 admin.site.register(Branches)
+admin.site.register(Tarif)
+admin.site.register(CompanyTarif)
+admin.site.register(CompanyCategory)

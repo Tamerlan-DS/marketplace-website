@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'company_panel',
     'search',
     'front',
+    'background_task',
 ]
 
 MIDDLEWARE = [
