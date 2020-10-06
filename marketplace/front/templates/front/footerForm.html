@@ -11,7 +11,7 @@
                     <p>Будьте в курсе самых лучших предложений и свежих новостей</p>
                 </div>
                 <form class="form-footer">
-                    <input class="form-search-footer" type="search" placeholder="Электронная почта" aria-label="Search">
+                    <input class="form-search-footer" type="email" placeholder="Электронная почта" aria-label="Search">
                     <button class="submit-search-footer" type="submit">Подписатся</button>
                 </form>
                 <div class="soc-div">
@@ -102,6 +102,29 @@
             </div>
         </div>
     </div>
+<!-- Modal -->
+ <div class="modal fade modal-subscribe-kran" id="subscribe-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <img src="{% static 'front/img/icons/modal-close.svg' %}" alt="">
+            </button>
+
+            <div class="modal-body">
+                <svg width="46" height="46" viewBox="0 0 46 46" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M44.6854 6.2885C44.0087 5.61063 42.9108 5.60946 42.2341 6.28562L21.4359 27.0289L13.9319 18.8789C13.2835 18.1751 12.1872 18.1295 11.4822 18.7778C10.7778 19.4262 10.7327 20.523 11.3811 21.2274L20.1072 30.7043C20.4268 31.0516 20.8741 31.2533 21.3456 31.2631C21.3583 31.2636 21.3705 31.2636 21.3827 31.2636C21.841 31.2636 22.2818 31.0816 22.6066 30.758L44.682 8.74043C45.3604 8.06435 45.3616 6.96637 44.6854 6.2885Z" fill="#ffce00"/>
+                    <path d="M44.2663 21.2663C43.3087 21.2663 42.5327 22.0424 42.5327 23C42.5327 33.7707 33.7707 42.5327 23 42.5327C12.2299 42.5327 3.46734 33.7707 3.46734 23C3.46734 12.2299 12.2299 3.46734 23 3.46734C23.9576 3.46734 24.7337 2.69127 24.7337 1.73371C24.7337 0.77607 23.9576 0 23 0C10.3177 0 0 10.3177 0 23C0 35.6818 10.3177 46 23 46C35.6818 46 46 35.6818 46 23C46 22.0424 45.2239 21.2663 44.2663 21.2663Z" fill="#ffce00"/>
+                    </svg>
+
+                <p class="modal-subscribe-title text-center">Вы успешно подписались на новости</p>
+                <button class="button button1 w-100"  data-dismiss="modal" aria-label="Close">ОК</button>
+            </div>
+
+        </div>
+
+    </div>
+</div>
 
 </footer>
 

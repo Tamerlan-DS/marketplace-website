@@ -2469,3 +2469,15 @@ footer{
     left: 60px;
     z-index: 2;
 }
+
+.modal-subscribe-kran .modal-dialog {
+    max-width: 300px;
+    margin: 30px auto;
+}
+
+.modal-subscribe-kran svg{
+	width: 60px;
+	height: 60px;
+	display: block;
+	margin: 20px auto;
+}
