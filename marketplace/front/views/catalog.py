@@ -10,12 +10,16 @@ def catalogPageView(request):
     search_query = request.GET.get('search', None)
     category_ids = request.GET.getlist('filter-category', [])
     categories = Category.objects.filter(Q(id__in=category_ids) | Q(parent__id__in=category_ids))
+
     print(categories)
     companies = search_company(
         search_text=search_query,
         categories=categories,
     )
-    print(companies)
+    company_number = search_company(
+        search_text=search_query,
+        categories=categories,
+    ).count()
     paginator = Paginator(companies, 2)
 
     page_number = request.GET.get('page', 1)
@@ -46,6 +50,7 @@ def catalogPageView(request):
         'is_paginated': is_paginated,
         'next_url': next_url,
         'prev_url': prev_url,
+        'number_of_companies': company_number,
 
     }
     return render(request, 'front/catalog.html', context=context)

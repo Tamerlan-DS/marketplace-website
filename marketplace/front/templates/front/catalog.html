@@ -23,11 +23,11 @@
             <div>
                 <h3>Компании в Казахстане</h3>
 
-                <p class="text">Найдено 1863 компаний</p>
+                <p class="text">Найдено {{number_of_companies}} компаний</p>
             </div>
 
             <div>
-                <a href="" class="button-r">Добавить Компанию <img src="{% static 'front/img/icons/add-company.svg' %}" alt=""></a>
+                <a href="{% url 'auth-register' %}" class="button-r">Добавить Компанию <img src="{% static 'front/img/icons/add-company.svg' %}" alt=""></a>
             </div>
         </div>
     </div>

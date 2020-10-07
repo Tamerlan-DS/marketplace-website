@@ -19,7 +19,7 @@ def search_company(
         properties=None,
         city=None,
 ):
-    qs = Company.objects.select_related(
+    qs = Company.objects.filter(status='ACCEPTED').select_related(
         'info',
     ).prefetch_related(
         'categories',

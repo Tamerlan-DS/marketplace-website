@@ -7,7 +7,8 @@ def FrontPageView(request):
     else:
         username = 'anon'
     categories = Category.objects.all()
-    companies = Company.objects.all()
+    companies = Company.objects.filter(status='ACCEPTED')
+    print(companies)
     context = {
         'username': username,
         'companies': companies,
