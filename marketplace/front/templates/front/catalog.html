@@ -85,7 +85,7 @@
 <section>
     <div class="container">
         <div class="view2 product-div">
-                 {% for company in companies %}
+                 {% for company in companies.object_list %}
             {% if company.status == company.StatusChoices.ACCEPTED %}
              {% for tarif in company.tarifes.all %}
             {% if tarif.tarif.name == 'PREMIUM' %}
@@ -117,8 +117,35 @@
             {% endif %}
             {% endfor %}
         </div>
+     </div>
+        {% if is_paginated %}
+     <div class="pagination">
+            <div class="pagination-div">
+                <a href="{%if not prev_url %} {% endif %}{{ prev_url }}" class="arrow">
+                    <svg width="4" height="7" viewBox="0 0 4 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M4 0.763326L1.52663 3.23669L4 5.71006L3.2367 6.47339L3.79899e-07 3.23669L3.2367 -2.89439e-06L4 0.763326Z"/>
+                    </svg>
+                </a>
+                <div class="pagination-pages">
+                    {% for n in companies.paginator.page_range %}
+                        {% if companies.number == n %}
+                             <a href="?page={{ n }}"> <div class="pagination-pages-item active">{{ n }}</div></a>
+                        {% elif n > companies.number|add:-3 and n < companies.number|add:3 %}
+                               <a href="?page={{ n }}"> <div class="pagination-pages-item ">{{ n }}</div></a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <a href="{%if not next_url %} {% endif %}{{ next_url }}" class="arrow">
+                    <svg width="4" height="7" viewBox="0 0 4 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M-2.49595e-07 0.763326L2.47337 3.23669L-3.33662e-08 5.71006L0.763304 6.47339L4 3.23669L0.763304 -2.89439e-06L-2.49595e-07 0.763326Z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
     </div>
+    {% endif %}
 </section>
+
 
 
 

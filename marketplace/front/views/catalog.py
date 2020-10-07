@@ -16,7 +16,7 @@ def catalogPageView(request):
         categories=categories,
     )
     print(companies)
-    paginator = Paginator(companies, 10)
+    paginator = Paginator(companies, 2)
 
     page_number = request.GET.get('page', 1)
     page = paginator.get_page(page_number)
@@ -41,7 +41,7 @@ def catalogPageView(request):
     categories = Category.objects.filter(parent__isnull=True).all()
     context = {
         'username': username,
-        'companies': companies,
+        'companies': page,
         'categories': categories,
         'is_paginated': is_paginated,
         'next_url': next_url,

@@ -35,52 +35,43 @@
     <div class="container">
      <h2>Новости</h2>
         <div class="news-div">
-            {% for news in New %}
+            {% for new in News.object_list %}
 
             <div class="news-item">
-                 <a href="{% url 'news-item' news.pk %}" class="news-img">
+                 <a href="{% url 'news-item' new.pk %}" class="news-img">
                     <img src="{% static 'front/img/news/1.png' %} " alt="">
                  </a>
                 <div class="news-body">
                     <p class="news-date">Октябрь 20, 2020</p>
-                    <a href="{% url 'news-item' news.pk %}" class="news-name">{{ news.title}}</a>
+                    <a href="{% url 'news-item' new.pk %}" class="news-name">{{ new.title}}</a>
                     <!-- макс сим. - 100 -->
-                    <p class="news-desc">{{ news.description }} </p>
+                    <p class="news-desc">{{ new.description }} </p>
                     <div class="news-footer">
-                        <a href="{% url 'news-item' news.pk %}" class="news-link">Читать больше</a>
+                        <a href="{% url 'news-item' new.pk %}" class="news-link">Читать больше</a>
                     </div>
 
                 </div>
             </div>
         {% endfor %}
         </div>
-
+{% if is_paginated %}
         <div class="pagination">
             <div class="pagination-div">
-                <a href="" class="arrow">
+                <a href="{%if not prev_url %} {% endif %}{{ prev_url }}" class="arrow">
                     <svg width="4" height="7" viewBox="0 0 4 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M4 0.763326L1.52663 3.23669L4 5.71006L3.2367 6.47339L3.79899e-07 3.23669L3.2367 -2.89439e-06L4 0.763326Z"/>
                     </svg>
                 </a>
                 <div class="pagination-pages">
-                    <!-- тут может быть максимум 5 пунктов. -->
-                    <div class="pagination-pages-item active">
-                        1
-                    </div>
-                    <div class="pagination-pages-item">
-                        2
-                    </div>
-                    <div class="pagination-pages-item">
-                        3
-                    </div>
-                    <div class="pagination-pages-item">
-                        ...
-                    </div>
-                    <div class="pagination-pages-item">
-                        10
-                    </div>
+                    {% for n in News.paginator.page_range %}
+                        {% if News.number == n %}
+                             <a href="?page={{ n }}"> <div class="pagination-pages-item active">{{ n }}</div></a>
+                        {% elif n > News.number|add:-3 and n < News.number|add:3 %}
+                               <a href="?page={{ n }}"> <div class="pagination-pages-item ">{{ n }}</div></a>
+                        {% endif %}
+                    {% endfor %}
                 </div>
-                <a href="" class="arrow">
+                <a href="{%if not next_url %} {% endif %}{{ next_url }}" class="arrow">
                     <svg width="4" height="7" viewBox="0 0 4 7" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M-2.49595e-07 0.763326L2.47337 3.23669L-3.33662e-08 5.71006L0.763304 6.47339L4 3.23669L0.763304 -2.89439e-06L-2.49595e-07 0.763326Z"/>
                     </svg>                        
@@ -88,6 +79,7 @@
             </div>
         </div>
     </div>
+    {% endif %}
 </section>
 
 
