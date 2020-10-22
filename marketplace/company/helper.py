@@ -13,12 +13,8 @@ def genFakeId():
     companies = CompanyInfo.objects.all()
     fakeid = random.randint(0, 2)
     for c in companies:
-        print(c.fake_id)
         if(fakeid == c.fake_id):
             fakeid = random.randint(0, 2)
-            print(fakeid)
-            print('poshel nahoy!')
-
     return fakeid
 
 

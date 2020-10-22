@@ -10,8 +10,6 @@ def catalogPageView(request):
     search_query = request.GET.get('search', None)
     category_ids = request.GET.getlist('filter-category', [])
     categories = Category.objects.filter(Q(id__in=category_ids) | Q(parent__id__in=category_ids))
-
-    print(categories)
     companies = search_company(
         search_text=search_query,
         categories=categories,
