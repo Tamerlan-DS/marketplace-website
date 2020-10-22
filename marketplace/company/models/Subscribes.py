@@ -1,9 +1,9 @@
 from django.db import models
+from datetime import datetime
 
-
-class Email(models.Model):
+class Subscribes(models.Model):
     email = models.EmailField(default="")
     date = models.DateTimeField(
+        default=datetime.now,
         blank=True,
-        null=True,
     )

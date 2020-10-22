@@ -10,9 +10,10 @@
                 <div>
                     <p>Будьте в курсе самых лучших предложений и свежих новостей</p>
                 </div>
-                <form class="form-footer">
-                    <input class="form-search-footer" type="email" placeholder="Электронная почта" aria-label="Search">
-                    <button class="submit-search-footer" type="submit">Подписатся</button>
+                <form action="{% url 'FrontPage' %}" class="form-footer" method="post">
+                    {% csrf_token %}
+                    <input class="form-search-footer" name="email" type="email" placeholder="Электронная почта" aria-label="Search">
+                    <button class="submit-search-footer" type="submit">Подписаться</button>
                 </form>
                 <div class="soc-div">
                     <a href="" class="soc-item">
@@ -125,21 +126,6 @@
 
     </div>
 </div>
-
 </footer>
-
-<script>
-    var myArray = [];
-    $(".like-btn").click(function(){
-      var buttonValue = $(this).val();
-       myArray.push(buttonValue)
-        $.ajax({
-         url: '{% url 'favourites' %}',
-         type: 'POST',
-         data: {'arr': myArray},
-        });
-    });
-
-</script>
 
 {% endblock footer %}

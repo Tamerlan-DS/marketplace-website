@@ -25,6 +25,7 @@ class Company(models.Model):
                               default=StatusChoices.CLOSED,
                               )
 
+
 class CompanyTarif(models.Model):
     company = models.ForeignKey(Company,
                                 on_delete=models.CASCADE,

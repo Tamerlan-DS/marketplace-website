@@ -13,6 +13,48 @@
 {% block header %}
 {% include 'front/headerForm.html' %}
 {% endblock %}
+
+<!-- Modal call -->
+<div class="modal fade" id="call-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <img src="img/icons/modal-close.svg" alt="">
+        </button>
+        <div class="modal-body">
+            <h3>Оставить заявку компании</h3>
+
+            <form action="{% url 'mailer' %}" class="contact-page-form def-form" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <label for="name">Имя*</label>
+                        <input type="text" required="" name="name" placeholder="Напишите ваше имя">
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <label for="name">Телефон*</label>
+                        <input type="text" required="" class="phone" name="phone" placeholder="Напишите ваш телефон">
+                    </div>
+                    <div class="col-12">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" placeholder="Напишите ваш email">
+                    </div>
+                    <div class="col-12">
+                        <label for="review">Комментарий</label>
+                        <textarea name="text" id="" rows="5" placeholder="Ваш комментарий"></textarea>
+                    </div>
+                    <input type="hidden" name="companyemail" value="{{ company.info.email }}">
+                    <input type="hidden" name="compid" value="{{ company.pk }}">
+                    <div class="col-md-12 col-12">
+                        <button type="submit" class="button">Отправить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+
 <section>
     <div class="container">
         <div class="catalog-item-header">
@@ -46,7 +88,7 @@
                 <h2>Описание</h2>
 
                 <p class="text">{{company.info.description}} </p>
-
+                <div class="button my-4" data-toggle="modal" data-target="#call-modal">Оставить заявку на консультацию</div>
                 <a href="" class="cataog-item-character">Характеристика 1</a>
                 <a href="" class="cataog-item-character">Характеристика 1</a>
                 <a href="" class="cataog-item-character">Характеристика 1</a>

@@ -2481,3 +2481,42 @@ footer{
 	display: block;
 	margin: 20px auto;
 }
+
+#no-search{
+    margin: -50px 0px 0px;
+    background: url("../img/icons/no-search-bg.svg") center no-repeat;
+    background-size: contain;
+}
+
+.no-search{
+    display: grid;
+    justify-content: center;
+    justify-items: center;
+    align-content: center;
+    align-items: center;
+    height: 100vh;
+    padding-top: 50px;
+}
+
+.no-search img{
+    width: 300px;
+    margin: 50px auto;
+}
+
+.no-search-title{
+    font-family: Rubik;
+    font-size: 30px;
+    line-height: 149.8%;
+    color: #000000;
+    margin: 0px;
+    text-align: center;
+}
+
+@media all and (max-width:768px){
+    .no-search-title {
+        font-size: 24px;
+    }
+    .no-search {
+        padding-top: 0px;
+    }
+}

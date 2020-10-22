@@ -14,6 +14,8 @@ urlpatterns = [
     path('black-list', blacklistPageView, name='black-list'),
     path('favourites', favouritesPageView, name='favourites'),
     path('auth-register', RegisterView, name='auth-register'),
+    path('mailer', mailerView, name='mailer'),
+    path('subscribe', SubscribeView, name='subscribe'),
 
 
     path('mobile-search', mobileSearchPageView, name='mobile-search'),

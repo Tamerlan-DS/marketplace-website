@@ -1,5 +1,5 @@
 from .models import *
-
+import random
 
 def create_company(owner, name):
     company = Company.objects.create(owner=owner)
@@ -9,8 +9,22 @@ def create_company(owner, name):
     create_company_files(company)
 
 
+def genFakeId():
+    companies = CompanyInfo.objects.all()
+    fakeid = random.randint(0, 2)
+    for c in companies:
+        print(c.fake_id)
+        if(fakeid == c.fake_id):
+            fakeid = random.randint(0, 2)
+            print(fakeid)
+            print('poshel nahoy!')
+
+    return fakeid
+
+
 def create_company_info(company, name):
-    company_info = CompanyInfo.objects.create(company=company, name=name)
+    fake = genFakeId()
+    company_info = CompanyInfo.objects.create(company=company, name=name, fake_id=fake)
     company_info.save()
 
 
@@ -38,3 +52,4 @@ def add_Services(Services):
 def add_branches(branches):
     branches = branches.objects.create(branches=branches)
     branches.save()
+

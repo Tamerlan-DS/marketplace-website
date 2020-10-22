@@ -235,21 +235,20 @@
 </section>
 
 
+
     {% block footer %}
     {% include 'front/footerForm.html' %}
     {% endblock footer %}
 
-
-
-
-
-
-
-
-
 {% block jsLoad %}
 {% include 'front/jsLoader.html' %}
 {% endblock jsLoad %}
+
+    {% if error == 0 %}
+    <script>
+    $('#subscribe-modal').modal('show')
+    </script>
+    {% endif %}
 
 </body>
 </html>

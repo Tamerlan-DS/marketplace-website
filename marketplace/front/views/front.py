@@ -1,20 +1,28 @@
 from django.shortcuts import render
-from company.models import Company, Category
+from company.models import Company, Category, Subscribes
+from django.http import HttpResponse, HttpResponseRedirect
 
 def FrontPageView(request):
     if request.user.is_authenticated:
         username = request.user.username
     else:
         username = 'anon'
+
+
+
     categories = Category.objects.all()
     companies = Company.objects.filter(status='ACCEPTED')
-    print(companies)
     context = {
         'username': username,
         'companies': companies,
         'categories': categories,
 
     }
+    if request.method == 'POST':
+        email = request.POST['email']
+        Subscribes.objects.create(email=email)
+        context['error'] = 0
+        return render(request, 'front/index.html', context=context)
 
     return render(request, 'front/index.html',context=context)
 

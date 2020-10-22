@@ -1,7 +1,8 @@
-from django.shortcuts import render
-from company.models import Company, Category
-from django.http import HttpResponse
+from django.shortcuts import render,redirect
+from company.models import Company, Category, Subscribes
+from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
+from django.core.mail import send_mail
 
 def blacklistPageView(request):
     companies = Company.objects.all()
@@ -47,3 +48,32 @@ def RegisterView(request):
     context = {
      }
     return render(request, 'front/auth-register.html', context=context)
+
+def mailerView(request):
+    if request.method == 'POST':
+        name = request.POST['name']
+        phone = request.POST['phone']
+        email = request.POST['email']
+        text = request.POST['text']
+        comp_id = request.POST['compid']
+        company_email = request.POST['companyemail']
+        send_mail('Заявка с сайта Topbuild',
+                  'Имя отправителя: ' + name + '\n' +
+                  'Телефон: ' + phone + '\n' +
+                  'Email: ' + email + '\n' +
+                  text
+                  ,
+                  'ttopbild@mail.ru',
+                  [company_email],
+                  fail_silently=False,
+                  )
+
+    return redirect('Catalog-item',comp_id)
+
+
+def SubscribeView(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        Subscribes.objects.create(email=email)
+
+    return HttpResponseRedirect('./')

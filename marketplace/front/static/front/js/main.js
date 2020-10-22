@@ -1,6 +1,25 @@
 new WOW().init();
 
+var $star_rating = $('.star-rating span');
 
+var SetRatingStar = function() {
+  return $star_rating.each(function() {
+    if (parseInt($star_rating.siblings('input.rating-value').val()) >= parseInt($(this).data('rating'))) {
+      return $(this).removeClass('disactive').addClass('active');
+    } else {
+      return $(this).removeClass('active').addClass('disactive');
+    }
+  });
+};
+
+$star_rating.on('click', function() {
+  $star_rating.siblings('input.rating-value').val($(this).data('rating'));
+  return SetRatingStar();
+});
+
+SetRatingStar();
+$(document).ready(function() {
+});
 
 
 $(function() {
@@ -156,6 +175,7 @@ burger.addEventListener('click', function(e){
 
 
 
+
 //Ymap start
 var spinner = $('.ymap-container').children('.loader');
 var check_if_load = 0;
@@ -262,6 +282,12 @@ var ymap = function() {
 $(function() {
   ymap();
 });
+
+
+
+
+
+
 
 
 
