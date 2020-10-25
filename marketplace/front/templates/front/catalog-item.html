@@ -19,7 +19,7 @@
     <div class="modal-dialog modal-lg">
     <div class="modal-content">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <img src="img/icons/modal-close.svg" alt="">
+            <img src="{% static 'front/img/icons/modal-close.svg' %}" alt="">
         </button>
         <div class="modal-body">
             <h3>Оставить заявку компании</h3>
@@ -161,25 +161,26 @@
     </div>
 </section>
 
-
+  {% if isServices == 1 %}
 <section>
     <div class="container">
-
         <h2>Услуги</h2>
 
         <div class="catalog-item-services-div">
             <!-- Swiper -->
+
             <div class="swiper-container catalog-item-services">
                 <div class="swiper-wrapper">
-                  {% for service in services %}
-                      {% if service.company_fk == company.pk %}
+
                     <div class="swiper-slide">
+                          {% for service in services %}
+                      {% if service.company_fk == company.pk %}
                         <div class="catalog-item-service">
                             <div class="catalog-item-service-header">
                                 <p class="catalog-item-service-title">{{ service.name }}</p>
                             </div>
                             <div class="catalog-item-service-img">
-                                <img src="{% static 'front/img/product/1.png' %}" alt="">
+                                <img src="/media/{{ service.image }}" alt="">
                             </div>
                             <div class="catalog-item-service-body">
                                 <!-- макс сим. - 100 -->
@@ -190,9 +191,10 @@
                                 <p class="catalog-item-service-title">{{ service.price }} тг. </p>
                             </div>
                         </div>
+
                     </div>
-                    {% endif %}
-                    {% endfor %}
+     {% endif %}
+                        {% endfor %}
 
                 </div>
 
@@ -201,14 +203,19 @@
                     <div class="swiper-pagination"></div>
                     <div class="swiper-button-next"><img src="{% static 'front/img/icons/swiper-prev.svg' %}" alt=""></div>
                 </div>
+
+
             </div>
+
         </div>
     </div>
 </section>
+ {% endif %}
 
-
+   {% if isReview == 1 %}
 <section>
     <div class="container">
+
         <div class="catalog-item-filials-div">
             <table>
                 <thead>
@@ -243,7 +250,7 @@
         </div>
     </div>
 </section>
-
+{% endif %}
 
 
 <section>
@@ -337,18 +344,20 @@
             <!-- Swiper -->
             <div class="swiper-container view1 catalog-item-services">
                 <div class="swiper-wrapper">
+                    {% for c in companies %}
                     <div class="swiper-slide">
                         <div class="product-item" data-tilt data-tilt-perspective="5000">
                             <a href="" class="product-img">
                                 <img src="{% static 'front/img/product/1.png' %}" alt="">
                             </a>
                             <div class="product-body">
-                                <a href="" class="product-name">BI Group</a>
-                                <a href="" class="product-cotegory">Строительство жилых домов</a>
-            
-            
+                                <a href="{% url 'Catalog-item' c.pk %}" class="product-name">{{c.info.name}}</a>
+                                {% for company_category in company.categories.all %} <a href="?filter-category={{ company_category.pk }}" class="product-cotegory">
+                                 {{ company_category.category.name }}
+                                </a>
+                                  {% endfor %}
                                 <!-- макс сим. - 100 -->
-                                <p class="product-desc">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет...</p>
+                                <p class="product-desc">{{c.info.description}}</p>
                             </div>
                             <div class="product-footer">
                                 <a href="" class="button">Подробнее</a>
@@ -358,100 +367,8 @@
                                 </button>
                             </div>
                         </div>
-                        
                     </div>
-                    <div class="swiper-slide">
-                        <div class="product-item" data-tilt data-tilt-perspective="5000">
-                            <a href="" class="product-img">
-                                <img src="{% static 'front/img/product/1.png' %}" alt="">
-                            </a>
-                            <div class="product-body">
-                                <a href="" class="product-name">BI Group</a>
-                                <a href="" class="product-cotegory">Строительство жилых домов</a>
-            
-            
-                                <!-- макс сим. - 100 -->
-                                <p class="product-desc">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет...</p>
-                            </div>
-                            <div class="product-footer">
-                                <a href="" class="button">Подробнее</a>
-                                <button class="like-btn favorite">
-                                    <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
-                                    <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
-                                </button>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-item" data-tilt data-tilt-perspective="5000">
-                            <a href="" class="product-img">
-                                <img src="{% static 'front/img/product/1.png' %}" alt="">
-                            </a>
-                            <div class="product-body">
-                                <a href="" class="product-name">BI Group</a>
-                                <a href="" class="product-cotegory">Строительство жилых домов</a>
-            
-            
-                                <!-- макс сим. - 100 -->
-                                <p class="product-desc">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет...</p>
-                            </div>
-                            <div class="product-footer">
-                                <a href="" class="button">Подробнее</a>
-                                <button class="like-btn favorite">
-                                    <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
-                                    <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
-                                </button>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-item" data-tilt data-tilt-perspective="5000">
-                            <a href="" class="product-img">
-                                <img src="{% static 'front/img/product/1.png' %}" alt="">
-                            </a>
-                            <div class="product-body">
-                                <a href="" class="product-name">BI Group</a>
-                                <a href="" class="product-cotegory">Строительство жилых домов</a>
-            
-            
-                                <!-- макс сим. - 100 -->
-                                <p class="product-desc">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет...</p>
-                            </div>
-                            <div class="product-footer">
-                                <a href="" class="button">Подробнее</a>
-                                <button class="like-btn favorite">
-                                    <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
-                                    <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
-                                </button>
-                            </div>
-                        </div>
-                        
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-item" data-tilt data-tilt-perspective="5000">
-                            <a href="" class="product-img">
-                                <img src="{% static 'front/img/product/1.png' %}" alt="">
-                            </a>
-                            <div class="product-body">
-                                <a href="" class="product-name">BI Group</a>
-                                <a href="" class="product-cotegory">Строительство жилых домов</a>
-            
-            
-                                <!-- макс сим. - 100 -->
-                                <p class="product-desc">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет...</p>
-                            </div>
-                            <div class="product-footer">
-                                <a href="" class="button">Подробнее</a>
-                                <button class="like-btn favorite">
-                                    <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
-                                    <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
-                                </button>
-                            </div>
-                        </div>
-                        
-                    </div>
+     {% endfor %}
                 </div>
 
                 <div class="swiper-pag-div">

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from company.helper import *
-from company.models import Company, Category, CompanyCategory, news, Reviews, Services, branches
+from company.models import Company, Category, CompanyCategory, news, Reviews, Services, branches, Subscribes, CompanyFiles, File
 from admin_panel.models import Card
 from django.contrib.auth.decorators import login_required
 from admin_panel.decorators import *
@@ -101,7 +101,7 @@ def companyEditView(request, company_id):
                 company.status = company.StatusChoices.BANNED
             company_info.save()
             company.save()
-            return render(request, 'front/catalog-item.html', context=context)
+            return render(request, 'admin_panel/admin-company-edit.html', context=context)
 
         if type == 'category':
             categories_id = request.POST.getlist('categories')
@@ -111,14 +111,15 @@ def companyEditView(request, company_id):
             for category_id in categories_id:
                 category = Category.objects.get(pk=category_id)
                 CompanyCategory(company=company, category=category).save()
-            return render(request, 'front/catalog-item.html', context=context)
+            return render(request, 'admin_panel/admin-company-edit.html', context=context)
 
         if type == 'service':
             name = request.POST['name']
             description = request.POST['description']
             price = request.POST['price']
-            Services.objects.create(name=name, description=description, price=price, company_fk=company.pk)
-            return render(request, 'front/catalog-item.html', context=context)
+            image = request.FILES.get('image')
+            Services.objects.create(name=name, description=description, price=price, company_fk=company.pk,image=image)
+            return render(request, 'admin_panel/admin-company-edit.html', context=context)
 
         if type == 'branches':
             city = request.POST['city']
@@ -134,14 +135,15 @@ def companyEditView(request, company_id):
 
         if type == 'files':
             files = company.files
-            print('!!!!')
-            print(request.FILES.get('myfile'))
-            print('!!!!')
             files.picture = request.FILES.get('picture')
             files.banner = request.FILES.get('banner')
             files.save()
 
-
+        if type == 'files_core':
+            file = company.files
+            post_file = request.FILES.get('files')
+            note = request.POST['note']
+            File.objects.create(company_files=file,file=post_file,note=note)
 
     else:
         pass
@@ -314,6 +316,17 @@ def ReviewsView(request, ):
         'Reviews': Review,
     }
     return render(request, 'admin_panel/admin-reviews.html', context=context)
+
+@login_required
+@user_is_moder
+def SubscribesView(request, ):
+    Subscribe = Subscribes.objects.all()
+    companies = Company.objects.all()
+    context = {
+        'companies': companies,
+        'Subscribes': Subscribe,
+    }
+    return render(request, 'admin_panel/admin-subscribes.html', context=context)
 
 
 @login_required

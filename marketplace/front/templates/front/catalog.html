@@ -98,10 +98,10 @@
                 </a>
                 <div class="product-body">
                     <a href="{% url 'Catalog-item' company.pk %}" class="product-name">{{ company.info.name }}</a>
-                    <a href="" class="product-cotegory"> {% for company_category in company.categories.all %}
+                   {% for company_category in company.categories.all %} <a href="?filter-category={{ company_category.pk }}" class="product-cotegory">
                      {{ company_category.category.name }}
-                     {% endfor %}
                     </a>
+                      {% endfor %}
                     <!-- макс сим. - 100 -->
                     <p class="product-desc">{{ company.info.short_description }}</p>
                     <div class="product-footer">
@@ -115,8 +115,7 @@
             </div>
             {% endfor %}
         </div>
-     </div>
-        {% if is_paginated %}
+               {% if is_paginated %}
      <div class="pagination">
             <div class="pagination-div">
                 <a href="{%if not prev_url %} {% endif %}{{ prev_url }}" class="arrow">
@@ -142,6 +141,8 @@
         </div>
     </div>
     {% endif %}
+     </div>
+
 </section>
  {% else %}
                     <section id="no-search">
@@ -149,7 +150,7 @@
                             <div class="no-search">
                                 <p class="no-search-title">Хм, странно что такой компании нет у нас</p>
                                 <img src="{% static 'front/img/icons/no-search-img.svg' %}" alt="">
-                                <a href="" class="button">Добавить!</a>
+                                <a href="{% url 'auth-register' %}" class="button">Добавить!</a>
                             </div>
                         </div>
                     </section>

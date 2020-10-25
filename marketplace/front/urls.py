@@ -23,6 +23,10 @@ urlpatterns = [
     path('news', newsPageView, name='news'),
     path('news-item/<int:news_id>', newsItemPageView, name='news-item'),
 
+    path('about',aboutPageView, name='about'),
+    path('for-clients',forClientsPageView, name='for-clients'),
+    path('for-members',forMembersPageView, name='for-members'),
+
 
 
 ]

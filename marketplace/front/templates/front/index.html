@@ -33,23 +33,20 @@
                             <input type="text" class="form-control" placeholder="Я хочу найти..." required>
                           </div>
                           <div class="col d-md-block d-none">
-                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                                          <option value="0">
-                                            None
-                                         </option>
-                                {% for category in categories %}
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect1">
+                                {% for category in filteredcategories %}
                                     <option value="{{ category.pk }}">
-                                {{ category.name }}
+                                {{ category.name }}1
                                     </option>
                                 {% endfor %}
                               </select>
                           </div>
                           <div class="col d-md-block d-none">
                             <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                                <option selected>Город</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+
+                                {% for company in companycities %}
+                                <option value="{{company}}">{{company}}</option>
+                                {% endfor %}
                               </select>
                           </div>
                           <div class="col-auto">
@@ -181,57 +178,19 @@
 
 
 <section id="main-news">
+
     <div class="main-news-div">
-        <div class="main-news-item ">
+         {% for n in News %}
+        <div class="main-news-item">
             <img src="{% static 'front/img/news/1.png' %}" alt="">
             <div class="main-news-info">
-                <p class="title">Он необходим для дальнейшего продвижения </p>
-                <p class="desc">Октябрь 20, 2020</p>
+                <p class="title">{{ n.title }}</p>
+                <p class="desc">{{ n.date }}</p>
             </div>
         </div>
-        <div class="main-news-item ">
-           
-            <div class="main-news-info">
-                <p class="title">Он необходим для дальнейшего продвижения </p>
-                <p class="desc">Октябрь 20, 2020</p>
-            </div>
-        </div>
-        <div class="main-news-item ">
-            <img src="{% static 'front/img/news/1.png' %}" alt="">
-            <div class="main-news-info">
-                <p class="title">Он необходим для дальнейшего продвижения </p>
-                <p class="desc">Октябрь 20, 2020</p>
-            </div>
-        </div>
-        <div class="main-news-item ">
-           
-            <div class="main-news-info">
-                <p class="title">Он необходим для дальнейшего продвижения </p>
-                <p class="desc">Октябрь 20, 2020</p>
-            </div>
-        </div>
-        <div class="main-news-item ">
-            <img src="{% static 'front/img/news/1.png' %}" alt="">
-            <div class="main-news-info">
-                <p class="title">Он необходим для дальнейшего продвижения </p>
-                <p class="desc">Октябрь 20, 2020</p>
-            </div>
-        </div>
-        <div class="main-news-item ">
-            <img src="{% static 'front/img/news/1.png' %}" alt="">
-            <div class="main-news-info">
-                <p class="title">Он необходим для дальнейшего продвижения </p>
-                <p class="desc">Октябрь 20, 2020</p>
-            </div>
-        </div>
-        <div class="main-news-item ">
-            <img src="{% static 'front/img/news/1.png' %}" alt="">
-            <div class="main-news-info">
-                <p class="title">Он необходим для дальнейшего продвижения </p>
-                <p class="desc">Октябрь 20, 2020</p>
-            </div>
-        </div>
+        {% endfor %}
     </div>
+
 </section>
 
 

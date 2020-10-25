@@ -62,6 +62,7 @@
                                                     <th>Категория</th>
                                                     <th>Статус</th>
                                                     <th>Править</th>
+                                                    <th>Тариф</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -87,7 +88,7 @@
                                                       <td><span class="badge badge-light-dark ">{{ company.status }}</span></td>
                                                       {% endif %}
                                                       <td><a href="{% url 'company-edit' company.pk %}"><i class="bx bx-edit-alt"></i></a></td>
-                                                      <td><a href="{% url 'tarif' company.pk %}"><i class="bx bx-edit-alt"></i></a></td>
+                                                      <td><a href="{% url 'tarif' company.pk %}">{% for tarif in company.tarifes.all %}{{tarif.tarif.name}} {% endfor %}</a></td>
                                                 </tr>
                                                   {% endfor %}
                                             </tbody>

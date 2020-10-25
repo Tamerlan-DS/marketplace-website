@@ -11,11 +11,12 @@ def create_company(owner, name):
 
 def genFakeId():
     companies = CompanyInfo.objects.all()
-    fakeid = random.randint(0, 2)
+    fakeid = 1
     for c in companies:
-        if(fakeid == c.fake_id):
-            fakeid = random.randint(0, 2)
-    return fakeid
+        if fakeid == c.fake_id:
+            fakeid = random.randint(0, 1000000)
+        else:
+            return fakeid
 
 
 def create_company_info(company, name):

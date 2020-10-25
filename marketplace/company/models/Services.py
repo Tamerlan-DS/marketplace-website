@@ -6,3 +6,4 @@ class Services(models.Model):
     name = models.CharField(max_length=255)
     description = models.TextField(default="")
     price = models.TextField(default="")
+    image = models.ImageField(upload_to='company_files/images', default='company_files/pictures/Bi-group.png')

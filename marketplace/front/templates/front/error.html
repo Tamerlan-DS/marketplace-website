@@ -7,7 +7,7 @@
      {% block cssLoader %}
     {% include 'front/cssloader.html' %}
     {% endblock %}
-    <title></title>
+    <title>Ошибка {{error}}</title>
 </head>
 <body>
 
@@ -20,13 +20,13 @@
         <div class="error-div">
             <div>
                 <p class="error-title">УПС!</p>
-                <p class="error-desc">Страница не найдена</p>
+                <p class="error-desc">{{error_description}}</p>
 
                 <a href="/" class="button">Вернуться на главную</a>
             </div>
             <div class="error-img-div">
                 <img src="{% static 'front/img/error/error.svg' %}" alt="" class="error-img">
-                <p class="error-num">404</p>
+                <p class="error-num">{{error}}</p>
             </div>
         </div>
     </div>

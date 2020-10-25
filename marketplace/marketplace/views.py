@@ -3,20 +3,33 @@ from django.http import HttpResponse
 
 
 def error_400_view(request, exception=None):
-    # return render(request, 'link to html',)
-    return HttpResponse('Ваш запрос некоректен или еще что то', status=400)
+    context = {
+        'error': '400',
+        'error_description': 'Неправильный запрос',
+    }
+    return render(request, 'front/error.html',context)
+
 
 
 def error_403_view(request, exception=None):
-    # return render(request, 'link to html',)
-    return HttpResponse('У вас не хватает власти. Попросоите высшего дать вам больше власти ', status=403)
+    context = {
+        'error_description': 'У вас нет доступа',
+        'error': '403',
+    }
+    return render(request, 'front/error.html', context)
 
 
 def error_404_view(request, exception=None):
-    # return render(request, 'link to html',)
-    return HttpResponse('Вы ищите то чего нет', status=404)
+    context = {
+        'error': '404',
+        'error_description': 'Страница не найдена',
+    }
+    return render(request, 'front/error.html', context)
 
 
 def error_500_view(request, exception=None):
-    # return render(request, 'link to html',)
-    return HttpResponse('Какая та ошибка на сервере(', status=500)
+    context = {
+        'error': '500',
+        'error_description': 'С сервером что-то не так',
+    }
+    return render(request, 'front/error.html', context)

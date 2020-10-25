@@ -56,9 +56,23 @@ def catalogPageView(request):
 
 def catalogItemPageView(request, company_id):
     company = get_object_or_404(Company, pk=company_id)
+    print(company.categories.all())
+    for company_category in company.categories.all():
+         print(company_category.category)
+         companies = Company.objects.filter(categories__category=company_category.category)
+         print(companies)
     categories = Category.objects.all()
-    services = Services.objects.all()
+    services = Services.objects.filter(company_fk=company_id)
+
+    if(services):
+        isServices=1
+    else:
+        isServices=0
     revi = Reviews.objects.all()
+    if(revi):
+        isReview=1
+    else:
+        isReview=0
     branche = Branches.objects.all()
     company_categories = Category.objects.filter(
         pk__in=CompanyCategory.objects.filter(company=company).values_list('category'))
@@ -69,6 +83,9 @@ def catalogItemPageView(request, company_id):
         'Reviews': revi,
         'services': services,
         'branches': branche,
+        'isServices': isServices,
+        'isReview': isReview,
+        'companies': companies,
     }
     if request.method == 'POST':
         pk = request.POST['pk']

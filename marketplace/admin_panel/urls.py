@@ -33,5 +33,7 @@ urlpatterns = [
 
     path('reviews', ReviewsView, name='reviews'),
     path('review-edit/<int:Review_id>', ReviewsEditView, name='review-edit'),
+
+        path('subscribes', SubscribesView, name='subscribes'),
 ]
 

@@ -1,5 +1,5 @@
 from django.shortcuts import render,redirect
-from company.models import Company, Category, Subscribes
+from company.models import Company, Category, Subscribes,  News, CompanyInfo
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
@@ -34,12 +34,16 @@ def favouritesPageView(request):
 
 
 def mobileSearchPageView(request):
+    filteredcategories = Category.objects.filter(parent__isnull=True)
+    companycities = CompanyInfo.objects.values_list('city', flat=True).distinct()
     if request.user.is_authenticated:
         username = request.user.username
     else:
         username = 'anon'
     context = {
         'username': username,
+        'filteredcategories': filteredcategories,
+        'companycities': companycities,
     }
     return render(request, 'front/mobile-search.html',context=context)
 
@@ -77,3 +81,19 @@ def SubscribeView(request):
         Subscribes.objects.create(email=email)
 
     return HttpResponseRedirect('./')
+
+
+def aboutPageView(request):
+    context = {
+     }
+    return render(request, 'front/about.html', context=context)
+
+def forClientsPageView(request):
+    context = {
+     }
+    return render(request, 'front/for-clients.html', context=context)
+
+def forMembersPageView(request):
+    context = {
+     }
+    return render(request, 'front/for-members.html', context=context)

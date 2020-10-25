@@ -17,7 +17,7 @@ class CompanyInfo(models.Model):
     adress = models.TextField(default="")
     bin = models.TextField(default="")
     search_info = models.TextField(default="")
-    fake_id = models.IntegerField(default=0)
+    fake_id = models.IntegerField(default=0, null=True)
 
     def save(self, *args, **kwargs):
         self.search_info = self.name + self.description + self.short_description
