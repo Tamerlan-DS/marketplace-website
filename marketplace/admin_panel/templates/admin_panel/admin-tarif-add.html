@@ -76,8 +76,8 @@
                                                         <div class="col-12">
                                                             <div class="form-group">
                                                                 <div class="controls">
-                                                                     <label>Время в секундах</label>
-                                                              <input type="text" id="first-name" class="form-control" name="timeleft" placeholder="Время действия в секундах">
+                                                                     <label>Время действия в днях</label>
+                                                              <input type="text" id="tarif_time" class="form-control" name="timeleft" placeholder="Время действия в днях">
                                                               </div>
                                                             </div>
 
@@ -113,6 +113,8 @@
                                                     <th>Название</th>
                                                     <th>Цена</th>
                                                     <th>Срок</th>
+                                                    <th>Изменить</th>
+                                                    <th>Удалить</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -122,10 +124,58 @@
                                                     <td>{{ tarif.name }}</td>
                                                     <td>{{ tarif.price }}</td>
                                                     <td>{{ tarif.timeleft }} дней</td>
-
+                                                  <td><button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#inlineForm{{tarif.pk}}">Изменить</button></td>
+                                                  <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteForm{{tarif.pk}}">Удалить</button></td>
 
                                                {% endfor %}
+                                                       {% for tar in tarifes %}
+                                        <div class="modal fade text-left" id="inlineForm{{tar.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" style="display: none;" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                                          <div class="modal-content">
+                                                            <div class="modal-header">
+                                                              <h4 class="modal-title" id="myModalLabel33">Изменение {{tar.pk}} </h4>
+                                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <i class="bx bx-x"></i>
+                                                              </button>
+                                                            </div>
+                                                              <form action="{% url 'tarif-edit' tar.pk %}" method="post" enctype="multipart/form-data">
+                                                                     {% csrf_token %}
+                                                                  <input type="hidden" name="form" value="edit">
+                                                              <div class="modal-body">
+                                                                <label>Название:</label>
+                                                                <div class="form-group">
+                                                                  <input type="text" placeholder="Название" class="form-control" name="name" value="{{tar.name}}">
+                                                                </div>
+                                                                <label>Цена:</label>
+                                                                <div class="form-group">
+                                                                  <input type="text" placeholder="Описание" class="form-control"  name="price" value="{{tar.price}}">
+                                                                </div>
+                                                                  <label>Срок:</label>
+                                                                <div class="form-group">
+                                                                  <input type="text" placeholder="Цена" class="form-control" name="timeleft" value="{{tar.timeleft}}">
+                                                                </div>
 
+                                                              </div>
+                                                              <div class="modal-footer">
+                                                                <button type="button" class="btn btn-light-secondary" data-dismiss="modal">
+                                                                  <i class="bx bx-x d-block d-sm-none"></i>
+                                                                  <span class="d-none d-sm-block">Закрыть</span>
+                                                                </button>
+                                                                <button type="submit" class="btn btn-primary ml-1">Отправить</button>
+                                                              </div>
+
+                                                            </form>
+
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                {% endfor %}
+                                                  {% for tr in tarifes %}
+                                                              <form action="{% url 'tarif-edit' tr.pk %}" method="post" id="delete-tarif{{tr.pk}}">
+                                                                    {% csrf_token %}
+                                                                     <input type="hidden" name="form" value="delete">
+                                                                    </form>
+                                                              {% endfor %}
                                             </tbody>
                                         </table>
 
@@ -144,8 +194,25 @@
         </div>
     </div>
     <!-- END: Content-->
+    {% for t in tarifes %}
+    <div class="modal text-left" id="deleteForm{{t.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+          <div class="modal-content">
 
+              <div class="modal-body">
+                  <div class="swal2-icon swal2-warning swal2-animate-warning-icon" style="display: flex;"><span class="swal2-icon-text">!</span></div>
+                  <h4 class="modal-title text-center" >Вы действительно хотите удалить новость?</h4>
+                  <p class="text text-center">Данное действие невозможно отменить.</p>
+              <div class="mt-2 d-flex flex-sm-row flex-column justify-content-center">
+                <a type="reset" class="btn btn-light mb-1 mr-sm-1 text-white" data-dismiss="modal" aria-label="Close">Закрыть</a>
+               <input type="submit" class="btn btn-danger mb-1" form="delete-tarif{{t.pk}}" value="Удалить категорию">
+              </div>
+              </div>
 
+          </div>
+        </div>
+      </div>
+    {% endfor %}
     </div>
     <div class="sidenav-overlay"></div>
     <div class="drag-target"></div>

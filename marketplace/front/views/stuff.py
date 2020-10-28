@@ -1,10 +1,11 @@
 from django.shortcuts import render,redirect
-from company.models import Company, Category, Subscribes,  News, CompanyInfo
+from company.models import Company, Category, Subscribes,  News, CompanyInfo, region
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
 
 def blacklistPageView(request):
+    regions = region.objects.all()
     companies = Company.objects.all()
     if request.user.is_authenticated:
         username = request.user.username
@@ -12,12 +13,14 @@ def blacklistPageView(request):
         username = 'anon'
     context = {
         'username': username,
+        'regions': regions,
         'companies': companies,
     }
     return render(request, 'front/black-list.html',context=context)
 
 @csrf_exempt
 def favouritesPageView(request):
+    regions = region.objects.all()
     companies = Company.objects.all()
     arr = request.POST.get('arr[]')
 
@@ -27,6 +30,7 @@ def favouritesPageView(request):
         username = 'anon'
     context = {
         'username': username,
+        'regions': regions,
         'companies': companies,
         'cookies': arr,
     }
@@ -34,6 +38,7 @@ def favouritesPageView(request):
 
 
 def mobileSearchPageView(request):
+    regions = region.objects.all()
     filteredcategories = Category.objects.filter(parent__isnull=True)
     companycities = CompanyInfo.objects.values_list('city', flat=True).distinct()
     if request.user.is_authenticated:
@@ -44,12 +49,15 @@ def mobileSearchPageView(request):
         'username': username,
         'filteredcategories': filteredcategories,
         'companycities': companycities,
+        'regions': regions,
     }
     return render(request, 'front/mobile-search.html',context=context)
 
 
 def RegisterView(request):
+    regions = region.objects.all()
     context = {
+        'regions': regions,
      }
     return render(request, 'front/auth-register.html', context=context)
 
@@ -84,16 +92,22 @@ def SubscribeView(request):
 
 
 def aboutPageView(request):
+    regions = region.objects.all()
     context = {
+        'regions': regions,
      }
     return render(request, 'front/about.html', context=context)
 
 def forClientsPageView(request):
+    regions = region.objects.all()
     context = {
+        'regions': regions,
      }
     return render(request, 'front/for-clients.html', context=context)
 
 def forMembersPageView(request):
+    regions = region.objects.all()
     context = {
+        'regions': regions,
      }
     return render(request, 'front/for-members.html', context=context)

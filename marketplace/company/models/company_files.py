@@ -16,7 +16,7 @@ class File(models.Model):
                                           on_delete=models.CASCADE,
                                       related_name='files',
                                       )
-    file = models.FileField(upload_to='company_files/files')
+    file = models.FileField(upload_to='company_files/files',null=True)
     note = models.CharField(max_length=255, blank=True)
 
 

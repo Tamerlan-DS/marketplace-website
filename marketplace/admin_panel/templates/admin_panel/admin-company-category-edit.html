@@ -66,33 +66,87 @@
                                                         <input type="text" id="first-name" class="form-control" name="name" value="{{ category.name }}">
                                                     </div>
 
-
-                                                    <div class="col-md-4">
-                                                        <label>Характеристики</label>
-                                                    </div>
-                                                    <div class="col-md-8 form-group">
-                                                        <input type="text" id="property" class="form-control" name="property" value="{% for property in properties %}{{ property.name }}
-                                                    {% endfor %}">
-                                                    </div>
                                                     <div class="col-md-4">
                                                         <label>Родительская категория </label>
                                                     </div>
                                                     <div class="col-md-8 form-group">
                                                             <select class="form-control" id="accountSelect"  name="parent_id" >
-                                                                <option value="{{category.parent.pk}}" selected disabled>
+                                                                 <option value="{{category.parent.pk}}" {% if category.parent.pk %} disabled {% endif %}>
                                                                     {{category.parent}}
                                                                 </option>
                                                         {% for category in parents %}
                                                             <option value="{{ category.pk }}">
                                                                 {{ category.name }}
                                                             </option>
+
                                                         {% endfor %}
                                                             </select>
                                                     </div>
                                                     <hr>
+                                                    <table id="services-list-datatable" class="table">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>Название характеристики</th>
+                                                                <th>Изменить</th>
+                                                                <th>Удалить</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                              {% for property in properties %}
+                                                               <tr>
+                                                                <td>{{ property.name }}</td>
+                                                                   <td><button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#inlineForm{{property.pk}}">
+                                                                    Изменить
+                                                                  </button></td>
+                                                                   <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteFormProp{{property.pk}}">Удалить</button></td>
+                                                               </tr>
+                                                              {% endfor %}
+                                                                {% for ct in properties %}
+                                                                    <form action="{% url 'category-property-edit' ct.pk %}" method="post" id="delete-prop{{ct.pk}}">
+                                                                    {% csrf_token %}
+                                                                     <input type="hidden" name="property_pk" value="{{prp.pk}}">
+                                                                     <input type="hidden" name="form" value="property_delete">
+                                                                        <input type="hidden" name="cat_pk" value="{{category.pk}}">
+                                                                    </form>
+                                                              {% endfor %}
+                                                         {% for prp in properties %}
+                                        <div class="modal fade text-left" id="inlineForm{{prp.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" style="display: none;" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                                          <div class="modal-content">
+                                                            <div class="modal-header">
+                                                              <h4 class="modal-title" id="myModalLabel33">Изменение {{prp.pk}} </h4>
+                                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <i class="bx bx-x"></i>
+                                                              </button>
+                                                            </div>
+                                                              <form action="{% url 'category-property-edit' prp.pk %}" method="post" enctype="multipart/form-data">
+                                                                     {% csrf_token %}
+                                                                 <input type="hidden" name="cat_pk" value="{{category.pk}}">
+                                                                  <input type="hidden" name="property_pk" value="{{prp.pk}}">
+                                                                  <input type="hidden" name="form" value="property_edit">
+                                                              <div class="modal-body">
+                                                                <label>Название:</label>
+                                                                <div class="form-group">
+                                                                  <input type="text" placeholder="Название" class="form-control" name="name" value="{{prp.name}}">
+                                                                </div>
+                                                              </div>
+                                                              <div class="modal-footer">
+                                                                <button type="button" class="btn btn-light-secondary" data-dismiss="modal">
+                                                                  <i class="bx bx-x d-block d-sm-none"></i>
+                                                                  <span class="d-none d-sm-block">Закрыть</span>
+                                                                </button>
+                                                                <button type="submit" class="btn btn-primary ml-1">Отправить</button>
+                                                              </div>
+                                                            </form>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                {% endfor %}
+                                                        </tbody>
+                                                      </table>
                                                     <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                                                         <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
-                                                        <button type="reset" class="btn btn-light mr-sm-1  mb-1">Закрыть</button>
+                                                        <a href="{% url 'company-category' %}" class="btn btn-light mr-sm-1  mb-1">Закрыть</a>
                                                        <button type="button" class="btn btn-danger mb-1" data-toggle="modal" data-target="#deleteForm"> Удалить категорию</button>
                                                     </div>
                                                 </div>
@@ -100,6 +154,7 @@
                                         </form>
                                         <form action="{% url 'company-category-edit' category.pk %}" method="post" id="delete-cat">
                                                                 {% csrf_token %}
+
                                                                 <input type="hidden" name="form" value="delete">
                                         </form>
                                     </div>
@@ -195,6 +250,28 @@
     </div>
     <div class="sidenav-overlay"></div>
     <div class="drag-target"></div>
+
+
+    {% for p in properties %}
+    <div class="modal text-left" id="deleteFormProp{{p.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+
+              <div class="modal-body">
+                  <div class="swal2-icon swal2-warning swal2-animate-warning-icon" style="display: flex;"><span class="swal2-icon-text">!</span></div>
+                  <h4 class="modal-title text-center" >Вы действительно хотите удалить характеристику?</h4>
+                  <p class="text text-center">Данное действие невозможно отменить.</p>
+              <div class="mt-2 d-flex flex-sm-row flex-column justify-content-center">
+                <a type="reset" class="btn btn-light mb-1 mr-sm-1 text-white" data-dismiss="modal" aria-label="Close">Закрыть</a>
+               <input type="submit" class="btn btn-danger mb-1" form="delete-prop{{p.pk}}" value="Удалить город">
+              </div>
+              </div>
+
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+
 
     <!-- BEGIN: Footer-->
    {% block footer %}

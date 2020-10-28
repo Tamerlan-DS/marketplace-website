@@ -35,11 +35,13 @@ def FrontPageView(request):
 
 
 def contactPageView(request):
+    regions = region.objects.all()
     if request.user.is_authenticated:
         username = request.user.username
     else:
         username = 'anon'
     context = {
         'username': username,
+        'regions': regions,
     }
     return render(request, 'front/contact.html',context=context)

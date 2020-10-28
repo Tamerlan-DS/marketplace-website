@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from company.helper import *
-from company.models import Company, Category, CompanyCategory, news
+from company.models import Company, Category, CompanyCategory, news, region
 from admin_panel.models import Card
 from django.contrib.auth.decorators import login_required
 from admin_panel.decorators import *
@@ -12,6 +12,7 @@ from django.utils import timezone
 tz = timezone.get_default_timezone()
 
 def newsPageView(request):
+    regions = region.objects.all()
     if request.user.is_authenticated:
         username = request.user.username
     else:
@@ -40,11 +41,13 @@ def newsPageView(request):
         'News': page,
         'is_paginated': is_paginated,
         'next_url': next_url,
+        'regions': regions,
         'prev_url': prev_url,
     }
     return render(request, 'front/news.html',context=context)
 
 def newsItemPageView(request, news_id):
+    regions = region.objects.all()
     if request.user.is_authenticated:
         username = request.user.username
     else:
@@ -53,6 +56,7 @@ def newsItemPageView(request, news_id):
     new = get_object_or_404(News, pk=news_id)
     context = {
         'username': username,
+        'regions': regions,
         'new': new,
     }
     return render(request, 'front/news-item.html',context=context)

@@ -11,8 +11,11 @@ from company_panel.models import Balance, Invoice
 @user_is_moder
 def companyView(request):
     companies = Company.objects.all()
+    tarif = CompanyTarif.objects.all()
+
     context = {
         'companies': companies,
+        'tarif': tarif,
     }
     return render(request, 'admin_panel/admin-companies.html', context=context)
 
@@ -57,6 +60,8 @@ def companyAddView(request):
 @user_is_moder
 def companyEditView(request, company_id):
     company = get_object_or_404(Company, pk=company_id)
+
+
     cities = City.objects.all()
     services = Services.objects.all()
     categories = Category.objects.all()
@@ -157,8 +162,18 @@ def companyEditView(request, company_id):
         if type == 'delete':
             company.delete()
             return redirect('companies')
-
-
+        if type == 'pass_edit':
+            password = request.POST['password']
+            re_password = request.POST['password']
+            if password == re_password:
+                user = User.objects.get(username=company.owner.username)
+                print(user.password)
+                print(user.username)
+                user.set_password(password)
+                user.save()
+                print(user.password)
+                context['error'] = 'Пароль успешно изменен!'
+                return render(request, 'admin_panel/admin-company-edit.html', context=context)
     else:
         pass
 
@@ -255,9 +270,10 @@ def companyCategoryEditView(request, category_id):
         if type == 'edit':
             name = request.POST['name']
             property = request.POST['property']
-            parent_id = int(request.POST['parent_id'])
-            if parent_id:
-                parent = Category.objects.get(pk=parent_id)
+            if request.POST['parent_id']:
+                parent_id = int(request.POST['parent_id'])
+                if parent_id:
+                    parent = Category.objects.get(pk=parent_id)
             else:
                 parent = None
             if category.name != name and Category.objects.filter(name=name).count():
@@ -273,6 +289,7 @@ def companyCategoryEditView(request, category_id):
         if type == 'delete':
             category.delete()
             return redirect('company-category')
+
     return render(request, 'admin_panel/admin-company-category-edit.html', context=context)
 
 
@@ -431,10 +448,30 @@ def TarifAddView(request):
         name = request.POST['name']
         price = request.POST['price']
         timeleft = request.POST['timeleft']
-        tarif = Tarif.objects.create(name=name,price=price,timeleft=timeleft)
+        Tarif.objects.create(name=name,price=price,timeleft=timeleft)
     context = {
         'tarifes':tarifes,
     }
+    return render(request, 'admin_panel/admin-tarif-add.html', context=context)
+
+@login_required
+@user_is_moder
+def TarifEditView(request,tarif_id):
+    tarif = get_object_or_404(Tarif,pk=tarif_id)
+    if request.method == 'POST':
+        type = request.POST['form']
+        if type =='edit':
+            name = request.POST['name']
+            price = request.POST['price']
+            timeleft = request.POST['timeleft']
+            tarif.name = name
+            tarif.price = price
+            tarif.timeleft = timeleft
+            tarif.save()
+            return redirect('tarif-add')
+        if type == 'delete':
+            tarif.delete()
+            return redirect('tarif-add')
     return render(request, 'admin_panel/admin-tarif-add.html', context=context)
 
 @login_required
@@ -498,11 +535,22 @@ def CityView(request, ):
 @login_required
 @user_is_moder
 def CityEditView(request,city_id):
-    Review = Reviews.objects.all()
-    companies = Company.objects.all()
+    city = get_object_or_404(City,pk=city_id)
+    if request.method == 'POST':
+        type = request.POST['form']
+        if type == 'edit':
+            name = request.POST['name']
+            region_id = request.POST['region_id']
+            regiona = region.objects.get(pk=region_id)
+            city.city_name = name
+            city.region = regiona
+            city.save()
+            return redirect('city')
+        if type == 'delete':
+            city.delete()
+            return redirect('city')
     context = {
-        'companies': companies,
-        'Reviews': Review,
+
     }
     return render(request, 'admin_panel/admin-city-add.html', context=context)
 
@@ -516,5 +564,44 @@ def regionView(request, ):
         region.objects.create(region_name=region_name)
     context = {
     'regions': regions,
+    }
+    return render(request, 'admin_panel/admin-region.html', context=context)
+@login_required
+@user_is_moder
+def regionEditView(request, region_id):
+    regiona = get_object_or_404(region,pk=region_id)
+    if request.method =='POST':
+        type = request.POST['form']
+        if type == 'edit':
+            region_name = request.POST['name']
+            regiona.region_name = region_name
+            regiona.save()
+            return redirect('region')
+        if type == 'delete':
+            regiona.delete()
+            return redirect('region')
+    context = {
+    }
+    return render(request, 'admin_panel/admin-region.html', context=context)
+
+@login_required
+@user_is_moder
+def CategoryPropertyEditView(request, property_id):
+    property = get_object_or_404(Property,pk=property_id)
+    if request.method =='POST':
+        type = request.POST['form']
+        if type == 'property_edit':
+            cat_pk = int(request.POST['cat_pk'])
+            name = request.POST['name']
+            property_pk = request.POST['property_pk']
+            properta = Property.objects.get(pk=property_pk)
+            properta.name = name
+            properta.save()
+            return redirect('company-category-edit',cat_pk)
+        if type == 'property_delete':
+            cat_pk = int(request.POST['cat_pk'])
+            property.delete()
+            return redirect('company-category-edit',cat_pk)
+    context = {
     }
     return render(request, 'admin_panel/admin-region.html', context=context)

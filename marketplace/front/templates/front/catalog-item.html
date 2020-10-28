@@ -129,6 +129,7 @@
                 <p class="title">ФАЙЛЫ</p>
 
                 <div class="catalog-item-file">
+
                 {% for fi in File %}
                     <div class="catalog-item-file-item">
                             <div class="catalog-item-file-icon"><img src="{% static 'front/img/icons/catalog-item-file-icon.svg' %}" alt=""></div>
@@ -139,6 +140,7 @@
                             <a href="{{ fi.file.url }}" target="_blank" download="true" class="catalog-item-file-download">Скачать</a>
                     </div>
                 {% endfor %}
+
                 </div>
             </div>
         </div>
