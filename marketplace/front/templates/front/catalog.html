@@ -65,12 +65,9 @@
                     </div>
                     <select data-placeholder="Характеристики..." multiple class="chosen-select" tabindex="8">
                         <option value=""></option>
-                        <option>American Black Bear</option>
-                        <option>Asiatic Black Bear</option>
-                        <option>Brown Bear</option>
-                        <option>Giant Panda</option>
-                        <option>Sloth Bear</option>
-                        <option selected>Polar Bear</option>
+                        {% for property in properties %}
+                        <option>{{ property.name }}</option>
+                        {% endfor %}
                       </select>
 
                       <button type="submit" class="button">Искать</button>
@@ -98,7 +95,7 @@
                 </a>
                 <div class="product-body">
                     <a href="{% url 'Catalog-item' company.pk %}" class="product-name">{{ company.info.name }}</a>
-                   {% for company_category in company.categories.all %} <a href="?filter-category={{ company_category.pk }}" class="product-cotegory">
+                   {% for company_category in company.categories.all %} <a class="product-cotegory">
                      {{ company_category.category.name }}
                     </a>
                       {% endfor %}

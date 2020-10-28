@@ -1583,7 +1583,7 @@ footer{
 }
 
 .catalog-item-service-footer{
-    padding: 10px 20px;
+    padding: 10px 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;

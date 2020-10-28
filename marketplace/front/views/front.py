@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from company.models import Company, Category, Subscribes, News, CompanyInfo
+from company.models import Company, Category, Subscribes, News, CompanyInfo, City, region
 from django.http import HttpResponse, HttpResponseRedirect
 
 def FrontPageView(request):
@@ -8,6 +8,8 @@ def FrontPageView(request):
     else:
         username = 'anon'
     New = News.objects.order_by('-pk')
+    regions = region.objects.all()
+    cities = City.objects.all()
     filteredcategories = Category.objects.filter(parent__isnull=True)
     companycities = CompanyInfo.objects.values_list('city',flat=True).distinct()
     print(companycities)
@@ -19,6 +21,8 @@ def FrontPageView(request):
         'categories': categories,
         'filteredcategories': filteredcategories,
         'companycities': companycities,
+        'cities': cities,
+        'regions': regions,
         'News': New,
     }
     if request.method == 'POST':

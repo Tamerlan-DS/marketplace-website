@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html class="loading" lang="en" data-textdirection="ltr">
 <!-- BEGIN: Head-->
@@ -11,7 +12,7 @@
     <meta name="author" content="PIXINVENT">
     <title>Users List - Frest - Bootstrap HTML admin template</title>
 
-      {% block cssLoader %}
+    {% block cssLoader %}
     {% include 'admin_panel/cssLoader.html' %}
     {% endblock cssLoader %}
 
@@ -22,7 +23,7 @@
 
 <body class="vertical-layout vertical-menu-modern semi-dark-layout 2-columns  navbar-sticky footer-static  " data-open="click" data-menu="vertical-menu-modern" data-col="2-columns" data-layout="semi-dark-layout">
 
-     <!-- BEGIN: Header-->
+    <!-- BEGIN: Header-->
     {% block content %}
     {% include 'admin_panel/headerFORM.html' %}
     {% endblock %}
@@ -42,9 +43,41 @@
             <div class="content-header row">
             </div>
             <div class="content-body">
-                <!-- users list start -->
-                <section class="users-list-wrapper">
-                    <div class="users-list-table">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Добавить область</h4>
+                                    </div>
+                                    <div class="card-content">
+                                        <div class="card-body">
+                                            <form class="form form-horizontal" action="{% url 'region' %}" method="post">
+                                                {% csrf_token %}
+                                                <div class="form-body">
+                                                    <div class="row">
+                                                        <div class="col-12">
+                                                            <div class="form-group">
+                                                                <div class="controls">
+                                                                     <label>Город</label>
+                                                                    <input type="text" id="first-name" class="form-control" name="name" placeholder="Название">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                   <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">Создать</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>
+                      <div class="col-8">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Список областей</h4>
+                                    </div>
+                                    <div class="users-list-table">
                         <div class="card">
                             <div class="card-content">
                                 <div class="card-body">
@@ -54,41 +87,15 @@
                                             <thead>
                                                 <tr>
                                                     <th>id</th>
-                                                    <th>Email</th>
-                                                    <th>Имя</th>
-                                                    <th>Дата публикации</th>
-                                                    <th>Компания</th>
-                                                    <th>Статус</th>
-                                                    <th>Править</th>
+                                                    <th>Область</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-
-                                              {% for review in Reviews %}
-
+                                              {% for region in regions %}
                                               <tr>
-                                                    <td>{{ review.pk }}</td>
-                                                    <td><a href="{% url 'review-edit' review.pk %}">{{ review.email }}</a>
-                                                    </td>
-                                                    <td>{{ review.name }}</td>
-                                                    <td>{{ review.date }}</td>
+                                                    <td>{{ region.pk }}</td>
+                                                    <td>{{ region.region_name }}</td>
 
-                                                  {% for company in companies %}
-                                                    {% if review.pk_number == company.pk %}
-                                                    <td> {{company.info.name}}</td>
-                                                    {% endif %}
-                                                  {% endfor %}
-
-                                                    {% if review.status == review.StatusChoices.ACTIVE %}
-                                                    <td><span class="badge badge-light-success">{{ review.status }}</span></td>
-                                                    {% elif review.status == review.StatusChoices.DELETED %}
-                                                    <td><span class="badge badge-light-danger">{{ review.status }}</span></td>
-                                                    {% else %}
-                                                    <td><span class="badge badge-light-warning">{{ review.status }}</span></td>
-                                                    {% endif %}
-
-                                                    <td><a href="{% url 'review-edit' review.pk %}"><i class="bx bx-edit-alt"></i></a></td>
-                                                </tr>
 
                                                {% endfor %}
 
@@ -101,24 +108,26 @@
                             </div>
                         </div>
                     </div>
-                </section>
-                <!-- users list ends -->
+                                </div>
+                      </div>
+            </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
     <!-- END: Content-->
+
 
     </div>
     <div class="sidenav-overlay"></div>
     <div class="drag-target"></div>
 
     <!-- BEGIN: Footer-->
-     {% block footer %}
-     {% include 'admin_panel/footerFORM.html' %}
-     {% endblock footer %}
+    {% block footer %}
+    {% include 'admin_panel/footerFORM.html' %}
+    {% endblock footer %}
     <!-- END: Footer-->
-
-
 
     {% block jsLoader %}
     {% include 'admin_panel/jsLoader.html' %}

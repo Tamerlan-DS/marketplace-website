@@ -8,3 +8,4 @@ from .Reviews import *
 from .Services import *
 from .branches import *
 from .Subscribes import *
+from .city import *

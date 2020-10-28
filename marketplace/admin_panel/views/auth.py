@@ -13,6 +13,12 @@ def loginView(request):
         if user:
             login(request, user)
             return redirect(request.GET.get('next') or 'panel')
+        else:
+            error = "Пароль неверный!"
+            context={
+                'error': error
+            }
+            return render(request,'admin_panel/admin-login.html', context)
     return render(request,
                   'admin_panel/admin-login.html',
                   {'next': request.GET.get('next') or reverse('panel')})

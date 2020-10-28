@@ -6,6 +6,7 @@ urlpatterns = [
 
     path('companies', companyView, name='companies'),
     path('company-edit/<int:company_id>', companyEditView, name='company-edit'),
+    path('service-edit/<int:service_id>', serviceEditView, name='service-edit'),
     path('company-testedit/<int:company_id>', companytestEditView, name='company-testedit'),
     path('company-add', companyAddView, name='company-add'),
 
@@ -34,6 +35,10 @@ urlpatterns = [
     path('reviews', ReviewsView, name='reviews'),
     path('review-edit/<int:Review_id>', ReviewsEditView, name='review-edit'),
 
-        path('subscribes', SubscribesView, name='subscribes'),
+    path('subscribes', SubscribesView, name='subscribes'),
+
+    path('city', CityView, name='city'),
+    path('city-edit/<int:city_id>', CityEditView, name='city-edit'),
+    path('region', regionView, name='region'),
 ]
 

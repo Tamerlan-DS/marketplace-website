@@ -39,10 +39,10 @@
 
             <div class="news-item">
                  <a href="{% url 'news-item' new.pk %}" class="news-img">
-                    <img src="{% static 'front/img/news/1.png' %} " alt="">
+                    <img src="/media/{{ new.img }} " alt="">
                  </a>
                 <div class="news-body">
-                    <p class="news-date">Октябрь 20, 2020</p>
+                    <p class="news-date">{{ new.date }}</p>
                     <a href="{% url 'news-item' new.pk %}" class="news-name">{{ new.title}}</a>
                     <!-- макс сим. - 100 -->
                     <p class="news-desc">{{ new.description }} </p>

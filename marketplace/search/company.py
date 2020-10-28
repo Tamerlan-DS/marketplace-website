@@ -18,6 +18,7 @@ def search_company(
         categories=None,
         properties=None,
         city=None,
+        region=None,
 ):
     qs = Company.objects.filter(status='ACCEPTED').select_related(
         'info',
@@ -31,6 +32,8 @@ def search_company(
         qs = qs.filter(categories__properties__in=properties)
     if city:
         qs = qs.filter(info__city=city)
+    if region:
+        qs = qs.filter(info__region=region)
 
     if search_text:
         words = re.sub("[^\w]", "", search_text).split()

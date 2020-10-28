@@ -53,7 +53,7 @@
                                         <!-- users edit account form start -->
                                         <form action="{% url 'review-edit' Reviews.pk %}" method="post">
                                             {% csrf_token %}
-
+                                         <input type="hidden" name="form" value="edit">
                                             {% if error %}
                                                 {{ error }}
                                                  {% if error == 0 %}
@@ -97,12 +97,16 @@
                                                </div>
                                                 <div class="col-12 d-flex flex-sm-row flex-column justify-content-end mt-1">
                                                     <button type="submit" class="btn btn-primary glow mb-1 mb-sm-0 mr-0 mr-sm-1">Сохранить</button>
-                                                    <button type="reset" class="btn btn-light">Закрыть</button>
-                                                    <button type="button" class="btn btn-outline-danger ml-1" id="confirm-text">Удалить отзыв</button>
+                                                    <a type="reset" class="btn btn-light" href="{% url 'reviews' %}">Закрыть</a>
+                                                    <button type="button" class="btn btn-danger mb-1" data-toggle="modal" data-target="#deleteForm"> Удалить отзыв </button>
                                                 </div>
                                               </div>
                                             </div>
                                         </form>
+                                        <form action="{% url 'review-edit' Reviews.pk %}" method="post" id="delete-rev">
+                                                                {% csrf_token %}
+                                                                 <input type="hidden" name="form" value="delete">
+                                                        </form>
                                         <!-- users edit account form ends -->
                                     </div>
                                 </div>
@@ -117,8 +121,24 @@
     <!-- END: Content-->
 
 
+<div class="modal text-left" id="deleteForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+          <div class="modal-content">
 
-    </div>
+              <div class="modal-body">
+                  <div class="swal2-icon swal2-warning swal2-animate-warning-icon" style="display: flex;"><span class="swal2-icon-text">!</span></div>
+                  <h4 class="modal-title text-center" >Вы действительно хотите удалить отзыв?</h4>
+                  <p class="text text-center">Данное действие невозможно отменить.</p>
+              <div class="mt-2 d-flex flex-sm-row flex-column justify-content-center">
+                <a type="reset" class="btn btn-light mb-1 mr-sm-1 text-white" data-dismiss="modal" aria-label="Close">Закрыть</a>
+               <input type="submit" class="btn btn-outline-danger ml-1" form="delete-rev" value="Удалить отзыв">
+              </div>
+              </div>
+
+          </div>
+        </div>
+      </div>
+
     <div class="sidenav-overlay"></div>
     <div class="drag-target"></div>
 

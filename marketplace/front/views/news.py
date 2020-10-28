@@ -8,6 +8,8 @@ from company_panel.models import Balance, Invoice
 from django.core.paginator import Paginator
 from django.views.generic import ListView
 from django.core.paginator import Paginator
+from django.utils import timezone
+tz = timezone.get_default_timezone()
 
 def newsPageView(request):
     if request.user.is_authenticated:
@@ -15,13 +17,10 @@ def newsPageView(request):
     else:
         username = 'anon'
     New = News.objects.order_by('-pk')
-    paginator = Paginator(New,1)
+    paginator = Paginator(New,20)
     page_number = request.GET.get('page', 1)
     page = paginator.get_page(page_number)
-    print(page.paginator.page_range)
-    print(page.number)
     is_paginated = page.has_other_pages()
-    print(page.number)
     if page.has_previous():
         prev_url = '?page={}'.format(page.previous_page_number())
     else:

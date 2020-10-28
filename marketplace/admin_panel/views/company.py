@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from company.helper import *
-from company.models import Company, Category, CompanyCategory, news, Reviews, Services, branches, Subscribes, CompanyFiles, File
+from company.models import Company, Category, CompanyCategory, news, Reviews, Services, branches, Subscribes, CompanyFiles, File, Property, city
 from admin_panel.models import Card
 from django.contrib.auth.decorators import login_required
 from admin_panel.decorators import *
@@ -57,8 +57,10 @@ def companyAddView(request):
 @user_is_moder
 def companyEditView(request, company_id):
     company = get_object_or_404(Company, pk=company_id)
+    cities = City.objects.all()
     services = Services.objects.all()
     categories = Category.objects.all()
+
     branche = Branches.objects.all()
     company_categories = Category.objects.filter(
         pk__in=CompanyCategory.objects.filter(company=company).values_list('category'))
@@ -68,6 +70,7 @@ def companyEditView(request, company_id):
         'company_categories': company_categories,
         'services': services,
         'branches': branche,
+        'cities': cities,
     }
     if request.method == 'POST':
         type = request.POST['form']
@@ -82,11 +85,17 @@ def companyEditView(request, company_id):
             worktime = request.POST['worktime']
             adress = request.POST['adress']
             status = request.POST['status']
+            regs = City.objects.values_list('region', flat=True).filter(city_name=city)
+            for reg_id in regs:
+                reg = region.objects.filter(pk=reg_id)
+                for r in reg:
+                    r_name = r.region_name
             company_info = company.info
             company_info.name = name
             company_info.short_description = short_description
             company_info.description = description
             company_info.city = city
+            company_info.region = r_name
             company_info.phone = phone
             company_info.email = email
             company_info.worktime = worktime
@@ -144,6 +153,11 @@ def companyEditView(request, company_id):
             post_file = request.FILES.get('files')
             note = request.POST['note']
             File.objects.create(company_files=file,file=post_file,note=note)
+            return render(request, 'admin_panel/admin-company-edit.html', context=context)
+        if type == 'delete':
+            company.delete()
+            return redirect('companies')
+
 
     else:
         pass
@@ -228,19 +242,37 @@ def companyCategoryView(request):
 @user_is_moder
 def companyCategoryEditView(request, category_id):
     category = get_object_or_404(Category, pk=category_id)
+    categories = Category.objects.all()
+    parents = categories.filter(parent__isnull=True)
+    properties = Property.objects.all()
     context = {
         'category': category,
+        'properties': properties,
+        'parents': parents,
     }
     if request.method == 'POST':
-        name = request.POST['name']
-        if category.name != name and Category.objects.filter(name=name).count():
-            context['error'] = 1
-        elif not name:
-            context['error'] = 2
-        else:
-            category.name = name
-            category.save()
-            context['error'] = 0
+        type = request.POST['form']
+        if type == 'edit':
+            name = request.POST['name']
+            property = request.POST['property']
+            parent_id = int(request.POST['parent_id'])
+            if parent_id:
+                parent = Category.objects.get(pk=parent_id)
+            else:
+                parent = None
+            if category.name != name and Category.objects.filter(name=name).count():
+                context['error'] = 1
+            elif not name:
+                context['error'] = 2
+            else:
+                category.name = name
+                category.parent = parent
+                Property.objects.create(category=category,name=property)
+                category.save()
+                context['error'] = 0
+        if type == 'delete':
+            category.delete()
+            return redirect('company-category')
     return render(request, 'admin_panel/admin-company-category-edit.html', context=context)
 
 
@@ -278,14 +310,21 @@ def newsEditView(request, news_id):
         'new': new,
     }
     if request.method == 'POST':
-        title = request.POST['title']
-        description = request.POST['description']
-        text = request.POST['text']
-        New = new
-        New.title = title
-        New.description = description
-        New.text = text
-        New.save()
+        type = request.POST['form']
+        if type == 'edit':
+            title = request.POST['title']
+            description = request.POST['description']
+            text = request.POST['text']
+            image = request.FILES.get('img')
+            New = new
+            New.title = title
+            New.description = description
+            New.img = image
+            New.text = text
+            New.save()
+        if type == 'delete':
+            new.delete()
+            return redirect('admin-news')
     return render(request, 'admin_panel/admin-news-edit.html', context=context)
 
 
@@ -298,11 +337,14 @@ def newsAddView(request):
         title = request.POST['title']
         description = request.POST['description']
         text = request.POST['text']
-        New = News.objects.create(title=title, description=description, text=text)
+        image = request.FILES.get('img')
+        New = News.objects.create(title=title, description=description, text=text, img=image)
         New.title = title
         New.description = description
         New.text = text
         New.save()
+        context['error'] = 0
+        return render(request, 'admin_panel/admin-news-add.html', context=context)
     return render(request, 'admin_panel/admin-news-add.html', context=context)
 
 
@@ -337,22 +379,26 @@ def ReviewsEditView(request, Review_id):
         'Reviews': Review,
     }
     if request.method == 'POST':
-        name = request.POST['name']
-        email = request.POST['email']
-        review = request.POST['review']
-        status = request.POST['status']
-        Review.name = name
-        Review.email = email
-        Review.review = review
-        if status == '0':
-            Review.status = Review.StatusChoices.ACTIVE
-        elif status == '1':
-            Review.status = Review.StatusChoices.DELETED
-        else:
-            Review.status = Review.StatusChoices.PENDING
-        Review.save()
-        return render(request, 'admin_panel/admin-reviews-edit.html', context=context)
-
+        type = request.POST['form']
+        if type == 'edit':
+            name = request.POST['name']
+            email = request.POST['email']
+            review = request.POST['review']
+            status = request.POST['status']
+            Review.name = name
+            Review.email = email
+            Review.review = review
+            if status == '0':
+                Review.status = Review.StatusChoices.ACTIVE
+            elif status == '1':
+                Review.status = Review.StatusChoices.DELETED
+            else:
+                Review.status = Review.StatusChoices.PENDING
+            Review.save()
+            return render(request, 'admin_panel/admin-reviews-edit.html', context=context)
+        if type == 'delete':
+            Review.delete()
+            return redirect('reviews')
     return render(request, 'admin_panel/admin-reviews-edit.html', context=context)
 
 
@@ -380,13 +426,14 @@ def TarifView(request,company_id):
 @login_required
 @user_is_moder
 def TarifAddView(request):
-
+    tarifes = Tarif.objects.all()
     if request.method == 'POST':
         name = request.POST['name']
         price = request.POST['price']
         timeleft = request.POST['timeleft']
         tarif = Tarif.objects.create(name=name,price=price,timeleft=timeleft)
     context = {
+        'tarifes':tarifes,
     }
     return render(request, 'admin_panel/admin-tarif-add.html', context=context)
 
@@ -432,3 +479,42 @@ def Charge(company_tarif,user):
 
     return
 
+
+@login_required
+@user_is_moder
+def CityView(request, ):
+    cities = City.objects.all()
+    regions = region.objects.all()
+    if request.method =='POST':
+        city_name = request.POST['name']
+        region_id = int(request.POST['region_id'])
+        Reg = region.objects.get(pk=region_id)
+        City.objects.create(region=Reg,city_name=city_name)
+    context = {
+        'regions': regions,
+        'cities': cities,
+    }
+    return render(request, 'admin_panel/admin-city.html', context=context)
+@login_required
+@user_is_moder
+def CityEditView(request,city_id):
+    Review = Reviews.objects.all()
+    companies = Company.objects.all()
+    context = {
+        'companies': companies,
+        'Reviews': Review,
+    }
+    return render(request, 'admin_panel/admin-city-add.html', context=context)
+
+
+@login_required
+@user_is_moder
+def regionView(request, ):
+    regions = region.objects.all()
+    if request.method =='POST':
+        region_name = request.POST['name']
+        region.objects.create(region_name=region_name)
+    context = {
+    'regions': regions,
+    }
+    return render(request, 'admin_panel/admin-region.html', context=context)

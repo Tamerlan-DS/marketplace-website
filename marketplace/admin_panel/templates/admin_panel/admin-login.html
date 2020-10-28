@@ -46,12 +46,14 @@
                                             <div class="card-body">
                                                 <form action="{% url 'login' %}?next={{ next }}" method="post">
                                                            {% csrf_token %}
+
                                                     <div class="form-group mb-50">
                                                         <label class="text-bold-600" > Username</label>
                                                         <input type="text" class="form-control"  name = "username"  placeholder="Username "></div>
                                                     <div class="form-group">
                                                         <label class="text-bold-600" for="exampleInputPassword1">Пароль</label>
                                                         <input type="password" class="form-control" name = "password" id="exampleInputPassword1" placeholder="Пароль">
+                                                     <p> {{ error }}</p>
                                                     </div>
                                                     <button type="submit" class="btn btn-primary glow w-100 position-relative">Войти<i id="icon-arrow" class="bx bx-right-arrow-alt"></i></button>
                                                 </form>

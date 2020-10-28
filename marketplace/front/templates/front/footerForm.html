@@ -32,34 +32,9 @@
             <div>
                 <p class="footer-title">города</p>
                 <ul class="footer-menu footer-city">
-                    <li><a href="">Аксу</a></li>
-                    <li><a href="">Актау</a></li>
-                    <li><a href="">Актобе</a></li>
-                    <li><a href="">Алма-Ата</a></li>
-                    <li><a href="">Аркалык</a></li>
-                    <li><a href="">Аркалык</a></li>
-                    <li><a href="">Аркалык</a></li>
-                    <li><a href="">Аркалык</a></li>
-                    <li><a href="">Аксу</a></li>
-                    <li><a href="">Актау</a></li>
-                    <li><a href="">Актобе</a></li>
-                    <li><a href="">Алма-Ата</a></li>
-                    <li><a href="">Аркалык</a></li>
-                    <li><a href="">Аксу</a></li>
-                    <li><a href="">Актау</a></li>
-                    <li><a href="">Актобе</a></li>
-                    <li><a href="">Алма-Ата</a></li>
-                    <li><a href="">Аркалык</a></li>
-                    <li><a href="">Аксу</a></li>
-                    <li><a href="">Актау</a></li>
-                    <li><a href="">Актобе</a></li>
-                    <li><a href="">Алма-Ата</a></li>
-                    <li><a href="">Аркалык</a></li>
-                    <li><a href="">Аксу</a></li>
-                    <li><a href="">Актау</a></li>
-                    <li><a href="">Актобе</a></li>
-                    <li><a href="">Алма-Ата</a></li>
-                    <li><a href="">Аркалык</a></li>
+                    {% for region in regions %}
+                    <li><a href="{% url 'Catalog' %}?region={{region.region_name}}">{{region.region_name}}</a></li>
+                    {% endfor %}
                 </ul>
             </div>
             <div>

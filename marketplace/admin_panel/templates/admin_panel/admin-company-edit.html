@@ -164,8 +164,14 @@
                                                                  <div class="col-12">
                                                                 <div class="form-group">
                                                                     <label>Город</label>
-                                                                    <input type="text" class="form-control" placeholder="Город" value="{{ company.info.city }}" name="city" required>
-                                                                </div>
+
+                                                                    <select class="form-control" id="citySelect"  name="city" >
+                                                                        <option value="{{company.info.city}}" disabled selected>{{company.info.city}}</option>
+                                                                        {% for city in cities %}
+                                                                        <option value="{{city.city_name}}" >{{city.city_name}}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                   </div>
                                                                 </div>
                                                                 <div class="col-12">
                                                                 <div class="form-group">
@@ -192,7 +198,8 @@
 
                                                                 <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                                                                     <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
-                                                                    <button type="reset" class="btn btn-light mb-1">Закрыть</button>
+                                                                    <a type="reset" class="btn btn-light mb-1 mr-sm-1" href="{% url 'companies' %}" >Закрыть</a>
+                                                                    <button type="button" class="btn btn-danger mb-1" data-toggle="modal" data-target="#deleteForm"> Удалить компанию </button>
                                                                 </div>
                                                         </div>
                                                         </form>
@@ -226,7 +233,7 @@
                                                                 </div>
                                                                 <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                                                                     <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
-                                                                    <button type="reset" class="btn btn-light mb-1">Закрыть</button>
+                                                                    <a type="reset" class="btn btn-light mb-1" href="{% url 'companies' %}" >Закрыть</a>
                                                                 </div>
                                                             </div>
                                                         </form>
@@ -250,13 +257,13 @@
 
                                                                 <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                                                                     <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
-                                                                    <button type="reset" class="btn btn-light mb-1">Закрыть</button>
+                                                                    <a type="reset" class="btn btn-light mb-1" href="{% url 'companies' %}" >Закрыть</a>
                                                                 </div>
                                                         </form>
                                                     </div>
 
                                                     <div class="tab-pane fade" id="account-vertical-service" role="tabpanel" aria-labelledby="account-pill-connections" aria-expanded="false">
-                                                        <form action="{% url 'company-edit' company.pk %}" method="post">
+                                                        <form action="{% url 'company-edit' company.pk %}" method="post" enctype="multipart/form-data">
                                                             {% csrf_token %}
                                                                  <input type="hidden" name="form" value="service">
                                                         <div class="row">
@@ -291,9 +298,11 @@
                                                               <div class="row">
                                                             <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                                                                 <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
-                                                                <button type="reset" class="btn btn-light mb-1">Закрыть</button>
+
+                                                                    <a type="reset" class="btn btn-light mb-1" href="{% url 'companies' %}" >Закрыть</a>
                                                             </div>
                                                         </div>
+                                                        </form>
                                                             <div class="table-responsive">
                                         <table id="services-list-datatable" class="table">
                                             <thead>
@@ -301,6 +310,7 @@
                                                     <th>Название</th>
                                                     <th>Описание</th>
                                                     <th>Цена</th>
+                                                    <th>Edit</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -310,16 +320,62 @@
                                                     <td>{{ service.name }}</td>
                                                     <td>{{ service.description }}</td>
                                                     <td>{{ service.price }}</td>
+                                                       <td><button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#inlineForm{{service.pk}}">
+                                                        Изменить
+                                                      </button></td>
                                                    </tr>
-                                                     {% endif %}
+                                              {% endif %}
                                                   {% endfor %}
+
                                             </tbody>
                                         </table>
-                                    </div>
 
-                                                        </form>
+                                    </div>
+                                                        {% for serv in services %}
+                                        <div class="modal fade text-left" id="inlineForm{{serv.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" style="display: none;" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                                          <div class="modal-content">
+                                                            <div class="modal-header">
+                                                              <h4 class="modal-title" id="myModalLabel33">Изменение {{serv.pk}} </h4>
+                                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <i class="bx bx-x"></i>
+                                                              </button>
+                                                            </div>
+                                                              <form action="{% url 'service-edit' serv.pk %}" method="post" enctype="multipart/form-data">
+                                                                     {% csrf_token %}
+                                                                  <input type="hidden" name="company_pk" value="{{company.pk}}">
+                                                              <div class="modal-body">
+                                                                <label>Название:</label>
+                                                                <div class="form-group">
+                                                                  <input type="text" placeholder="Название" class="form-control" name="name" value="{{serv.name}}">
+                                                                </div>
+                                                                <label>Описание:</label>
+                                                                <div class="form-group">
+                                                                  <input type="text" placeholder="Описание" class="form-control"  name="description" value="{{serv.description}}">
+                                                                </div>
+                                                                  <label>Цена:</label>
+                                                                <div class="form-group">
+                                                                  <input type="text" placeholder="Цена" class="form-control" name="price" value="{{serv.price}}">
+                                                                </div>
+                                                                  <label>Картинка:</label>
+                                                                <div class="form-group">
+                                                                    <input type="file" name="image">
+                                                                </div>
+                                                              </div>
+                                                              <div class="modal-footer">
+                                                                <button type="button" class="btn btn-light-secondary" data-dismiss="modal">
+                                                                  <i class="bx bx-x d-block d-sm-none"></i>
+                                                                  <span class="d-none d-sm-block">Close</span>
+                                                                </button>
+                                                                <button type="submit" class="btn btn-primary ml-1">Submit</button>
+                                                              </div>
+                                                            </form>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                {% endfor %}
                                                     </div>
-                                                    <div class="tab-pane fade active show" id="account-vertical-filial" role="tabpanel" aria-labelledby="account-pill-filial" aria-expanded="false">
+                                                    <div class="tab-pane fade" id="account-vertical-filial" role="tabpanel" aria-labelledby="account-pill-filial" aria-expanded="false">
                                                         <form action="{% url 'company-edit' company.pk %}" method="post">
                                                             {% csrf_token %}
                                                             <input type="hidden" name="form" value="branches">
@@ -330,7 +386,14 @@
                                                             <div class="col-6">
                                                                 <div class="form-group">
                                                                     <label>Город</label>
-                                                                    <input type="text" class="form-control" placeholder="Город" name="city" required>
+
+                                                                    <select class="form-control" id="regionSelect"  name="region_id" >
+                                                                        <option value="">{{company.info.city}}</option>
+                                                                           {% for city in cities %}
+                                                                        <option value="{{city.city_name}}">{{city.city_name}}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+
                                                                 </div>
                                                             </div>
                                                             <div class="col-6">
@@ -388,13 +451,14 @@
                                                             <div class="row">
                                                             <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                                                                 <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
-                                                                <button type="reset" class="btn btn-light mb-1">Закрыть</button>
+
+                                                                    <a type="reset" class="btn btn-light mb-1" href="{% url 'companies' %}" >Закрыть</a>
                                                             </div>
                                                          </div>
                                                         </form>
                                                     </div>
 
-                                                    <div class="tab-pane fade" id="account-vertical-media" role="tabpanel" aria-labelledby="account-pill-info" aria-expanded="false">
+                                                    <div class="tab-pane fade" id="account-vertical-media" role="tabpanel" aria-labelledby="account-pill-media" aria-expanded="false">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <form action="{% url 'company-edit' company.pk %}" method="POST" enctype="multipart/form-data">
@@ -430,7 +494,7 @@
 
                                                         </div>
                                                     </div>
-                                                      <div class="tab-pane fade" id="account-vertical-files" role="tabpanel" aria-labelledby="account-pill-info" aria-expanded="false">
+                                                      <div class="tab-pane fade" id="account-vertical-files" role="tabpanel" aria-labelledby="account-pill-files" aria-expanded="false">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <form action="{% url 'company-edit' company.pk %}" method="POST" enctype="multipart/form-data">
@@ -455,8 +519,13 @@
                                                                 </div>
                                                                     </form>
                                                             </div>
+                                                            <div>
+                                                            <form action="{% url 'company-edit' company.pk %}" method="post" id="delete-company">
+                                                                {% csrf_token %}
+                                                                <input type="hidden" name="form" value="delete">
+                                                            </form>
 
-                                                        </div>
+                                                            </div>
                                                     </div>
 
                                             </div>
@@ -476,6 +545,23 @@
     <!-- END: Content-->
 
     </div>
+    <div class="modal text-left" id="deleteForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+
+              <div class="modal-body">
+                  <div class="swal2-icon swal2-warning swal2-animate-warning-icon" style="display: flex;"><span class="swal2-icon-text">!</span></div>
+                  <h4 class="modal-title text-center" >Вы действительно хотите удалить пользователя?</h4>
+                  <p class="text text-center">Данное действие невозможно отменить.</p>
+              <div class="mt-2 d-flex flex-sm-row flex-column justify-content-center">
+                <a type="reset" class="btn btn-light mb-1 mr-sm-1 text-white" data-dismiss="modal" aria-label="Close">Закрыть</a>
+                <input type="submit" class="btn btn-danger mb-1" data-toggle="modal"  form="delete-company" data-target="#deleteForm" value="Удалить компанию">
+            </div>
+              </div>
+
+          </div>
+        </div>
+      </div>
     <div class="sidenav-overlay"></div>
     <div class="drag-target"></div>
 

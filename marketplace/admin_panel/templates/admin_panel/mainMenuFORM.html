@@ -60,6 +60,18 @@
                 </li>
                 <li class="nav-item"><a href="{% url 'subscribes' %}"><i class="menu" data-icon="desktop"></i><span class="menu-title" data-i18n="Dashboard">Подписки</span></a>
                 </li>
+                   <li class=" nav-item"><a href="#"><i class="menu" data-icon="users"></i><span class="menu-title" data-i18n="User">Города</span></a>
+                    <ul class="menu-content">
+                      <li class="nav-item"><a href="{% url 'city' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-title" data-i18n="Dashboard">Города</span></a>
+                </li>
+                    </ul>
+                       <ul class="menu-content">
+                           <li class="nav-item"><a href="{% url 'region' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-title" data-i18n="Dashboard">Области</span></a>
+                </li>
+                    </ul>
+                </li>
+
+
             </ul>
 
         </div>

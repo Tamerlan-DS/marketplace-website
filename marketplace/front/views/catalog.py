@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from company.models import Company, Category, CompanyCategory, Reviews, Services, Branches
+from company.models import Company, Category, CompanyCategory, Reviews, Services, Branches, Property, File
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator
 from search.company import search_company
@@ -8,17 +8,24 @@ from django.db.models import Q
 
 def catalogPageView(request):
     search_query = request.GET.get('search', None)
+    city = request.GET.get('city', None)
+    region = request.GET.get('region', None)
+    properties = Property.objects.all()
     category_ids = request.GET.getlist('filter-category', [])
     categories = Category.objects.filter(Q(id__in=category_ids) | Q(parent__id__in=category_ids))
     companies = search_company(
         search_text=search_query,
         categories=categories,
+        city=city,
+        region=region,
     )
     company_number = search_company(
         search_text=search_query,
         categories=categories,
+        city=city,
+        region=region,
     ).count()
-    paginator = Paginator(companies, 2)
+    paginator = Paginator(companies, 20)
 
     page_number = request.GET.get('page', 1)
     page = paginator.get_page(page_number)
@@ -49,13 +56,14 @@ def catalogPageView(request):
         'next_url': next_url,
         'prev_url': prev_url,
         'number_of_companies': company_number,
-
+        'properties': properties,
     }
     return render(request, 'front/catalog.html', context=context)
 
 
 def catalogItemPageView(request, company_id):
     company = get_object_or_404(Company, pk=company_id)
+    fil = File.objects.all()
     print(company.categories.all())
     for company_category in company.categories.all():
          print(company_category.category)
@@ -63,16 +71,16 @@ def catalogItemPageView(request, company_id):
          print(companies)
     categories = Category.objects.all()
     services = Services.objects.filter(company_fk=company_id)
-
+    revi = Reviews.objects.all()
     if(services):
         isServices=1
     else:
         isServices=0
-    revi = Reviews.objects.all()
-    if(revi):
-        isReview=1
+    bran = Branches.objects.all()
+    if(bran):
+        isbranch=1
     else:
-        isReview=0
+        isbranch=0
     branche = Branches.objects.all()
     company_categories = Category.objects.filter(
         pk__in=CompanyCategory.objects.filter(company=company).values_list('category'))
@@ -84,8 +92,9 @@ def catalogItemPageView(request, company_id):
         'services': services,
         'branches': branche,
         'isServices': isServices,
-        'isReview': isReview,
+        'isbranch': isbranch,
         'companies': companies,
+        'File': fil,
     }
     if request.method == 'POST':
         pk = request.POST['pk']

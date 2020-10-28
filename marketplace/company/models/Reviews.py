@@ -1,4 +1,5 @@
 from django.db import models
+from datetime import datetime
 
 
 class Reviews(models.Model):
@@ -15,3 +16,7 @@ class Reviews(models.Model):
                               choices=StatusChoices.choices,
                               default=StatusChoices.PENDING
                               )
+    date = models.DateTimeField(
+        default=datetime.now,
+        blank=True,
+    )

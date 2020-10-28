@@ -26,10 +26,10 @@
             </div>
             <div class="col-12">
                 <div class="main-banner-form">
-                    <form>
+                    <form action="{% url 'Catalog' %}">
                         <div class="row">
                           <div class="col">
-                            <input type="text" class="form-control" placeholder="Я хочу найти..." required>
+                            <input type="text" class="form-control" name="search" placeholder="Я хочу найти..." required>
                           </div>
                           <div class="col d-md-block d-none">
                             <select class="custom-select mr-sm-2" id="inlineFormCustomSelect1">

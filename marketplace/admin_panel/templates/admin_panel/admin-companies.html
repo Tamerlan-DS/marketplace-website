@@ -69,7 +69,7 @@
                                                   {% for company in companies %}
                                                   <tr>
                                                     <td>{{ company.pk }}</td>
-                                                    <td><a href="{% url 'panel' %}">{{ company.owner }}</a>
+                                                    <td><a href="{% url 'company-edit' company.pk %}">{{ company.owner }}</a>
                                                     </td>
                                                     <td>{{ company.info.name }}</td>
                                                     <td>{{ company.owner.date_joined }}</td>

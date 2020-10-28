@@ -129,32 +129,16 @@
                 <p class="title">ФАЙЛЫ</p>
 
                 <div class="catalog-item-file">
+                {% for fi in File %}
                     <div class="catalog-item-file-item">
                             <div class="catalog-item-file-icon"><img src="{% static 'front/img/icons/catalog-item-file-icon.svg' %}" alt=""></div>
                         <div>
-                            <div class="catalog-item-file-name">Название файла</div>
-                            <div class="catalog-item-file-info">2 файл, 14.05 mb</div>
+                            <div class="catalog-item-file-name">{{fi.note}}</div>
+                            <div class="catalog-item-file-info"> {{ fi.file.size }} байт </div>
                         </div>
-                            <a href="" class="catalog-item-file-download">Скачать</a>
+                            <a href="{{ fi.file.url }}" target="_blank" download="true" class="catalog-item-file-download">Скачать</a>
                     </div>
-
-                    <div class="catalog-item-file-item">
-                        <div class="catalog-item-file-icon"><img src="{% static 'front/img/icons/catalog-item-file-icon.svg' %}" alt=""></div>
-                        <div>
-                            <div class="catalog-item-file-name">Название файла</div>
-                            <div class="catalog-item-file-info">2 файл, 14.05 mb</div>
-                        </div>
-                            <a href="" class="catalog-item-file-download">Скачать</a>
-                    </div>
-
-                    <div class="catalog-item-file-item">
-                        <div class="catalog-item-file-icon"><img src="{% static 'front/img/icons/catalog-item-file-icon.svg' %}" alt=""></div>
-                        <div>
-                            <div class="catalog-item-file-name">Название файла</div>
-                            <div class="catalog-item-file-info">2 файл, 14.05 mb</div>
-                        </div>
-                            <a href="" class="catalog-item-file-download">Скачать</a>
-                    </div>
+                {% endfor %}
                 </div>
             </div>
         </div>
@@ -171,10 +155,10 @@
 
             <div class="swiper-container catalog-item-services">
                 <div class="swiper-wrapper">
-
-                    <div class="swiper-slide">
-                          {% for service in services %}
+                 {% for service in services %}
                       {% if service.company_fk == company.pk %}
+                    <div class="swiper-slide">
+
                         <div class="catalog-item-service">
                             <div class="catalog-item-service-header">
                                 <p class="catalog-item-service-title">{{ service.name }}</p>
@@ -193,9 +177,8 @@
                         </div>
 
                     </div>
-     {% endif %}
+                    {% endif %}
                         {% endfor %}
-
                 </div>
 
                 <div class="swiper-pag-div">
@@ -212,7 +195,7 @@
 </section>
  {% endif %}
 
-   {% if isReview == 1 %}
+   {% if isbranch == 1 %}
 <section>
     <div class="container">
 

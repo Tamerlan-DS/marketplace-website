@@ -31,6 +31,7 @@ class Property(models.Model):
     name = models.CharField(max_length=255)
 
 
+
 class CompanyCategory(models.Model):
     company = models.ForeignKey(Company,
                                 on_delete=models.CASCADE,

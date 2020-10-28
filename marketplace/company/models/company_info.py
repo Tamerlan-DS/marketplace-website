@@ -10,6 +10,7 @@ class CompanyInfo(models.Model):
     short_description = models.TextField(default="")
     description = models.TextField(default="")
     city = models.TextField(default="")
+    region = models.TextField(default="")
     phone = models.TextField(default="")
     email = models.TextField(default="")
     site = models.TextField(default="")

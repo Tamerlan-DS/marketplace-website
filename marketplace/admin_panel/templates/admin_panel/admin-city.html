@@ -48,44 +48,34 @@
                         <div class="col-4">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Добавить тариф</h4>
+                                        <h4 class="card-title">Добавить город</h4>
                                     </div>
                                     <div class="card-content">
                                         <div class="card-body">
-                                            <form class="form form-horizontal" action="{% url 'tarif-add' %}" method="post">
+                                            <form class="form form-horizontal" action="{% url 'city' %}" method="post">
                                                 {% csrf_token %}
                                                 <div class="form-body">
                                                     <div class="row">
                                                         <div class="col-12">
                                                             <div class="form-group">
                                                                 <div class="controls">
-                                                                     <label>Название</label>
+                                                                     <label>Город</label>
                                                                     <input type="text" id="first-name" class="form-control" name="name" placeholder="Название">
                                                                 </div>
                                                             </div>
-
                                                         </div>
                                                         <div class="col-12">
                                                             <div class="form-group">
                                                                 <div class="controls">
-                                                                     <label>Цена</label>
-                                                                    <input type="number" id="price" class="form-control" name="price" placeholder="Цена">
+                                                                     <label>Область</label>
+                                                                     <select class="form-control" id="regionSelect"  name="region_id" >
+                                                                         {% for region in regions %}
+                                                                         <option value="{{ region.pk }}">{{region.region_name}}</option>
+                                                                         {% endfor %}
+                                                                     </select>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-12">
-                                                            <div class="form-group">
-                                                                <div class="controls">
-                                                                     <label>Время в секундах</label>
-                                                              <input type="text" id="first-name" class="form-control" name="timeleft" placeholder="Время действия в секундах">
-                                                              </div>
-                                                            </div>
-
-                                                        </div>
-
-
-
-
 
                                                     </div>
                                                 </div>
@@ -98,7 +88,7 @@
                       <div class="col-8">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Список тарифов</h4>
+                                        <h4 class="card-title">Список городов</h4>
                                     </div>
                                     <div class="users-list-table">
                         <div class="card">
@@ -110,18 +100,16 @@
                                             <thead>
                                                 <tr>
                                                     <th>id</th>
-                                                    <th>Название</th>
-                                                    <th>Цена</th>
-                                                    <th>Срок</th>
+                                                    <th>Город</th>
+                                                    <th>Область</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                              {% for tarif in tarifes %}
+                                              {% for city in cities %}
                                               <tr>
-                                                    <td>{{ tarif.pk }}</td>
-                                                    <td>{{ tarif.name }}</td>
-                                                    <td>{{ tarif.price }}</td>
-                                                    <td>{{ tarif.timeleft }} дней</td>
+                                                    <td>{{ city.pk }}</td>
+                                                    <td>{{ city.city_name }}</td>
+                                                    <td>{{ city.region.region_name}}</td>
 
 
                                                {% endfor %}

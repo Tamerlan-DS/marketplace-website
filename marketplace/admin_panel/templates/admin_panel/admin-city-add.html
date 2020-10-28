@@ -44,6 +44,35 @@
             <div class="content-body">
                 <!-- users list start -->
                 <section class="users-list-wrapper">
+                    <div class="users-list-filter px-1">
+                        <form>
+                            <div class="row border rounded py-2 mb-2">
+                                <div class="col-12 col-sm-6 col-lg-3">
+                                    <label for="users-list-role">Роль</label>
+                                    <fieldset class="form-group">
+                                        <select class="form-control" id="users-list-role">
+                                            <option value="">Все</option>
+                                            <option value="Менеджер">Менеджер</option>
+                                            <option value="Админ">Админ</option>
+                                        </select>
+                                    </fieldset>
+                                </div>
+                                <div class="col-12 col-sm-6 col-lg-3">
+                                    <label for="users-list-status">Статус</label>
+                                    <fieldset class="form-group">
+                                        <select class="form-control" id="users-list-status">
+                                            <option value="">Все</option>
+                                            <option value="ACTIVE">Активный</option>
+                                            <option value="DELETED">Удаленный</option>
+                                        </select>
+                                    </fieldset>
+                                </div>
+                                <div class="col-12 col-sm-6 col-lg-3 d-flex align-items-center">
+                                    <button type="reset" class="btn btn-primary btn-block glow users-list-clear mb-0">Очистить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                     <div class="users-list-table">
                         <div class="card">
                             <div class="card-content">
@@ -68,10 +97,10 @@
 
                                               <tr>
                                                     <td>{{ review.pk }}</td>
-                                                    <td><a href="{% url 'review-edit' review.pk %}">{{ review.email }}</a>
+                                                    <td><a href="">{{ review.email }}</a>
                                                     </td>
                                                     <td>{{ review.name }}</td>
-                                                    <td>{{ review.date }}</td>
+                                                    <td>{{ review.date_joined }}</td>
 
                                                   {% for company in companies %}
                                                     {% if review.pk_number == company.pk %}

@@ -65,8 +65,11 @@
                                             <div class="card-body">
                                                 <div class="tab-content">
                                                     <div role="tabpanel" class="tab-pane active" id="account-vertical-general" aria-labelledby="account-pill-general" aria-expanded="true">
-                                                        <form action="{% url 'news-add' %}" method="POST">
+                                                        <form action="{% url 'news-add' %}" method="POST" enctype="multipart/form-data">
                                                              {% csrf_token %}
+                                                            {% if error == 0 %}
+                                                            <p class="info-ss"> Новость успешно добавилась</p>
+                                                            {% endif %}
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="form-group">
@@ -89,6 +92,14 @@
                                                                         <div class="controls">
                                                                             <label>Текст</label>
                                                                             <textarea type="text" class="form-control "  name = "text" placeholder="Текст"required data-validation-required-message="This password field is required"></textarea>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <div class="form-group">
+                                                                        <div class="controls">
+                                                                            <label>Картинка</label>
+                                                                            <input type="file"  name = "img" required data-validation-required-message="This password field is required"></input>
                                                                         </div>
                                                                     </div>
                                                                 </div>

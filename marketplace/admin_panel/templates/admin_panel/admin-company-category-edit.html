@@ -56,6 +56,7 @@
                                         <form class="form form-horizontal form repeater-default" action="{% url 'company-category-edit' category.pk %}" method="POST">
                                                 {% csrf_token %}
                                                 {{ error }}
+                                              <input type="hidden" name="form" value="edit">
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-md-4">
@@ -64,13 +65,42 @@
                                                     <div class="col-md-8 form-group">
                                                         <input type="text" id="first-name" class="form-control" name="name" value="{{ category.name }}">
                                                     </div>
+
+
+                                                    <div class="col-md-4">
+                                                        <label>Характеристики</label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group">
+                                                        <input type="text" id="property" class="form-control" name="property" value="{% for property in properties %}{{ property.name }}
+                                                    {% endfor %}">
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <label>Родительская категория </label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group">
+                                                            <select class="form-control" id="accountSelect"  name="parent_id" >
+                                                                <option value="{{category.parent.pk}}" selected disabled>
+                                                                    {{category.parent}}
+                                                                </option>
+                                                        {% for category in parents %}
+                                                            <option value="{{ category.pk }}">
+                                                                {{ category.name }}
+                                                            </option>
+                                                        {% endfor %}
+                                                            </select>
+                                                    </div>
                                                     <hr>
                                                     <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                                                         <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
-                                                        <button type="reset" class="btn btn-light mb-1">Закрыть</button>
+                                                        <button type="reset" class="btn btn-light mr-sm-1  mb-1">Закрыть</button>
+                                                       <button type="button" class="btn btn-danger mb-1" data-toggle="modal" data-target="#deleteForm"> Удалить категорию</button>
                                                     </div>
                                                 </div>
                                             </div>
+                                        </form>
+                                        <form action="{% url 'company-category-edit' category.pk %}" method="post" id="delete-cat">
+                                                                {% csrf_token %}
+                                                                <input type="hidden" name="form" value="delete">
                                         </form>
                                     </div>
                                 </div>
@@ -145,7 +175,23 @@
             </div>
         </div>
         <!-- widget chat demo ends -->
+<div class="modal text-left" id="deleteForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+          <div class="modal-content">
 
+              <div class="modal-body">
+                  <div class="swal2-icon swal2-warning swal2-animate-warning-icon" style="display: flex;"><span class="swal2-icon-text">!</span></div>
+                  <h4 class="modal-title text-center" >Вы действительно хотите удалить катагоерию?</h4>
+                  <p class="text text-center">Данное действие невозможно отменить.</p>
+              <div class="mt-2 d-flex flex-sm-row flex-column justify-content-center">
+                <a type="reset" class="btn btn-light mb-1 mr-sm-1 text-white" data-dismiss="modal" aria-label="Close">Закрыть</a>
+                  <input type="submit" class="btn btn-danger mb-1" form="delete-cat" value="Удалить категорию">
+            </div>
+              </div>
+
+          </div>
+        </div>
+      </div>
     </div>
     <div class="sidenav-overlay"></div>
     <div class="drag-target"></div>

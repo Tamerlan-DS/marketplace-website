@@ -27,13 +27,13 @@
             </div>
             <div class="col-12">
                 <div class="main-banner-form">
-                    <form>
+                    <form action="{% url 'Catalog' %}">
                         <div class="row">
                           <div class="col">
-                            <input type="text" class="form-control" placeholder="Я хочу найти..." required>
+                            <input type="text" class="form-control" placeholder="Я хочу найти..." required name="search">
                           </div>
                           <div class="col d-md-block d-none">
-                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect1">
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect1" name="filter-category">
                                 {% for category in filteredcategories %}
                                     <option value="{{ category.pk }}">
                                 {{ category.name }}1
@@ -42,10 +42,10 @@
                               </select>
                           </div>
                           <div class="col d-md-block d-none">
-                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                            <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="city">
 
-                                {% for company in companycities %}
-                                <option value="{{company}}">{{company}}</option>
+                                {% for city in cities %}
+                                <option value="{{city.city_name}}">{{city.city_name}}</option>
                                 {% endfor %}
                               </select>
                           </div>
@@ -79,13 +79,13 @@
             <div class="product-item " data-tilt data-tilt-perspective="5000">
                    {% endif %}
                 {% endfor%}
-                <a href="" class="product-img">
+                <a href="{% url 'Catalog-item' company.pk %}" class="product-img">
 
                     <img src="media/{{ company.files.picture }}" alt="">
                 </a>
                 <div class="product-body">
-                    <a href="" class="product-name">{{ company.info.name }} </a>
-                    <a href="" class="product-cotegory">  {% for company_category in company.categories.all %}
+                    <a href="{% url 'Catalog-item' company.pk %}" class="product-name">{{ company.info.name }} </a>
+                    <a href="{% url 'Catalog-item' company.pk %}" class="product-cotegory">  {% for company_category in company.categories.all %}
                              {{ company_category.category.name }}
                     {% endfor %}</a>
 
@@ -181,13 +181,13 @@
 
     <div class="main-news-div">
          {% for n in News %}
-        <div class="main-news-item">
-            <img src="{% static 'front/img/news/1.png' %}" alt="">
+        <a href="{% url 'news-item' n.pk %}" class="main-news-item">
+            <img src="media/{{ n.img }}" alt="">
             <div class="main-news-info">
                 <p class="title">{{ n.title }}</p>
                 <p class="desc">{{ n.date }}</p>
             </div>
-        </div>
+        </a>
         {% endfor %}
     </div>
 
