@@ -43,5 +43,8 @@ urlpatterns = [
     path('city-edit/<int:city_id>', CityEditView, name='city-edit'),
     path('region', regionView, name='region'),
     path('region-edit/<int:region_id>', regionEditView, name='region-edit'),
+
+    path('file-edit/<int:file_id>', fileEditView, name='file-edit'),
+    path('branch-edit/<int:branch_id>', branchEditView, name='branch-edit'),
 ]
 

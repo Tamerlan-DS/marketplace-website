@@ -46,6 +46,13 @@
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
                             <h5 class="content-header-title float-left pr-1 mb-0">Компания</h5>
+                            {% if error_file == 0 %}
+                                <p>Превышен лимит файлов!</p>
+                            {% elif error_file == 1 %}
+                                <p>Файл успешно добавлен!</p>
+                            {% elif error_file == 2 %}
+                                <p>Вы не добавили файл!</p>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
@@ -166,7 +173,7 @@
                                                                     <label>Город</label>
 
                                                                     <select class="form-control" id="citySelect"  name="city" >
-                                                                        <option value="{{company.info.city}}" disabled selected>{{company.info.city}}</option>
+                                                                        <option value="{{company.info.city}}"  selected>Текущий: {{company.info.city}}</option>
                                                                         {% for city in cities %}
                                                                         <option value="{{city.city_name}}" >{{city.city_name}}</option>
                                                                         {% endfor %}
@@ -305,6 +312,7 @@
                                                     <th>Описание</th>
                                                     <th>Цена</th>
                                                     <th>Изменить</th>
+                                                    <th>Удалить</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -317,6 +325,8 @@
                                                        <td><button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#inlineForm{{service.pk}}">
                                                         Изменить
                                                       </button></td>
+                                                        <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteFormServ{{service.pk}}">Удалить</button></td>
+
                                                    </tr>
                                               {% endif %}
                                                   {% endfor %}
@@ -338,6 +348,7 @@
                                                               <form action="{% url 'service-edit' serv.pk %}" method="post" enctype="multipart/form-data">
                                                                      {% csrf_token %}
                                                                   <input type="hidden" name="company_pk" value="{{company.pk}}">
+                                                                  <input type="hidden" name="form" value="edit">
                                                               <div class="modal-body">
                                                                 <label>Название:</label>
                                                                 <div class="form-group">
@@ -364,6 +375,11 @@
                                                                 <button type="submit" class="btn btn-primary ml-1">Отправить</button>
                                                               </div>
                                                             </form>
+                                                              <form action="{% url 'service-edit' serv.pk %}" method="post" id="delete-service{{serv.pk}}">
+                                                                        {% csrf_token %}
+                                                                     <input type="hidden" name="form" value="delete">
+                                                                    <input type="hidden" name="company_pk" value="{{company.pk}}">
+                                                              </form>
                                                           </div>
                                                         </div>
                                                       </div>
@@ -380,9 +396,7 @@
                                                             <div class="col-6">
                                                                 <div class="form-group">
                                                                     <label>Город</label>
-
                                                                     <select class="form-control" id="regionSelect"  name="city" >
-                                                                        <option value="">{{company.info.city}}</option>
                                                                            {% for city in cities %}
                                                                         <option value="{{city.city_name}}">{{city.city_name}}</option>
                                                                         {% endfor %}
@@ -415,6 +429,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
+
                                                             <div class="table-responsive">
                                                                 <table id="users-list-datatable" class="table">
                                                                 <thead>
@@ -424,6 +439,8 @@
                                                                         <th>Телефон</th>
                                                                         <th>Почта</th>
                                                                         <th>Время работы</th>
+                                                                        <th>Изменить</th>
+                                                                        <th>Удалить</th>
                                                                     </tr>
                                                                 </thead>
                                                                 <tbody>
@@ -435,21 +452,94 @@
                                                                         <td>{{ branch.phone }}</td>
                                                                         <td>{{ branch.email }}</td>
                                                                         <td>{{ branch.worktime }}</td>
+                                                                        <td><button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#inlineFormBranch{{branch.pk}}">Изменить</button></td>
+                                                                        <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteFormBranch{{branch.pk}}">Удалить</button></td>
                                                                        </tr>
                                                                          {% endif %}
                                                                       {% endfor %}
                                                                 </tbody>
                                                             </table>
                                                           </div>
-
                                                             <div class="row">
                                                             <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                                                                 <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
-
-                                                                    <a type="reset" class="btn btn-light mb-1" href="{% url 'companies' %}" >Закрыть</a>
+                                                                <a type="reset" class="btn btn-light mb-1" href="{% url 'companies' %}" >Закрыть</a>
                                                             </div>
                                                          </div>
                                                         </form>
+                                                           {% for cit in branches %}
+                                        <div class="modal fade text-left" id="inlineFormBranch{{cit.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" style="display: none;" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                                          <div class="modal-content">
+                                                            <div class="modal-header">
+                                                              <h4 class="modal-title" id="myModalLabel3123">Изменение {{cit.pk}} </h4>
+                                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <i class="bx bx-x"></i>
+                                                              </button>
+                                                            </div>
+                                                              <form action="{% url 'branch-edit' cit.pk %}" method="post" enctype="multipart/form-data">
+                                                                     {% csrf_token %}
+                                                                  <input type="hidden" name="form" value="edit">
+                                                                  <input type="hidden" name="company_pk" value="{{company.pk}}">
+                                                              <div class="modal-body">
+                                                               <div class="col-6">
+                                                                <div class="form-group">
+                                                                    <label>Город</label>
+
+                                                                    <select class="form-control" id="regionSelect32"  name="city" >
+                                                                           {% for city in cities %}
+                                                                        <option value="{{city.city_name}}">{{city.city_name}}</option>
+                                                                        {% endfor %}
+                                                                    </select>
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="form-group">
+                                                                    <label>Адрес</label>
+                                                                    <input type="text" class="form-control" value="{{cit.address}}" name="address" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="form-group">
+                                                                    <label>Телефон</label>
+                                                                    <input type="text" class="form-control" value="{{cit.phone}}"name="phone" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="form-group">
+                                                                    <label>Почта</label>
+                                                                    <input type="text" class="form-control" value="{{cit.email}}" name="email" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="form-group">
+                                                                    <label>Время работы</label>
+                                                                    <input type="text" class="form-control" value="{{cit.worktime}}" name="worktime" required>
+                                                                </div>
+                                                            </div>
+                                                              </div>
+                                                              <div class="modal-footer">
+                                                                <button type="button" class="btn btn-light-secondary" data-dismiss="modal">
+                                                                  <i class="bx bx-x d-block d-sm-none"></i>
+                                                                  <span class="d-none d-sm-block">Закрыть</span>
+                                                                </button>
+                                                                <button type="submit" class="btn btn-primary ml-1">Отправить</button>
+                                                              </div>
+
+                                                            </form>
+
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                {% endfor %}
+                                                          {% for ct in branches %}
+                                                              <form action="{% url 'branch-edit' ct.pk %}" method="post" id="delete-branch{{ct.pk}}">
+                                                                    {% csrf_token %}
+                                                                     <input type="hidden" name="form" value="delete">
+                                                                     <input type="hidden" name="company_fk" value="{{company.pk}}">
+                                                              </form>
+                                                              {% endfor %}
                                                     </div>
 
                                                     <div class="tab-pane fade" id="account-vertical-media" role="tabpanel" aria-labelledby="account-pill-media" aria-expanded="false">
@@ -500,18 +590,78 @@
                                                                         <div class="col-12 px-0 d-flex flex-sm-row flex-column justify-content-start">
                                                                             <label class="btn btn-sm btn-light-primary ml-50 mb-50 mb-sm-0">
                                                                                 <span>Загрузить файл</span>
-                                                                                    <input type="file" name="files">
-                                                                                   <input type="text" placeholder="Описание" name="note">
+                                                                                   <input type="file" name="files">
+                                                                                   <input type="text" placeholder="Описание" name="note" required>
                                                                             </label>
-
-                                                                            <button class="btn btn-sm btn-light-secondary ml-50">Удалить</button>
+                                                                            <button type="submit" class="btn btn-sm btn-light-secondary ml-50">Добавить!</button>
                                                                         </div>
-
-
                                                                     </div>
-                                                                    <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
                                                                 </div>
                                                                     </form>
+                                                                 <div class="table-responsive">
+                                        <table id="file-list-datatable" class="table">
+                                            <thead>
+                                                <tr>
+                                                    <th>id</th>
+                                                    <th>Файл</th>
+                                                    <th>Изменить</th>
+                                                    <th>Удалить</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                              {% for file in company_files %}
+                                              <tr>
+                                                  <td>{{ file.pk }}</td>
+                                                  <td>{{ file.note }}</td>
+                                                  <td><button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#inlineFormFile{{file.pk}}">Изменить</button></td>
+                                                  <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteFormFile{{file.pk}}">Удалить</button></td>
+                                               {% endfor %}
+                                             {% for fi in company_files %}
+                                        <div class="modal fade text-left" id="inlineFormFile{{fi.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" style="display: none;" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+                                                          <div class="modal-content">
+                                                            <div class="modal-header">
+                                                              <h4 class="modal-title" id="myModalLabel332">Изменение {{fi.pk}} </h4>
+                                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <i class="bx bx-x"></i>
+                                                              </button>
+                                                            </div>
+                                                              <form action="{% url 'file-edit' fi.pk %}" method="post" enctype="multipart/form-data">
+                                                                     {% csrf_token %}
+                                                                  <input type="hidden" name="form" value="edit">
+                                                              <div class="modal-body">
+                                                                <label class="btn btn-sm btn-light-primary ml-50 mb-50 mb-sm-0">
+                                                                                <span>Загрузить файл</span>
+                                                                                   <input type="file" name="files">
+                                                                                   <input type="text" placeholder="Описание" name="note">
+                                                                                   <input type="hidden" value="{{company.pk}}" name="company_pk">
+                                                                </label>
+                                                              </div>
+                                                              <div class="modal-footer">
+                                                                <button type="button" class="btn btn-light-secondary" data-dismiss="modal">
+                                                                  <i class="bx bx-x d-block d-sm-none"></i>
+                                                                  <span class="d-none d-sm-block">Закрыть</span>
+                                                                </button>
+                                                                <button type="submit" class="btn btn-primary ml-1">Отправить</button>
+                                                              </div>
+
+                                                            </form>
+
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                {% endfor %}
+                                                  {% for f in company_files %}
+                                                              <form action="{% url 'file-edit' f.pk %}" method="post" id="delete-file{{f.pk}}">
+                                                                  {% csrf_token %}
+                                                                  <input type="hidden" name="form" value="delete">
+                                                                   <input type="hidden" value="{{company.pk}}" name="company_pk">
+                                                              </form>
+                                                  {% endfor %}
+                                            </tbody>
+                                        </table>
+
+                                    </div>
                                                             </div>
                                                             <div>
                                                             <form action="{% url 'company-edit' company.pk %}" method="post" id="delete-company">
@@ -530,6 +680,7 @@
                                </div>
                         </div>
                         </div>
+                    </div>
                 </section>
                 <!-- account setting page ends -->
 
@@ -539,6 +690,7 @@
     <!-- END: Content-->
 
     </div>
+
     <div class="modal text-left" id="deleteForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
           <div class="modal-content">
@@ -556,6 +708,63 @@
           </div>
         </div>
       </div>
+    {% for fat in company_files %}
+     <div class="modal text-left" id="deleteFormFile{{fat.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+
+              <div class="modal-body">
+                  <div class="swal2-icon swal2-warning swal2-animate-warning-icon" style="display: flex;"><span class="swal2-icon-text">!</span></div>
+                  <h4 class="modal-title text-center" >Вы действительно хотите удалить файл?</h4>
+                  <p class="text text-center">Данное действие невозможно отменить.</p>
+              <div class="mt-2 d-flex flex-sm-row flex-column justify-content-center">
+                <a type="reset" class="btn btn-light mb-1 mr-sm-1 text-white" data-dismiss="modal" aria-label="Close">Закрыть</a>
+                <input type="submit" class="btn btn-danger mb-1" data-toggle="modal"  form="delete-file{{fat.pk}}" data-target="#deleteFormFile" value="Удалить компанию">
+            </div>
+              </div>
+
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% for ser in services %}
+     <div class="modal text-left" id="deleteFormServ{{ser.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+
+              <div class="modal-body">
+                  <div class="swal2-icon swal2-warning swal2-animate-warning-icon" style="display: flex;"><span class="swal2-icon-text">!</span></div>
+                  <h4 class="modal-title text-center" >Вы действительно хотите удалить услугу?</h4>
+                  <p class="text text-center">Данное действие невозможно отменить.</p>
+              <div class="mt-2 d-flex flex-sm-row flex-column justify-content-center">
+                <a type="reset" class="btn btn-light mb-1 mr-sm-1 text-white" data-dismiss="modal" aria-label="Close">Закрыть</a>
+                <input type="submit" class="btn btn-danger mb-1" data-toggle="modal"  form="delete-service{{ser.pk}}" data-target="#deleteFormServ{{ser.pk}}" value="Удалить компанию">
+            </div>
+              </div>
+
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% for br in branches %}
+     <div class="modal text-left" id="deleteFormBranch{{br.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+
+              <div class="modal-body">
+                  <div class="swal2-icon swal2-warning swal2-animate-warning-icon" style="display: flex;"><span class="swal2-icon-text">!</span></div>
+                  <h4 class="modal-title text-center" >Вы действительно хотите удалить филиал?</h4>
+                  <p class="text text-center">Данное действие невозможно отменить.</p>
+              <div class="mt-2 d-flex flex-sm-row flex-column justify-content-center">
+                <a type="reset" class="btn btn-light mb-1 mr-sm-1 text-white" data-dismiss="modal" aria-label="Close">Закрыть</a>
+                <input type="submit" class="btn btn-danger mb-1" data-toggle="modal"  form="delete-branch{{br.pk}}" data-target="#deleteFormBranch{{br.pk}}" value="Удалить компанию">
+            </div>
+              </div>
+
+          </div>
+        </div>
+      </div>
+    {% endfor %}
     <div class="sidenav-overlay"></div>
     <div class="drag-target"></div>
 

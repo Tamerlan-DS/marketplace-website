@@ -60,7 +60,7 @@ def companyAddView(request):
 @user_is_moder
 def companyEditView(request, company_id):
     company = get_object_or_404(Company, pk=company_id)
-
+    company_fily = File.objects.filter(company_files=company.files)
 
     cities = City.objects.all()
     services = Services.objects.all()
@@ -76,6 +76,7 @@ def companyEditView(request, company_id):
         'services': services,
         'branches': branche,
         'cities': cities,
+        'company_files': company_fily,
     }
     if request.method == 'POST':
         type = request.POST['form']
@@ -141,7 +142,6 @@ def companyEditView(request, company_id):
             phone = request.POST['phone']
             email = request.POST['email']
             worktime = request.POST['worktime']
-
             Branches.objects.create(city=city, address=address, phone=phone, email=email, worktime=worktime,
                                     company_fk=company.pk)
             return render(request, 'admin_panel/admin-company-edit.html', context=context)
@@ -155,10 +155,19 @@ def companyEditView(request, company_id):
 
         if type == 'files_core':
             file = company.files
+            files_num = File.objects.filter(company_files=file).count()
             post_file = request.FILES.get('files')
             note = request.POST['note']
-            File.objects.create(company_files=file,file=post_file,note=note)
-            return render(request, 'admin_panel/admin-company-edit.html', context=context)
+            if not post_file:
+                context['error_file'] = 2
+                return render(request, 'admin_panel/admin-company-edit.html', context=context)
+            elif files_num == 3:
+                context['error_file'] = 0
+                return render(request, 'admin_panel/admin-company-edit.html', context=context)
+            else:
+                File.objects.create(company_files=file,file=post_file,note=note)
+                context['error_file'] = 1
+                return render(request, 'admin_panel/admin-company-edit.html', context=context)
         if type == 'delete':
             company.delete()
             return redirect('companies')
@@ -602,6 +611,54 @@ def CategoryPropertyEditView(request, property_id):
             cat_pk = int(request.POST['cat_pk'])
             property.delete()
             return redirect('company-category-edit',cat_pk)
+    context = {
+    }
+    return render(request, 'admin_panel/admin-region.html', context=context)
+
+@login_required
+@user_is_moder
+def fileEditView(request, file_id):
+    files = get_object_or_404(File,pk=file_id)
+    if request.method =='POST':
+        type = request.POST['form']
+        if type == 'edit':
+            files_note = request.POST['note']
+            company_pk = int(request.POST['company_pk'])
+            files.note = files_note
+            files.save()
+            return redirect('company-edit',company_pk)
+        if type == 'delete':
+            company_pk = int(request.POST['company_pk'])
+            files.delete()
+            return redirect('company-edit',company_pk)
+    context = {
+    }
+    return render(request, 'admin_panel/admin-region.html', context=context)
+
+@login_required
+@user_is_moder
+def branchEditView(request, branch_id):
+    branch = get_object_or_404(Branches,pk=branch_id)
+    if request.method =='POST':
+        type = request.POST['form']
+        if type == 'edit':
+            city = request.POST['city']
+            address = request.POST['address']
+            phone = request.POST['phone']
+            email = request.POST['email']
+            worktime = request.POST['worktime']
+            company_pk = int(request.POST['company_pk'])
+            branch.city = city
+            branch.address = address
+            branch.phone = phone
+            branch.email = email
+            branch.worktime = worktime
+            branch.save()
+            return redirect('company-edit',company_pk)
+        if type == 'delete':
+            company_pk = int(request.POST['company_fk'])
+            branch.delete()
+            return redirect('company-edit',company_pk)
     context = {
     }
     return render(request, 'admin_panel/admin-region.html', context=context)

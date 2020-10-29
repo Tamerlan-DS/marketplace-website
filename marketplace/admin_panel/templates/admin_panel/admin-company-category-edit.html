@@ -71,8 +71,8 @@
                                                     </div>
                                                     <div class="col-md-8 form-group">
                                                             <select class="form-control" id="accountSelect"  name="parent_id" >
-                                                                 <option value="{{category.parent.pk}}" {% if category.parent.pk %} disabled {% endif %}>
-                                                                    {{category.parent}}
+                                                                 <option value="{{category.parent.pk}}" >
+                                                                    Текущий: {{category.parent}}
                                                                 </option>
                                                         {% for category in parents %}
                                                             <option value="{{ category.pk }}">

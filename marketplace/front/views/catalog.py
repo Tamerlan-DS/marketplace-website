@@ -73,7 +73,7 @@ def catalogItemPageView(request, company_id):
         isServices=1
     else:
         isServices=0
-    bran = Branches.objects.all()
+    bran = Branches.objects.filter(company_fk=company_id)
     if(bran):
         isbranch=1
     else:
