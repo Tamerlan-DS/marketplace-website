@@ -27,3 +27,24 @@ def serviceEditView(request,service_id):
             company_pk= int(request.POST['company_pk'])
             services.delete()
     return redirect('company-edit',company_pk)
+
+def serviceUserEditView(request,service_id):
+    services = get_object_or_404(Services,pk=service_id)
+    if request.method == 'POST':
+        type = request.POST['form']
+        if type == 'edit':
+            print('post prishel')
+            name = request.POST['name']
+            description = request.POST['description']
+            price = request.POST['price']
+            img = request.FILES.get('image')
+            company_pk = int(request.POST['company_pk'])
+            services.name = name
+            services.image = img
+            services.description = description
+            services.price = price
+            services.save()
+        if type == 'delete':
+            company_pk= int(request.POST['company_pk'])
+            services.delete()
+    return redirect('edit')

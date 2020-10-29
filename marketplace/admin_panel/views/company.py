@@ -23,6 +23,7 @@ def companyView(request):
 @login_required
 @user_is_moder
 def companyAddView(request):
+    categories = Category.objects.all()
     if request.method == 'POST':
         username = request.POST['username']
         name = request.POST['name']
@@ -45,6 +46,7 @@ def companyAddView(request):
                 card = Card(owner=user, role=Card.RoleChoices.COMPANY_OWNER)
                 card.save()
                 create_company(user, name)
+
                 context['error'] = 0
                 return render(request, 'admin_panel/admin-company-add.html', context=context)
         else:
@@ -52,6 +54,7 @@ def companyAddView(request):
             return render(request, 'admin_panel/admin-company-add.html', context=context)
     else:
         context = {
+            'categories':categories,
         }
     return render(request, 'admin_panel/admin-company-add.html', context=context)
 
@@ -65,7 +68,6 @@ def companyEditView(request, company_id):
     cities = City.objects.all()
     services = Services.objects.all()
     categories = Category.objects.all()
-
     branche = Branches.objects.all()
     company_categories = Category.objects.filter(
         pk__in=CompanyCategory.objects.filter(company=company).values_list('category'))
@@ -91,6 +93,7 @@ def companyEditView(request, company_id):
             worktime = request.POST['worktime']
             adress = request.POST['adress']
             status = request.POST['status']
+            r_name = "default"
             regs = City.objects.values_list('region', flat=True).filter(city_name=city)
             for reg_id in regs:
                 reg = region.objects.filter(pk=reg_id)
@@ -116,7 +119,8 @@ def companyEditView(request, company_id):
                 company.status = company.StatusChoices.BANNED
             company_info.save()
             company.save()
-            return render(request, 'admin_panel/admin-company-edit.html', context=context)
+            return redirect('company-edit', company_id)
+            #return render(request, 'admin_panel/admin-company-edit.html', context=context)
 
         if type == 'category':
             categories_id = request.POST.getlist('categories')
@@ -126,7 +130,8 @@ def companyEditView(request, company_id):
             for category_id in categories_id:
                 category = Category.objects.get(pk=category_id)
                 CompanyCategory(company=company, category=category).save()
-            return render(request, 'admin_panel/admin-company-edit.html', context=context)
+            return redirect('company-edit',company_id)
+
 
         if type == 'service':
             name = request.POST['name']
@@ -134,7 +139,8 @@ def companyEditView(request, company_id):
             price = request.POST['price']
             image = request.FILES.get('image')
             Services.objects.create(name=name, description=description, price=price, company_fk=company.pk,image=image)
-            return render(request, 'admin_panel/admin-company-edit.html', context=context)
+            return redirect('company-edit',company_id)
+
 
         if type == 'branches':
             city = request.POST['city']
@@ -144,7 +150,8 @@ def companyEditView(request, company_id):
             worktime = request.POST['worktime']
             Branches.objects.create(city=city, address=address, phone=phone, email=email, worktime=worktime,
                                     company_fk=company.pk)
-            return render(request, 'admin_panel/admin-company-edit.html', context=context)
+            return redirect('company-edit',company_id)
+
 
 
         if type == 'files':
@@ -152,6 +159,7 @@ def companyEditView(request, company_id):
             files.picture = request.FILES.get('picture')
             files.banner = request.FILES.get('banner')
             files.save()
+            return redirect('company-edit', company_id)
 
         if type == 'files_core':
             file = company.files
@@ -386,6 +394,23 @@ def ReviewsView(request, ):
     return render(request, 'admin_panel/admin-reviews.html', context=context)
 
 @login_required
+@user_is_company
+def ReviewsUserView(request):
+    user = request.user
+    user_company = Company.objects.get(owner=user)
+    try:
+        reviews = Reviews.objects.filter(pk_number=user_company.pk)
+    except Reviews.DoesNotExist:
+        reviews = "Не существует"
+    Review = Reviews.objects.all()
+    companies = Company.objects.all()
+    context = {
+        'companies': companies,
+        'reviews': reviews,
+    }
+    return render(request, 'admin_panel/user-reviews.html', context=context)
+
+@login_required
 @user_is_moder
 def SubscribesView(request, ):
     Subscribe = Subscribes.objects.all()
@@ -484,7 +509,7 @@ def TarifEditView(request,tarif_id):
     return render(request, 'admin_panel/admin-tarif-add.html', context=context)
 
 @login_required
-@user_is_moder
+@user_is_company
 def BalanceView(request):
     user = request.user
     company = Company.objects.get(owner=user)
@@ -659,6 +684,54 @@ def branchEditView(request, branch_id):
             company_pk = int(request.POST['company_fk'])
             branch.delete()
             return redirect('company-edit',company_pk)
+    context = {
+    }
+    return render(request, 'admin_panel/admin-region.html', context=context)
+
+@login_required
+@user_is_company
+def fileUserEditView(request, file_id):
+    files = get_object_or_404(File,pk=file_id)
+    if request.method =='POST':
+        type = request.POST['form']
+        if type == 'edit':
+            files_note = request.POST['note']
+            company_pk = int(request.POST['company_pk'])
+            files.note = files_note
+            files.save()
+            return redirect('edit')
+        if type == 'delete':
+            company_pk = int(request.POST['company_pk'])
+            files.delete()
+            return redirect('edit')
+    context = {
+    }
+    return render(request, 'admin_panel/admin-region.html', context=context)
+
+@login_required
+@user_is_company
+def branchUserEditView(request, branch_id):
+    branch = get_object_or_404(Branches,pk=branch_id)
+    if request.method =='POST':
+        type = request.POST['form']
+        if type == 'edit':
+            city = request.POST['city']
+            address = request.POST['address']
+            phone = request.POST['phone']
+            email = request.POST['email']
+            worktime = request.POST['worktime']
+            company_pk = int(request.POST['company_pk'])
+            branch.city = city
+            branch.address = address
+            branch.phone = phone
+            branch.email = email
+            branch.worktime = worktime
+            branch.save()
+            return redirect('edit')
+        if type == 'delete':
+            company_pk = int(request.POST['company_fk'])
+            branch.delete()
+            return redirect('edit')
     context = {
     }
     return render(request, 'admin_panel/admin-region.html', context=context)

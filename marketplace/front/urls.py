@@ -26,6 +26,7 @@ urlpatterns = [
     path('about',aboutPageView, name='about'),
     path('for-clients',forClientsPageView, name='for-clients'),
     path('for-members',forMembersPageView, name='for-members'),
+    path('company-register',companyRegisterView, name='companyRegister'),
 
 
 

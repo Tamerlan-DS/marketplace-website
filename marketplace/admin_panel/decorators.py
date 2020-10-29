@@ -43,3 +43,48 @@ def user_is_moder(function):
     wrap.__doc__ = function.__doc__
     wrap.__name__ = function.__name__
     return wrap
+
+def user_is_company(function):
+    def wrap(request, *args, **kwargs):
+        try:
+            card = request.user.card
+        except Card.DoesNotExist:
+            card = Card(owner=request.user)
+            card.save()
+        if (
+                card.status == Card.StatusChoices.ACTIVE and
+                (
+                        card.role == Card.RoleChoices.MODERATOR or
+                        card.role == Card.RoleChoices.ADMINISTRATOR or
+                        card.role == Card.RoleChoices.COMPANY_OWNER
+                )
+        ):
+            return function(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
+    wrap.__doc__ = function.__doc__
+    wrap.__name__ = function.__name__
+    return wrap
+def user_is_company_edit(function):
+    def wrap(request, *args, **kwargs):
+        try:
+            card = request.user.card
+        except Card.DoesNotExist:
+            card = Card(owner=request.user)
+            card.save()
+        if (
+                card.status == Card.StatusChoices.ACTIVE and
+                (
+                        card.role == Card.RoleChoices.MODERATOR or
+                        card.role == Card.RoleChoices.ADMINISTRATOR or
+                        card.role == Card.RoleChoices.COMPANY_OWNER
+                )
+        ):
+            return function(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
+
+    wrap.__doc__ = function.__doc__
+    wrap.__name__ = function.__name__
+    return wrap

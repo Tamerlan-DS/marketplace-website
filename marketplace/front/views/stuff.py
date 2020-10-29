@@ -1,8 +1,11 @@
 from django.shortcuts import render,redirect
 from company.models import Company, Category, Subscribes,  News, CompanyInfo, region
+from admin_panel.models import Card
+from company.helper import *
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
+from company_panel.models import Balance, Invoice
 
 def blacklistPageView(request):
     regions = region.objects.all()
@@ -80,6 +83,7 @@ def mailerView(request):
                   fail_silently=False,
                   )
 
+
     return redirect('Catalog-item',comp_id)
 
 
@@ -111,3 +115,37 @@ def forMembersPageView(request):
         'regions': regions,
      }
     return render(request, 'front/for-members.html', context=context)
+
+
+def companyRegisterView(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        name = request.POST['name']
+        password = request.POST['password']
+        re_password = request.POST['re_password']
+        context = {
+            'username': username,
+            'name': name,
+        }
+        if password == re_password:
+            try:
+                user = User.objects.get(username=username)
+                context['error'] = 1
+                return render(request, 'front/auth-register.html', context=context)
+            except User.DoesNotExist:
+                user = User.objects.create_user(username=username, password=password)
+                user.save()
+                balance = Balance.objects.create(owner=user)
+                balance.save()
+                card = Card(owner=user, role=Card.RoleChoices.COMPANY_OWNER)
+                card.save()
+                create_company(user, name)
+
+                return redirect('panel')
+        else:
+            context['error'] = 2
+            return render(request, 'front/auth-register.html', context=context)
+    else:
+        context = {
+        }
+    return render(request, 'front/auth-register.html', context=context)

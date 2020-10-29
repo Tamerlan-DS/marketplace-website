@@ -53,6 +53,7 @@
                             {% elif error_file == 2 %}
                                 <p>Вы не добавили файл!</p>
                             {% endif %}
+                            <p>{{ error }}</p>
                         </div>
                     </div>
                 </div>
@@ -117,7 +118,7 @@
                                             <div class="card-body">
                                                 <div class="tab-content">
                                                     <div role="tabpanel" class="tab-pane active" id="account-vertical-general" aria-labelledby="account-pill-general" aria-expanded="true">
-                                                        <form action="{% url 'company-edit' company.pk %}" method="POST">
+                                                        <form action="{% url 'edit' %}" method="POST">
                                                                           {% csrf_token %}
                                                           <input type="hidden" name="form" value="info">
                                                             <div class="row">
@@ -192,35 +193,32 @@
                                                                     <input type="text" class="form-control" placeholder="Время работы:" value="{{ company.info.worktime }}" name="worktime" required>
                                                                 </div>
                                                                 </div>
-                                                                <div class="col-12">
-                                                                <div class="form-group">
-                                                                   <label>Статус</label>
-                                                                     <select class="form-control" name="status">
-                                                                      <option value="0" {% if company.status == company.StatusChoices.ACCEPTED %} selected {% endif %}>Accepted</option>
-                                                                      <option value="1" {% if company.status == company.StatusChoices.PENDING %} selected {% endif %}>Pending</option>
-                                                                      <option value="2" {% if company.status == company.StatusChoices.BANNED %} selected {% endif %}>Черный список</option>
-                                                                     </select>
-                                                                </div>
-                                                                </div>
 
                                                                 <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                                                                     <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
-                                                                    <a type="reset" class="btn btn-light mb-1 mr-sm-1" href="{% url 'companies' %}" >Закрыть</a>
-                                                                    <button type="button" class="btn btn-danger mb-1" data-toggle="modal" data-target="#deleteForm"> Удалить компанию </button>
-                                                                </div>
+                                                                    <a type="reset" class="btn btn-light mb-1 mr-sm-1" href="{% url 'panel' %}" >Закрыть</a>
+                                                                  </div>
                                                         </div>
                                                         </form>
                                                     </div>
                                                     <div class="tab-pane fade " id="account-vertical-password" role="tabpanel" aria-labelledby="account-pill-password" aria-expanded="false">
-                                                        <form action="{% url 'company-edit' company.pk %}" method="post">
+                                                        <form action="{% url 'edit' %}" method="post">
                                                             {% csrf_token %}
                                                             <input type="hidden" name="form" value="pass_edit">
                                                             <div class="row">
                                                                 <div class="col-12">
                                                                     <div class="form-group">
                                                                         <div class="controls">
+                                                                            <label>Старый пароль</label>
+                                                                            <input type="password" name="old_password" class="form-control" placeholder="Новый пароль" required data-validation-required-message="The password field is required" >
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-12">
+                                                                    <div class="form-group">
+                                                                        <div class="controls">
                                                                             <label>Новый пароль</label>
-                                                                            <input type="password" name="password" class="form-control" placeholder="Новый пароль" required data-validation-required-message="The password field is required" minlength="6">
+                                                                            <input type="password" name="password" class="form-control" placeholder="Новый пароль" required data-validation-required-message="The password field is required" >
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -228,49 +226,50 @@
                                                                     <div class="form-group">
                                                                         <div class="controls">
                                                                             <label>Повторите новый пароль</label>
-                                                                            <input type="password" name="re_password" class="form-control" required data-validation-match-match="password" placeholder="Повторите новый пароль" data-validation-required-message="The Confirm password field is required" minlength="6">
+                                                                            <input type="password" name="re_password" class="form-control" required data-validation-match-match="password" placeholder="Повторите новый пароль" data-validation-required-message="The Confirm password field is required" >
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                                 <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                                                                     <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
-                                                                    <a type="reset" class="btn btn-light mb-1" href="{% url 'companies' %}" >Закрыть</a>
+                                                                    <a type="reset" class="btn btn-light mb-1" href="{% url 'panel' %}" >Закрыть</a>
                                                                 </div>
                                                             </div>
                                                         </form>
                                                     </div>
                                                     <div class="tab-pane fade" id="account-vertical-info" role="tabpanel" aria-labelledby="account-pill-info" aria-expanded="false">
-                                                    <form action="{% url 'company-edit' company.pk %}" method="POST">
+                                                    <form action="{% url 'edit' %}" method="POST">
                                                     {% csrf_token %}
                                                                 <div class="col-12">
                                                                     <div class="form-group">
                                                                         <label>Категория</label>
                                                                             <input type="hidden" name="form" value="category">
                                                                             <select class="form-control" id="accountSelect"  name="categories" >
+                                                                                <option value="{{categori.category.pk}}" selected>Выбранная: {% for categor in categori %}{{categor.category.name}} {% endfor %}</option>
                                                                                  {% for category in categories %}
-                                                                                    <option value="{{ category.pk }}" {% if category in company_categories %} selected {% endif %}>
-                                                                                                  {{ category }}
+                                                                                <option value="{{ category.pk }}" >
+                                                                                                 {{ category }}
                                                                                           </option>
-                                                                            {% endfor %}
-                                                                        </select>
+                                                                                {% endfor %}
+                                                                            </select>
                                                                     </div>
                                                                 </div>
 
                                                                 <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                                                                     <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
-                                                                    <a type="reset" class="btn btn-light mb-1" href="{% url 'companies' %}" >Закрыть</a>
+                                                                    <a type="reset" class="btn btn-light mb-1" href="{% url 'panel' %}" >Закрыть</a>
                                                                 </div>
                                                         </form>
                                                     </div>
 
                                                     <div class="tab-pane fade" id="account-vertical-service" role="tabpanel" aria-labelledby="account-pill-connections" aria-expanded="false">
-                                                        <form action="{% url 'company-edit' company.pk %}" method="post" enctype="multipart/form-data">
+                                                        <form action="{% url 'edit' %}" method="post" enctype="multipart/form-data">
                                                             {% csrf_token %}
                                                                  <input type="hidden" name="form" value="service">
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <h5>Услуга/Товар</h5>
-                                                            </div> 
+                                                            </div>
                                                             <div class="col-4">
                                                                 <div class="form-group">
                                                                     <label>Название</label>
@@ -292,7 +291,7 @@
                                                             <div class="col-4">
                                                                 <div class="form-group">
                                                                     <label>Картинка</label>
-                                                                    <input type="file" name="image">
+                                                                    <input type="file" name="image" required>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -300,7 +299,7 @@
                                                             <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                                                                 <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
 
-                                                                    <a type="reset" class="btn btn-light mb-1" href="{% url 'companies' %}" >Закрыть</a>
+                                                                    <a type="reset" class="btn btn-light mb-1" href="{% url 'panel' %}" >Закрыть</a>
                                                             </div>
                                                         </div>
                                                         </form>
@@ -345,7 +344,7 @@
                                                                 <i class="bx bx-x"></i>
                                                               </button>
                                                             </div>
-                                                              <form action="{% url 'service-edit' serv.pk %}" method="post" enctype="multipart/form-data">
+                                                              <form action="{% url 'user-service-edit' serv.pk %}" method="post" enctype="multipart/form-data">
                                                                      {% csrf_token %}
                                                                   <input type="hidden" name="company_pk" value="{{company.pk}}">
                                                                   <input type="hidden" name="form" value="edit">
@@ -364,7 +363,7 @@
                                                                 </div>
                                                                   <label>Картинка:</label>
                                                                 <div class="form-group">
-                                                                    <input type="file" name="image">
+                                                                    <input type="file" name="image" required>
                                                                 </div>
                                                               </div>
                                                               <div class="modal-footer">
@@ -375,7 +374,7 @@
                                                                 <button type="submit" class="btn btn-primary ml-1">Отправить</button>
                                                               </div>
                                                             </form>
-                                                              <form action="{% url 'service-edit' serv.pk %}" method="post" id="delete-service{{serv.pk}}">
+                                                              <form action="{% url 'user-service-edit' serv.pk %}" method="post" id="delete-service{{serv.pk}}">
                                                                         {% csrf_token %}
                                                                      <input type="hidden" name="form" value="delete">
                                                                     <input type="hidden" name="company_pk" value="{{company.pk}}">
@@ -386,7 +385,7 @@
                                                 {% endfor %}
                                                     </div>
                                                     <div class="tab-pane fade" id="account-vertical-filial" role="tabpanel" aria-labelledby="account-pill-filial" aria-expanded="false">
-                                                        <form action="{% url 'company-edit' company.pk %}" method="post">
+                                                        <form action="{% url 'edit' %}" method="post">
                                                             {% csrf_token %}
                                                             <input type="hidden" name="form" value="branches">
                                                         <div class="row">
@@ -463,7 +462,7 @@
                                                             <div class="row">
                                                             <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                                                                 <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
-                                                                <a type="reset" class="btn btn-light mb-1" href="{% url 'companies' %}" >Закрыть</a>
+                                                                <a type="reset" class="btn btn-light mb-1" href="{% url 'panel' %}" >Закрыть</a>
                                                             </div>
                                                          </div>
                                                         </form>
@@ -477,7 +476,7 @@
                                                                 <i class="bx bx-x"></i>
                                                               </button>
                                                             </div>
-                                                              <form action="{% url 'branch-edit' cit.pk %}" method="post" enctype="multipart/form-data">
+                                                              <form action="{% url 'user-branch-edit' cit.pk %}" method="post" enctype="multipart/form-data">
                                                                      {% csrf_token %}
                                                                   <input type="hidden" name="form" value="edit">
                                                                   <input type="hidden" name="company_pk" value="{{company.pk}}">
@@ -534,7 +533,7 @@
                                                       </div>
                                                 {% endfor %}
                                                         {% for ct in branches %}
-                                                              <form action="{% url 'branch-edit' ct.pk %}" method="post" id="delete-branch{{ct.pk}}">
+                                                              <form action="{% url 'user-branch-edit' ct.pk %}" method="post" id="delete-branch{{ct.pk}}">
                                                                     {% csrf_token %}
                                                                      <input type="hidden" name="form" value="delete">
                                                                      <input type="hidden" name="company_fk" value="{{company.pk}}">
@@ -545,7 +544,7 @@
                                                     <div class="tab-pane fade" id="account-vertical-media" role="tabpanel" aria-labelledby="account-pill-media" aria-expanded="false">
                                                         <div class="row">
                                                             <div class="col-12">
-                                                                <form action="{% url 'company-edit' company.pk %}" method="POST" enctype="multipart/form-data">
+                                                                <form action="{% url 'edit' %}" method="POST" enctype="multipart/form-data">
                                                                     {% csrf_token %}
                                                                   <input type="hidden" name="form" value="files">
                                                                     <div class="media">
@@ -581,7 +580,7 @@
                                                       <div class="tab-pane fade" id="account-vertical-files" role="tabpanel" aria-labelledby="account-pill-files" aria-expanded="false">
                                                         <div class="row">
                                                             <div class="col-12">
-                                                                <form action="{% url 'company-edit' company.pk %}" method="POST" enctype="multipart/form-data">
+                                                                <form action="{% url 'edit' %}" method="POST" enctype="multipart/form-data">
                                                                     {% csrf_token %}
                                                                   <input type="hidden" name="form" value="files_core">
                                                                     <div class="media">
@@ -626,7 +625,7 @@
                                                                 <i class="bx bx-x"></i>
                                                               </button>
                                                             </div>
-                                                              <form action="{% url 'file-edit' fi.pk %}" method="post" enctype="multipart/form-data">
+                                                              <form action="{% url 'user-file-edit' fi.pk %}" method="post" enctype="multipart/form-data">
                                                                      {% csrf_token %}
                                                                   <input type="hidden" name="form" value="edit">
                                                               <div class="modal-body">
@@ -652,7 +651,7 @@
                                                       </div>
                                                 {% endfor %}
                                                   {% for f in company_files %}
-                                                              <form action="{% url 'file-edit' f.pk %}" method="post" id="delete-file{{f.pk}}">
+                                                              <form action="{% url 'user-file-edit' f.pk  %}" method="post" id="delete-file{{f.pk}}">
                                                                   {% csrf_token %}
                                                                   <input type="hidden" name="form" value="delete">
                                                                    <input type="hidden" value="{{company.pk}}" name="company_pk">
@@ -664,10 +663,6 @@
                                     </div>
                                                             </div>
                                                             <div>
-                                                            <form action="{% url 'company-edit' company.pk %}" method="post" id="delete-company">
-                                                                {% csrf_token %}
-                                                                <input type="hidden" name="form" value="delete">
-                                                            </form>
 
                                                             </div>
                                                     </div>

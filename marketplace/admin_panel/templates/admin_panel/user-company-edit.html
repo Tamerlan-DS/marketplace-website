@@ -247,11 +247,14 @@
                                                                         <label>Категория</label>
                                                                             <input type="hidden" name="form" value="category">
                                                                             <select class="form-control" id="accountSelect"  name="categories" >
+                                                                                  {% for category in categori %}
+                                                                                <option value="{{category.category.pk}}" selected>Выбранная: {{category.category.name}}</option>
+                                                                                   {% endfor %}
                                                                                  {% for category in categories %}
-                                                                                    <option value="{{ category.pk }}" {% if category in company_categories %} selected {% endif %}>
-                                                                                                  {{ category }}
+                                                                                    <option value="{{ category.pk }}" >
+                                                                                                  {{ category.name }}
                                                                                           </option>
-                                                                            {% endfor %}
+                                                                                {% endfor %}
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -270,7 +273,7 @@
                                                         <div class="row">
                                                             <div class="col-12">
                                                                 <h5>Услуга/Товар</h5>
-                                                            </div> 
+                                                            </div>
                                                             <div class="col-4">
                                                                 <div class="form-group">
                                                                     <label>Название</label>

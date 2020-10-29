@@ -85,7 +85,7 @@
             {% for company in companies.object_list %}
             <div class="product-item {% for tarif in company.tarifes.all %}{% if tarif.tarif.name == 'PREMIUM' %}premium{% endif %}{%endfor%}" data-tilt data-tilt-perspective="5000">
                 <a href="{% url 'Catalog-item' company.pk %}" class="product-img">
-                    <img src="/media/{{ company.files.picture }}" alt="">
+                    <img src="/media/{{ company.files.picture }}" onerror="this.onerror=null;this.src='{% static 'front/img/product/1.png' %}';" alt="">
                 </a>
                 <div class="product-body">
                     <a href="{% url 'Catalog-item' company.pk %}" class="product-name">{{ company.info.name }}</a>

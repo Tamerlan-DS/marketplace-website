@@ -12,7 +12,8 @@
                     </div>
                     <ul class="nav navbar-nav float-right">
 
-
+                        <p>{{user.card.role}} &nbsp;</p>
+                        <p>{{user.card.owner.pk}}&nbsp;</p>
                         {% if not user.company.info.email %}
                         <p>НУЖНО ЗАПОЛНИТЬ ПОЛЯ</p>
                         {% endif %}

@@ -18,6 +18,7 @@
 
                 <li class="active nav-item"><a href="{% url 'panel' %}"><i class="menu" data-icon="desktop"></i><span class="menu-title" data-i18n="Dashboard">Главная</span></a>
                 </li>
+                {% if user.card.role == 'ADMINISTRATOR' or user.card.role == 'MODERATOR' %}
                <li class=" nav-item"><a href="#"><i class="menu" data-icon="users"></i><span class="menu-title" data-i18n="User">Компании</span></a>
                     <ul class="menu-content">
                         <li><a href="{% url 'companies' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Список компаний</span></a>
@@ -26,38 +27,49 @@
                         </li>
                         <li><a href="{% url 'company-category' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Категории компаний</span></a>
                         </li>
+                        <li><a href="{% url 'moder-companies' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Компании на модерацию</span></a>
+                        </li>
                     </ul>
                 </li>
-
+                {% endif %}
+                {% if user.card.role == 'COMPANY_OWNER' %}
+                <li><a href="{% url 'edit' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Редактирование</span></a>
+                </li>
+                <li><a href="{% url 'my-balance' %}"><i class="bx bx-right-arrow-alt" data-icon="desktop"></i><span class="menu-title" data-i18n="Dashboard">Баланс</span></a>
+                </li>
+                <li><a href="{% url 'reviews-user' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Отзывы</span></a>
+                </li>
+                {% endif %}
+                {% if user.card.role == 'ADMINISTRATOR' %}
                 <li class="nav-item"><a href="{% url 'tarif-add' %}"><i class="menu" data-icon="desktop"></i><span class="menu-title" data-i18n="Dashboard">Создать тариф</span></a>
                 </li>
                 <li class="nav-item"><a href="{% url 'my-balance' %}"><i class="menu" data-icon="desktop"></i><span class="menu-title" data-i18n="Dashboard">Баланс</span></a>
                 </li>
-
+                {% endif %}
+                {% if user.card.role == 'ADMINISTRATOR' or user.card.role == 'MODERATOR' %}
                 <li class=" navigation-header"><span>Страницы</span>
                 </li>
-
                 <li class="nav-item"><a href="#"><i class="menu" data-icon="users"></i><span class="menu-title" data-i18n="User">Новости</span></a>
                 <ul class="menu-content">
                 <li><a href="{% url 'admin-news' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Список новостей</span></a>
                 <li><a href="{% url 'news-add' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Добавить новость</span></a>
                 </ul>
                 </li>
-
+                 {% endif %}
+                {% if user.card.role == 'ADMINISTRATOR' %}
                 <li class=" nav-item"><a href="#"><i class="menu" data-icon="users"></i><span class="menu-title" data-i18n="User">Пользователи</span></a>
                     <ul class="menu-content">
                         <li><a href="{% url 'employees' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Список сотрудников</span></a>
                         </li>
                         <li><a href="{% url 'employee-add' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Добавить сотрудника</span></a>
                         </li>
-
                     </ul>
-                <li class=" nav-item"><a href="#"><i class="menu" data-icon="users"></i><span class="menu-title" data-i18n="User">Отзывы</span></a>
-                    <ul class="menu-content">
-                        <li><a href="{% url 'reviews' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Список отзывов</span></a>
-                        </li>
-                    </ul>
+                {% endif %}
+                {% if user.card.role == 'ADMINISTRATOR' or user.card.role == 'MODERATOR' %}
+                  <li><a href="{% url 'reviews' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Отзывы</span></a>
                 </li>
+                {% endif %}
+                  {% if user.card.role == 'ADMINISTRATOR' or user.card.role == 'MODERATOR' %}
                 <li class="nav-item"><a href="{% url 'subscribes' %}"><i class="menu" data-icon="desktop"></i><span class="menu-title" data-i18n="Dashboard">Подписки</span></a>
                 </li>
                    <li class=" nav-item"><a href="#"><i class="menu" data-icon="users"></i><span class="menu-title" data-i18n="User">Города</span></a>
@@ -70,7 +82,7 @@
                 </li>
                     </ul>
                 </li>
-
+                 {% endif %}
 
             </ul>
 

@@ -23,6 +23,8 @@ def create_company_info(company, name):
     fake = genFakeId()
     company_info = CompanyInfo.objects.create(company=company, name=name, fake_id=fake)
     company_info.save()
+    recompany_info = reCompanyInfo.objects.create(company=company, name=name, fake_id=fake)
+    recompany_info.save()
 
 
 def create_company_contacts(company):
@@ -33,6 +35,10 @@ def create_company_contacts(company):
 def create_company_files(company):
     company_files = CompanyFiles.objects.create(company=company)
     company_files.save()
+    recompany_files = reCompanyFiles.objects.create(company=company)
+    recompany_files.save()
+
+
 
 def add_news(news):
     news = News.objects.create(news=news)

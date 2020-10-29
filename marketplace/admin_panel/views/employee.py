@@ -8,7 +8,7 @@ from company_panel.models import Balance
 
 
 @login_required
-@user_is_moder
+@user_is_admin
 def employeesView(request):
     cards = Card.objects.filter(~Q(role=Card.RoleChoices.COMPANY_OWNER))
     context = {
@@ -18,7 +18,7 @@ def employeesView(request):
 
 
 @login_required
-@user_is_moder
+@user_is_admin
 def employeeAddView(request):
     context = {
     }
@@ -76,7 +76,7 @@ def employeeAddView(request):
 
 
 @login_required
-@user_is_moder
+@user_is_admin
 def employeeEditView(request, employee_card_id):
     card = get_object_or_404(Card, pk=employee_card_id)
     user = card.owner

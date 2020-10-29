@@ -23,7 +23,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-7 col-12">
-                <h1>Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам</h1>
+                <h1>
+                    Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам</h1>
             </div>
             <div class="col-12">
                 <div class="main-banner-form">
@@ -81,7 +82,7 @@
                 {% endfor%}
                 <a href="{% url 'Catalog-item' company.pk %}" class="product-img">
 
-                    <img src="media/{{ company.files.picture }}" alt="">
+                    <img src="media/{{ company.files.picture }}" onerror="this.onerror=null;this.src='{% static 'front/img/product/1.png' %}';" alt="">
                 </a>
                 <div class="product-body">
                     <a href="{% url 'Catalog-item' company.pk %}" class="product-name">{{ company.info.name }} </a>
@@ -169,7 +170,7 @@
 
         <p class="text">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет необходимо предоставить исходные данные, по которым наши копирайтеры составят правильный текст, который будет содержать в себе основную информацию</p>
 
-        <a href="" class="button">Подробнее</a>
+        <a href="{% url 'for-members' %}" class="button">Подробнее</a>
     </div>
 </section>
 

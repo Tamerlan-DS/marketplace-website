@@ -59,10 +59,10 @@
     <div class="container">
         <div class="catalog-item-header">
             <div class="catalog-item-logo">
-                <img src="/media/{{ company.files.picture }}" alt="">
+                <img src="/media/{{ company.files.picture }}" onerror="this.onerror=null;this.src='{% static 'front/img/product/1.png' %}';" alt="">
             </div>
             <div class="catalog-item-banner">
-                <img src="/media/{{ company.files.banner }}" alt="">
+                <img src="/media/{{ company.files.banner }}" onerror="this.onerror=null;this.src='{% static 'front/img/product/1.png' %}';" alt="">
 
                 <div class="info">
                     <h3>{{ company.info.name }}</h3>{% for company_category in company.categories.all %}
