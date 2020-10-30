@@ -61,7 +61,7 @@ def catalogPageView(request):
     }
     return render(request, 'front/catalog.html', context=context)
 
-
+@company_is_active
 def catalogItemPageView(request, company_id):
     regions = region.objects.all()
     company = get_object_or_404(Company, pk=company_id)
