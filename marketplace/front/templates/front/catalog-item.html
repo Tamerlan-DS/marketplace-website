@@ -32,9 +32,9 @@
                         <label for="name">Имя*</label>
                         <input type="text" required="" name="name" placeholder="Напишите ваше имя">
                     </div>
-                    <div class="col-md-6 col-12">
+                    <div class="col-md-6 col-12" >
                         <label for="name">Телефон*</label>
-                        <input type="text" required="" class="phone" name="phone" placeholder="Напишите ваш телефон">
+                        <input type="text" class="phone" name="phone" placeholder="Напишите ваш телефон">
                     </div>
                     <div class="col-12">
                         <label for="email">Email</label>
@@ -162,7 +162,8 @@
                         </tr>
                         <tr>
                             <td>Телефоны:</td>
-                            <td>{{ company.info.phone }}</td>
+
+                            <td><button id="buttonShowPhone" onclick="ShowPhone()">Показать телефон</button> <bzbz id="company_phone" style="display: none">{{ company.info.phone }}</bzbz></td>
                         </tr>
                         <tr>
                             <td>Почта:</td>
@@ -311,6 +312,7 @@
                     <form action="{% url 'Catalog-item' company.pk %}" method="post" class="contact-page-form def-form">
                         {% csrf_token %}
                         <input type="hidden" name="pk" value="{{ company.pk }}">
+                        <input type="hidden" name="form" value="review-add">
                         <div class="row">
                             <div class="col-md-6 col-12">
                                 <label for="name">Имя</label>
@@ -429,5 +431,29 @@
 {% include 'front/jsLoader.html' %}
 {% endblock jsLoad %}
 
+<script>
+    function ShowPhone(){
+        var x = document.getElementById("company_phone");
+        var y = document.getElementById("buttonShowPhone");
+        if(x.style.display === "none"){
+            x.style.display = "block";
+            y.style.display = "none"
+            sendClickToBase();
+        } else{
+            x.style.display = "none";
+        }
+    }
+    function sendClickToBase(){
+        $.ajax({
+            type: "POST",
+            url: "{% url 'Catalog-item' company.pk %}",
+            data: {
+                "form": "phoneclick",
+                "csrfmiddlewaretoken": "{{ csrf_token }}",
+            },
+
+        });
+    }
+</script>
 </body>
 </html>

@@ -122,12 +122,20 @@ def catalogItemPageView(request, company_id):
         'properties': properties,
     }
     if request.method == 'POST':
-        pk = request.POST['pk']
-        name = request.POST['name']
-        email = request.POST['email']
-        review_text = request.POST['review']
-        Review = Reviews.objects.create(name=name, pk_number=pk, email=email, review=review_text)
-        Review.save()
-        return redirect('Catalog-item',company_id)
+        type = request.POST['form']
+        if type == 'review-add':
+            pk = request.POST['pk']
+            name = request.POST['name']
+            email = request.POST['email']
+            review_text = request.POST['review']
+            Review = Reviews.objects.create(name=name, pk_number=pk, email=email, review=review_text)
+            Review.save()
+            return redirect('Catalog-item',company_id)
+        if type == 'phoneclick':
+            compania = Company.objects.get(pk=company_id)
+            existing_clicks = company.info.phoneViewClicks
+            existing_clicks += 1
+            compania.info.phoneViewClicks = existing_clicks
+            compania.info.save()
 
     return render(request, 'front/catalog-item.html', context=context)
