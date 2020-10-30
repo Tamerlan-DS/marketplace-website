@@ -10,11 +10,10 @@
                 <div>
                     <p>Будьте в курсе самых лучших предложений и свежих новостей</p>
                 </div>
-                <form action="{% url 'FrontPage' %}" class="form-footer" method="post">
-                    {% csrf_token %}
-                    <input class="form-search-footer" name="email" type="email" placeholder="Электронная почта" aria-label="Search">
-                    <button class="submit-search-footer" type="submit">Подписаться</button>
-                </form>
+                <forma class="form-footer">
+                    <input class="form-search-footer" id="sub_email" name="email" type="email" placeholder="Электронная почта" aria-label="Search">
+                    <button class="submit-search-footer" type="submit" onclick="Dassubscribe()">Подписаться</button>
+                </forma>
                 <div class="soc-div">
                     <a href="" class="soc-item">
                         <img src="{% static 'front/img/icons/fb.svg' %}" alt="">
@@ -102,5 +101,34 @@
     </div>
 </div>
 </footer>
+<script>
+function Dassubscribe(){
+    var sub_email = document.getElementById('sub_email').value
+    sendSubscribe(sub_email)
+}
+function sendSubscribe(sub_email){
+     $.ajax({
+            type: "POST",
+            url: "{% url 'FrontPage' %}",
+            data: {
+                "type": "subz",
+                "csrfmiddlewaretoken": "{{ csrf_token }}",
+                "email": sub_email,
+            },
+             success: function(data){
+                console.log(data.error)
+                 if(data.error == 1) {
+                     alert("Вы уже подписаны!")
+                 }
+                 else if (data.error == 2) {
+                     alert("Введите Email!")
+                 }
+                 else {
+                     $('#subscribe-modal').modal('show')
+                 }
+            },
+     });
+    }
+</script>
 
 {% endblock footer %}

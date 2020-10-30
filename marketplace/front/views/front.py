@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from company.models import Company, Category, Subscribes, News, CompanyInfo, City, region
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
 
 def FrontPageView(request):
     if request.user.is_authenticated:
@@ -12,7 +12,6 @@ def FrontPageView(request):
     cities = City.objects.all()
     filteredcategories = Category.objects.filter(parent__isnull=True)
     companycities = CompanyInfo.objects.values_list('city',flat=True).distinct()
-    print(companycities)
     categories = Category.objects.all()
     companies = Company.objects.filter(status='ACCEPTED')
     context = {
@@ -26,10 +25,25 @@ def FrontPageView(request):
         'News': New,
     }
     if request.method == 'POST':
-        email = request.POST['email']
-        Subscribes.objects.create(email=email)
-        context['error'] = 0
-        return render(request, 'front/index.html', context=context)
+        type = request.POST['type']
+        if type == 'subz':
+            email = request.POST['email']
+            if email:
+                try:
+                    Subscribes.objects.get(email=email)
+                    response = JsonResponse({
+                        "error": 1
+                    })
+                    print('azazazaza')
+                    return response
+                except Subscribes.DoesNotExist:
+                    Subscribes.objects.create(email=email)
+                    response = JsonResponse({"success":"Ura"})
+                    response.status_code = 200
+                    return response
+            else:
+                response = JsonResponse({"error": 2})
+                return response
 
     return render(request, 'front/index.html',context=context)
 

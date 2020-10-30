@@ -154,16 +154,16 @@
                         </tr>
                         <tr>
                             <td>Адрес:</td>
-                            <td>{{ company.info.adress }}</td>
+                            <td><button id="buttonShowAdress" class="Contact-click" onclick="ShowAdress()">Показать адресс</button><bzbz id="company_adress" style="display: none">{{ company.info.adress }}</bzbz></td>
                         </tr>
                         <tr>
                             <td>Время-работы:</td>
-                            <td>с {{ company.info.worktime }}</td>
+                            <td>{{ company.info.worktime }}</td>
                         </tr>
                         <tr>
                             <td>Телефоны:</td>
 
-                            <td><button id="buttonShowPhone" onclick="ShowPhone()">Показать телефон</button> <bzbz id="company_phone" style="display: none">{{ company.info.phone }}</bzbz></td>
+                            <td><button id="buttonShowPhone" class="Contact-click" onclick="ShowPhone()">Показать телефон</button> <bzbz id="company_phone" style="display: none">{{ company.info.phone }}</bzbz></td>
                         </tr>
                         <tr>
                             <td>Почта:</td>
@@ -449,6 +449,28 @@
             url: "{% url 'Catalog-item' company.pk %}",
             data: {
                 "form": "phoneclick",
+                "csrfmiddlewaretoken": "{{ csrf_token }}",
+            },
+
+        });
+    }
+    function ShowAdress(){
+        var x = document.getElementById("company_adress");
+        var y = document.getElementById("buttonShowAdress");
+        if(x.style.display === "none"){
+            x.style.display = "block";
+            y.style.display = "none"
+            sendClickToBaseAdress();
+        } else{
+            x.style.display = "none";
+        }
+    }
+    function sendClickToBaseAdress(){
+        $.ajax({
+            type: "POST",
+            url: "{% url 'Catalog-item' company.pk %}",
+            data: {
+                "form": "adressclick",
                 "csrfmiddlewaretoken": "{{ csrf_token }}",
             },
 

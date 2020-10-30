@@ -137,5 +137,11 @@ def catalogItemPageView(request, company_id):
             existing_clicks += 1
             compania.info.phoneViewClicks = existing_clicks
             compania.info.save()
+        if type == 'adressclick':
+            compania = Company.objects.get(pk=company_id)
+            existing_clicks = company.info.addressVievClicks
+            existing_clicks += 1
+            compania.info.addressVievClicks = existing_clicks
+            compania.info.save()
 
     return render(request, 'front/catalog-item.html', context=context)
