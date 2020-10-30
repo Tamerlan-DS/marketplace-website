@@ -45,7 +45,7 @@
                 <div class="content-header-left col-12 mb-2 mt-1">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h5 class="content-header-title float-left pr-1 mb-0">Выбрать тариф</h5>
+                            <h5 class="content-header-title float-left pr-1 mb-0">Выбрать тариф </h5>
 
                         </div>
                     </div>
@@ -68,7 +68,13 @@
 
                                                         <form action="{% url 'tarif' company.pk %}" method="POST">
                                                             {% csrf_token %}
+                                                            <input type="hidden" value="edit" name="form">
                                                             <div class="row">
+                                                                <p class="ml-1">Текущий тариф компании: {% if company_tar %}{{company_tar.tarif.name}}{% else %} Не выбран!{%endif%}</p>
+                                                                {% if error == 0 %}
+                                                                <br>
+                                                                <p class="ml-1">Тариф невозможно удалить!</p>
+                                                                {% endif %}
                                                                 <div class="col-12">
                                                                     <div class="form-group">
                                                                         <div class="controls">
@@ -83,8 +89,13 @@
                                                                 </div>
                                                                 <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
                                                                     <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
+                                                                    <input type="submit" class="btn btn-danger glow mr-sm-1 mb-1" form="deletTarif" value="Удалить тариф">
                                                                 </div>
                                                             </div>
+                                                        </form>
+                                                        <form action="{% url 'tarif' company.pk %}" id="deletTarif" method="post">
+                                                            {% csrf_token %}
+                                                            <input type="hidden" value="delete" name="form">
                                                         </form>
                                                     </div>
                                     </div>

@@ -4,6 +4,7 @@ from .models import *
 
 
 admin.site.register(Company)
+admin.site.register(CompanyMembers)
 
 admin.site.register(CompanyInfo)
 admin.site.register(reCompanyInfo)

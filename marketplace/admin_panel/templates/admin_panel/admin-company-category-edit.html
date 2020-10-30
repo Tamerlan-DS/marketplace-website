@@ -83,7 +83,34 @@
                                                             </select>
                                                     </div>
                                                     <hr>
-                                                    <table id="services-list-datatable" class="table">
+                                                      <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
+                                                        <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
+                                                        <a href="{% url 'company-category' %}" class="btn btn-light mr-sm-1  mb-1">Закрыть</a>
+                                                       <button type="button" class="btn btn-danger mb-1" data-toggle="modal" data-target="#deleteForm"> Удалить категорию</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                        <form class="form form-horizontal form repeater-default" action="{% url 'company-category-edit' category.pk %}" method="POST">
+                                                {% csrf_token %}
+                                              <input type="hidden" name="form" value="property-add">
+                                            <div class="form-body">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <label>Название</label>
+                                                    </div>
+                                                    <div class="col-md-8 form-group">
+                                                        <input type="text" id="property-name" class="form-control" name="property">
+                                                    </div>
+                                                    <hr>
+                                                      <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
+                                                        <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Добавить</button>
+                                                      </div>
+                                                </div>
+                                            </div>
+                                        </form>
+
+                                         <table id="services-list-datatable" class="table">
                                                         <thead>
                                                             <tr>
                                                                 <th>Название характеристики</th>
@@ -144,17 +171,8 @@
                                                 {% endfor %}
                                                         </tbody>
                                                       </table>
-                                                    <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
-                                                        <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
-                                                        <a href="{% url 'company-category' %}" class="btn btn-light mr-sm-1  mb-1">Закрыть</a>
-                                                       <button type="button" class="btn btn-danger mb-1" data-toggle="modal" data-target="#deleteForm"> Удалить категорию</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
                                         <form action="{% url 'company-category-edit' category.pk %}" method="post" id="delete-cat">
                                                                 {% csrf_token %}
-
                                                                 <input type="hidden" name="form" value="delete">
                                         </form>
                                     </div>

@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from company.models import Company, Category, CompanyCategory, Reviews, Services, Branches, Property, File, region
+from company.models import Company, Category, CompanyCategory, Reviews, Services, Branches, Property, File, region, CompanyMembers
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import Paginator
 from search.company import search_company
 from django.db.models import Q
-
+from admin_panel.decorators import *
 
 def catalogPageView(request):
     search_query = request.GET.get('search', None)
@@ -67,6 +67,29 @@ def catalogItemPageView(request, company_id):
     company = get_object_or_404(Company, pk=company_id)
     fil = File.objects.all()
     categories = Category.objects.all()
+    try:
+        company_members = CompanyMembers.objects.filter(company=company)
+    except CompanyMembers.DoesNotExist:
+        company_members = None
+    try:
+        company_category = CompanyCategory.objects.get(company=company)
+    except CompanyCategory.DoesNotExist:
+        company_category = None
+    if company_category != None:
+        try:
+            company_properties = Property.objects.filter(category=company_category.category)
+        except Property.DoesNotExist:
+            company_properties = None
+    else:
+        company_properties = None
+    if company_category != None:
+        try:
+            same_companies = CompanyCategory.objects.filter(category=company_category.category)
+        except CompanyCategory.DoesNotExist:
+            same_companies = None
+    else:
+        same_companies = None
+    properties = Property.objects.all()
     services = Services.objects.filter(company_fk=company_id)
     revi = Reviews.objects.all()
     if(services):
@@ -85,13 +108,18 @@ def catalogItemPageView(request, company_id):
         'company': company,
         'categories': categories,
         'company_categories': company_categories,
+        'company_category': company_category,
+        'company_members': company_members,
         'Reviews': revi,
         'services': services,
         'branches': branche,
+        'same_companies': same_companies,
         'isServices': isServices,
         'isbranch': isbranch,
+        'company_properties': company_properties,
         'regions': regions,
         'File': fil,
+        'properties': properties,
     }
     if request.method == 'POST':
         pk = request.POST['pk']

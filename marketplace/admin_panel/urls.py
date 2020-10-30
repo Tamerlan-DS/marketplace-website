@@ -57,5 +57,7 @@ urlpatterns = [
 
     path('user-file-edit/<int:file_id>', fileUserEditView, name='user-file-edit'),
     path('user-branch-edit/<int:branch_id>', branchUserEditView, name='user-branch-edit'),
+    path('member-delete/<int:member_id>', memberDeleteView, name='member-delete'),
+    path('member-user-delete/<int:member_id>', memberUserDeleteView, name='member-user-delete'),
 ]
 

@@ -12,21 +12,8 @@
                     </div>
                     <ul class="nav navbar-nav float-right">
 
-                        <p>{{user.card.role}} &nbsp;</p>
-                        <p>{{user.card.owner.pk}}&nbsp;</p>
-                        {% if not user.company.info.email %}
-                        <p>НУЖНО ЗАПОЛНИТЬ ПОЛЯ</p>
-                        {% endif %}
-
                         <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-expand"><i class="ficon bx bx-fullscreen"></i></a></li>
-                        <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon bx bx-search"></i></a>
-                            <div class="search-input">
-                                <div class="search-input-icon"><i class="bx bx-search primary"></i></div>
-                                <input class="input" type="text" placeholder="Поиск по компаниям..." tabindex="-1" data-search="template-search">
-                                <div class="search-input-close"><i class="bx bx-x"></i></div>
-                                <ul class="search-list"></ul>
-                            </div>
-                        </li>
+
 
                 {% block nav %}
                 {% include 'admin_panel/loginFORM.html' %}

@@ -9,7 +9,10 @@ from django.contrib.auth.models import User
 @user_is_company
 def adminPanelView(request):
     history = Invoice.objects.all().order_by('-date')
+    user_history = Invoice.objects.filter(balance__owner= request.user)
+    print(user_history)
     context = {
         'history': history,
+        'user_history': user_history,
     }
     return render(request, 'admin_panel/index.html', context=context)

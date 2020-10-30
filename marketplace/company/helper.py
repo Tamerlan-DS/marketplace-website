@@ -14,7 +14,7 @@ def genFakeId():
     fakeid = 1
     for c in companies:
         if fakeid == c.fake_id:
-            fakeid = random.randint(0, 1000000)
+            fakeid = random.randint(1, 1000000)
         else:
             return fakeid
 
@@ -25,6 +25,7 @@ def create_company_info(company, name):
     company_info.save()
     recompany_info = reCompanyInfo.objects.create(company=company, name=name, fake_id=fake)
     recompany_info.save()
+
 
 
 def create_company_contacts(company):

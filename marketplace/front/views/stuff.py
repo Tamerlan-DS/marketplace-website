@@ -66,26 +66,57 @@ def RegisterView(request):
 
 def mailerView(request):
     if request.method == 'POST':
-        name = request.POST['name']
-        phone = request.POST['phone']
-        email = request.POST['email']
-        text = request.POST['text']
-        comp_id = request.POST['compid']
-        company_email = request.POST['companyemail']
-        send_mail('Заявка с сайта Topbuild',
-                  'Имя отправителя: ' + name + '\n' +
-                  'Телефон: ' + phone + '\n' +
-                  'Email: ' + email + '\n' +
-                  text
-                  ,
-                  'ttopbild@mail.ru',
-                  [company_email],
-                  fail_silently=False,
-                  )
-
+        type = request.POST['form']
+        if type == 'consult':
+            name = request.POST['name']
+            phone = request.POST['phone']
+            email = request.POST['email']
+            text = request.POST['text']
+            comp_id = request.POST['compid']
+            company = Company.objects.get(pk=comp_id)
+            existing_clicks = company.info.emailclicks
+            existing_clicks += 1
+            company.info.emailclicks = existing_clicks
+            company.info.save()
+            company_email = request.POST['companyemail']
+            send_mail('Заявка с сайта Topbuild',
+                      'Имя отправителя: ' + name + '\n' +
+                      'Телефон: ' + phone + '\n' +
+                      'Email: ' + email + '\n' +
+                      text
+                      ,
+                      'ttopbild@mail.ru',
+                      [company_email],
+                      fail_silently=False,
+                      )
+            return redirect('Catalog-item', comp_id)
+        if type == 'service-call':
+            name = request.POST['name']
+            phone = request.POST['phone']
+            email = request.POST['email']
+            text = request.POST['text']
+            comp_id = request.POST['compid']
+            service = request.POST['service']
+            company = Company.objects.get(pk=comp_id)
+            existing_clicks = company.info.serviceRequestclicks
+            existing_clicks += 1
+            company.info.serviceRequestclicks = existing_clicks
+            company.info.save()
+            company_email = request.POST['companyemail']
+            send_mail('Заявка с сайта Topbuild',
+                      'Имя отправителя: ' + name + '\n' +
+                      'Телефон: ' + phone + '\n' +
+                      'Email: ' + email + '\n' +
+                      'Услуга: ' + service + '\n' +
+                      text
+                      ,
+                      'ttopbild@mail.ru',
+                      [company_email],
+                      fail_silently=False,
+                      )
+            return redirect('Catalog-item', comp_id)
 
     return redirect('Catalog-item',comp_id)
-
 
 def SubscribeView(request):
     if request.method == 'POST':

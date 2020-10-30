@@ -1,6 +1,6 @@
 from django.core.exceptions import PermissionDenied
 from .models import Card
-
+from company.models import Company
 
 def user_is_admin(function):
     def wrap(request, *args, **kwargs):
@@ -66,7 +66,8 @@ def user_is_company(function):
     wrap.__doc__ = function.__doc__
     wrap.__name__ = function.__name__
     return wrap
-def user_is_company_edit(function):
+def company_is_active(function):
+    company = Company.objects.all()
     def wrap(request, *args, **kwargs):
         try:
             card = request.user.card

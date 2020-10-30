@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from company.helper import *
-from company.models import Company, Category, CompanyCategory, news, Reviews, Services, branches, Subscribes, CompanyFiles, File, Property, city
+from company.models import Company, Category, CompanyCategory, news, Reviews, Services, branches, Subscribes, CompanyFiles, File, Property, city, CompanyMembers
 from admin_panel.models import Card
 from django.contrib.auth.decorators import login_required
 from admin_panel.decorators import *
 from company_panel.models import Balance, Invoice
+from datetime import datetime, timedelta
 
 
 @login_required
@@ -12,7 +13,7 @@ from company_panel.models import Balance, Invoice
 def companyView(request):
     companies = Company.objects.all()
     tarif = CompanyTarif.objects.all()
-
+    print(tarif)
     context = {
         'companies': companies,
         'tarif': tarif,
@@ -64,16 +65,21 @@ def companyAddView(request):
 def companyEditView(request, company_id):
     company = get_object_or_404(Company, pk=company_id)
     company_fily = File.objects.filter(company_files=company.files)
-
     cities = City.objects.all()
     services = Services.objects.all()
     categories = Category.objects.all()
     branche = Branches.objects.all()
+    companies = Company.objects.all()
+    try:
+        company_members = CompanyMembers.objects.filter(company=company)
+    except CompanyMembers.DoesNotExist:
+        company_members = None
     company_categories = Category.objects.filter(
         pk__in=CompanyCategory.objects.filter(company=company).values_list('category'))
     context = {
         'company': company,
         'categories': categories,
+        'company_members': company_members,
         'company_categories': company_categories,
         'services': services,
         'branches': branche,
@@ -191,6 +197,29 @@ def companyEditView(request, company_id):
                 print(user.password)
                 context['error'] = 'Пароль успешно изменен!'
                 return render(request, 'admin_panel/admin-company-edit.html', context=context)
+
+        if type == 'member-add':
+                member_login = request.POST['login']
+                try:
+                    member_company = Company.objects.get(owner__username=member_login)
+                except Company.DoesNotExist:
+                    member_company = None
+                if member_login == company.owner.username:
+                    context['errors'] = 'Это ваш логин'
+                    return render(request, 'admin_panel/admin-company-edit.html', context=context)
+                else:
+                    if member_company != None and member_company.status == company.StatusChoices.ACCEPTED:
+                        try:
+                            CompanyMembers.objects.get(company=company,member=member_company)
+                            context['errors'] = 'Эта компания уже является вашим партнёром'
+                            return render(request, 'admin_panel/admin-company-edit.html', context=context)
+                        except CompanyMembers.DoesNotExist:
+                                CompanyMembers.objects.create(company=company, member=member_company)
+                                return redirect('company-edit', company_id)
+                    else:
+                        context['errors'] = 'Такой компании не существует'
+                        return render(request, 'admin_panel/admin-company-edit.html', context=context)
+
     else:
         pass
 
@@ -286,7 +315,6 @@ def companyCategoryEditView(request, category_id):
         type = request.POST['form']
         if type == 'edit':
             name = request.POST['name']
-            property = request.POST['property']
             if request.POST['parent_id']:
                 parent_id = int(request.POST['parent_id'])
                 if parent_id:
@@ -300,9 +328,13 @@ def companyCategoryEditView(request, category_id):
             else:
                 category.name = name
                 category.parent = parent
-                Property.objects.create(category=category,name=property)
                 category.save()
                 context['error'] = 0
+                return redirect('company-category-edit',category_id)
+            return redirect('company-category-edit', category_id)
+        if type == 'property-add':
+            property = request.POST['property']
+            Property.objects.create(category=category,name=property)
         if type == 'delete':
             category.delete()
             return redirect('company-category')
@@ -311,18 +343,20 @@ def companyCategoryEditView(request, category_id):
 
 
 @login_required
-@user_is_moder
+@user_is_admin
 def balanceChargeView(request, user_id):
     user = get_object_or_404(User, pk=user_id)
     balance = user.balance
     context = {
         'user_id': user_id,
+        'userr': user,
     }
     if request.method == 'POST':
         value = int(request.POST['value'])
         invoice = Invoice.objects.create(value=value, balance=balance, from_administration=True)
         invoice.save()
         invoice.update()
+        redirect('balance-charge',user_id)
     return render(request, 'admin_panel/test/balance_charge.html', context=context)
 
 
@@ -401,7 +435,7 @@ def ReviewsUserView(request):
     try:
         reviews = Reviews.objects.filter(pk_number=user_company.pk)
     except Reviews.DoesNotExist:
-        reviews = "Не существует"
+        reviews = None
     Review = Reviews.objects.all()
     companies = Company.objects.all()
     context = {
@@ -457,21 +491,38 @@ def ReviewsEditView(request, Review_id):
 @user_is_moder
 def TarifView(request,company_id):
     company = get_object_or_404(Company, pk=company_id)
+    try:
+        company_tar = CompanyTarif.objects.get(company=company)
+    except CompanyTarif.DoesNotExist:
+        company_tar = None
     tarifes=Tarif.objects.all()
-    if request.method == 'POST':
-        company_tarifes = CompanyTarif.objects.filter(company=company)
-        tarif_id = request.POST.getlist('tarif')
-        print(tarif_id)
-        for company_tarif in company_tarifes:
-            company_tarif.delete()
-        for tarify in tarif_id:
-            tarif=Tarif.objects.get(pk=tarify)
-            CompanyTarif(company=company,tarif=tarif).save()
-
     context = {
-        'company':company,
-        'tarifes':tarifes,
+        'company': company,
+        'tarifes': tarifes,
+        'company_tar': company_tar,
     }
+    if request.method == 'POST':
+        type = request.POST['form']
+        if type == 'edit':
+            company_tarifes = CompanyTarif.objects.filter(company=company)
+            tarif_id = request.POST.getlist('tarif')
+            print(tarif_id)
+            for company_tarif in company_tarifes:
+                company_tarif.delete()
+            for tarify in tarif_id:
+                tarif=Tarif.objects.get(pk=tarify)
+                CompanyTarif(company=company,tarif=tarif).save()
+            return redirect('tarif', company_id)
+        if type == 'delete':
+            if company_tar:
+                company_tar.delete()
+                company.status = Company.StatusChoices.PENDING
+                company.save()
+                return redirect('tarif', company_id)
+            else:
+                context['error'] = 0
+            return render(request, 'admin_panel/admin-tarif.html', context=context)
+
     return render(request, 'admin_panel/admin-tarif.html', context=context)
 
 @login_required
@@ -482,7 +533,8 @@ def TarifAddView(request):
         name = request.POST['name']
         price = request.POST['price']
         timeleft = request.POST['timeleft']
-        Tarif.objects.create(name=name,price=price,timeleft=timeleft)
+        description = request.POST['description']
+        Tarif.objects.create(name=name,price=price,timeleft=timeleft,description=description)
     context = {
         'tarifes':tarifes,
     }
@@ -498,8 +550,10 @@ def TarifEditView(request,tarif_id):
             name = request.POST['name']
             price = request.POST['price']
             timeleft = request.POST['timeleft']
+            description = request.POST['description']
             tarif.name = name
             tarif.price = price
+            tarif.description = description
             tarif.timeleft = timeleft
             tarif.save()
             return redirect('tarif-add')
@@ -512,41 +566,78 @@ def TarifEditView(request,tarif_id):
 @user_is_company
 def BalanceView(request):
     user = request.user
-    company = Company.objects.get(owner=user)
-    company_tarifes = CompanyTarif.objects.filter(company=company)
+    try:
+        company = Company.objects.get(owner=user)
+    except Company.DoesNotExist:
+        company = None
+    if company != None:
+        try:
+            company_tarif = CompanyTarif.objects.get(company=company)
+        except CompanyTarif.DoesNotExist:
+            company_tarif = None
+    else:
+        company_tarif = None
+
+    if company != None:
+        try:
+            tarif = CompanyTarif.objects.get(company=company)
+        except CompanyTarif.DoesNotExist:
+            tarif = None
+    else:
+        tarif = None
+
+    tarify = Tarif.objects.all()
+
     try:
         balance = user.balance
     except Balance.DoesNotExist:
         balance = Balance(owner=user)
         balance.save()
-    if request.method == 'POST':
-        type = request.POST['charge']
-        if type=='charge':
-            if(company.charged==False):
-               for company_tarif in company_tarifes:
-                   print(user.balance.value)
-                   local_time = company_tarif.tarif.timeleft
-                   print(company.status)
-                   company.charged = True
-                   company.save()
-                   Charge(company_tarif,user)
-
-
 
     context = {
-        'balance':balance,
+        'balance': balance,
         'user': user,
         'company': company,
+        'tarify': tarify,
+        'tarif': tarif,
     }
+    if request.method == 'POST':
+        type = request.POST['form']
+        if type=='charge':
+            if(company.charged==False):
+                local_time = tarif.tarif.timeleft
+                d = timedelta(days=local_time)
+                tarif_price = tarif.tarif.price
+                if user.balance.value >= tarif_price:
+                    print(user.balance.value)
+                    user.balance.value -= tarif_price
+                    print(user.balance.value)
+                    company.exp_date += d
+                    company.charged =True
+                    company.save()
+                    user.balance.save()
+                else:
+                    context['error'] = "Баланс не достаточен для списания!"
+                    return render(request, 'admin_panel/admin-balance.html', context=context)
+                return redirect('my-balance')
+            else:
+                context['error'] = "Ваш тариф еще действует!"
+                return render(request, 'admin_panel/admin-balance.html', context=context)
+        if type=='tarifselect':
+            tarif_pk = int(request.POST['tarifselect'])
+            tar = Tarif.objects.get(pk=tarif_pk)
+            company_tarif.tarif = tar
+            company_tarif.save()
+            return redirect('my-balance')
+
     return render(request, 'admin_panel/admin-balance.html', context=context)
 
 
 def Charge(company_tarif,user):
-
     tarif_price = company_tarif.tarif.price
-    user.balance.value = user.balance.value - tarif_price
-    user.save()
-
+    if user.balance.value > tarif_price:
+        user.balance.value = user.balance.value - tarif_price
+        user.save()
 
     return
 
@@ -731,6 +822,38 @@ def branchUserEditView(request, branch_id):
         if type == 'delete':
             company_pk = int(request.POST['company_fk'])
             branch.delete()
+            return redirect('edit')
+    context = {
+    }
+    return render(request, 'admin_panel/admin-region.html', context=context)
+
+@login_required
+@user_is_company
+def memberDeleteView(request, member_id):
+    if request.method =='POST':
+        type = request.POST['form']
+        if type == 'delete':
+            company_pk = int(request.POST['company_pk'])
+            company = get_object_or_404(Company,pk=company_pk)
+            member = get_object_or_404(Company,pk=member_id)
+            membership = get_object_or_404(CompanyMembers, company=company,member=member)
+            membership.delete()
+            return redirect('company-edit',company_pk)
+    context = {
+    }
+    return render(request, 'admin_panel/admin-region.html', context=context)
+
+@login_required
+@user_is_company
+def memberUserDeleteView(request, member_id):
+    if request.method =='POST':
+        type = request.POST['form']
+        if type == 'delete':
+            company_pk = int(request.POST['company_pk'])
+            company = get_object_or_404(Company,pk=company_pk)
+            member = get_object_or_404(Company,pk=member_id)
+            membership = get_object_or_404(CompanyMembers, company=company,member=member)
+            membership.delete()
             return redirect('edit')
     context = {
     }

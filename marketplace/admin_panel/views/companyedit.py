@@ -21,12 +21,18 @@ def forcompanyEditView(request):
     categories = Category.objects.all()
 
     branche = Branches.objects.all()
+    try:
+        company_members = CompanyMembers.objects.filter(company=company)
+    except CompanyMembers.DoesNotExist:
+        company_members = None
+
     company_categories = Category.objects.filter(
         pk__in=CompanyCategory.objects.filter(company=company).values_list('category'))
     context = {
         'company': company,
         'categories': categories,
         'company_categories': company_categories,
+        'company_members': company_members,
         'services': services,
         'branches': branche,
         'cities': cities,
@@ -140,7 +146,31 @@ def forcompanyEditView(request):
             else:
                 context['error'] = 'Пароли не совпадают!'
                 return render(request, 'admin_panel/company-edit.html', context=context)
-
+        if type == 'member-add':
+            if company_members.count() == 3:
+                context['errors'] = 'Превышен лимит партнёров! Максимальное количество партнёров 3'
+                return render(request, 'admin_panel/company-edit.html', context=context)
+            else:
+                member_login = request.POST['login']
+                try:
+                    member_company = Company.objects.get(owner__username=member_login)
+                except Company.DoesNotExist:
+                    member_company = None
+                if member_login == company.owner.username:
+                    context['errors'] = 'Это ваш логин'
+                    return render(request, 'admin_panel/company-edit.html', context=context)
+                else:
+                    if member_company != None and member_company.status == company.StatusChoices.ACCEPTED:
+                        try:
+                            CompanyMembers.objects.get(company=company, member=member_company)
+                            context['errors'] = 'Эта компания уже является вашим партнёром'
+                            return render(request, 'admin_panel/company-edit.html', context=context)
+                        except CompanyMembers.DoesNotExist:
+                            CompanyMembers.objects.create(company=company, member=member_company)
+                            return redirect('edit')
+                    else:
+                        context['errors'] = 'Такой компании не существует'
+                        return render(request, 'admin_panel/company-edit.html', context=context)
     else:
         pass
 

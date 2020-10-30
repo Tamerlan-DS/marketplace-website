@@ -5,6 +5,7 @@ class Tarif(models.Model):
     name = models.CharField(max_length=255, default="")
     price = models.FloatField(default=0)
     timeleft = models.IntegerField(default=0)
+    description = models.TextField(default="")
     date = models.DateField(null=True)
 
 class Company(models.Model):
@@ -24,6 +25,7 @@ class Company(models.Model):
                               choices=StatusChoices.choices,
                               default=StatusChoices.CLOSED,
                               )
+    exp_date = models.DateField(null=True)
 
 
 class CompanyTarif(models.Model):
@@ -34,4 +36,15 @@ class CompanyTarif(models.Model):
     tarif = models.ForeignKey(Tarif,
                                  on_delete=models.CASCADE,
                                  related_name="companiees",
+                                 )
+
+
+class CompanyMembers(models.Model):
+    company = models.ForeignKey(Company,
+                                on_delete=models.CASCADE,
+                                related_name="company",
+                                )
+    member = models.ForeignKey(Company,
+                                 on_delete=models.CASCADE,
+                                 related_name="members",
                                  )

@@ -108,6 +108,12 @@
                                                 <span>Филиалы</span>
                                             </a>
                                         </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link d-flex align-items-center " id="account-pill-members" data-toggle="pill" href="#account-vertical-members" aria-expanded="false">
+                                                <i class="bx bx-link"></i>
+                                                <span>Партнеры</span>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                                 <!-- right content section -->
@@ -574,7 +580,13 @@
                                                                     <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Сохранить</button>
                                                                 </div>
                                                                     </form>
-                                                            </div>
+                                                                <p>Ваш логотип</p>
+
+                                                                <img class="w-50" src="/media/{{ company.files.picture }}" onerror="this.onerror=null;this.src='{% static 'front/img/product/1.png' %}';" alt="">
+                                                                 <p>Ваш Баннер</p>
+                                                                <img class="w-50" src="/media/{{ company.files.banner }}" onerror="this.onerror=null;this.src='{% static 'front/img/product/1.png' %}';" alt="">
+
+                                                                </div>
 
                                                         </div>
                                                     </div>
@@ -673,6 +685,63 @@
                                                     </div>
 
                                             </div>
+                                          <div class="tab-pane fade" id="account-vertical-members" role="tabpanel" aria-labelledby="account-pill-files" aria-expanded="false">
+                                                        <div class="row">
+                                                            <div class="col-12">
+                                                                <form action="{% url 'company-edit' company.pk %}" method="POST" enctype="multipart/form-data">
+                                                                    {% csrf_token %}
+                                                                  <input type="hidden" name="form" value="member-add">
+                                                                    <div class="media">
+                                                                    <div class="media-body mt-25">
+                                                                        <br>
+                                                                        <div class="controls">
+                                                                            <label>
+                                                                                <span>Введите логин партнера</span>
+                                                                                <p>{{errors}}</p>
+                                                                            </label>
+                                                                            <br>
+                                                                                   <input type="text" class="form-control" placeholder="Логин компании на сервисе" name="login" required>
+
+                                                                            <div class="col-12 d-flex flex-sm-row flex-column justify-content-end">
+                                                                                <button type="submit" class="btn btn-primary glow mr-sm-1 mb-1">Добавить</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                    </form>
+                                                                 <div class="table-responsive">
+                                                                        <table id="members-list-datatable" class="table">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>id</th>
+                                                                                <th>Имя партнера</th>
+                                                                                <th>Удалить</th>
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            {% for company_member in company_members %}
+                                                                             <tr>
+                                                                              <td>{{ company_member.member.pk }}</td>
+                                                                              <td>{{ company_member.member.info.name }}</td>
+                                                                              <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteFormMember{{company_member.member.pk}}">Удалить</button></td>
+                                                                             {% endfor %}
+                                                                              {% for f in company_members %}
+                                                                                          <form action="{% url 'member-delete' f.member.pk %}" method="post" id="delete-member{{f.member.pk}}">
+                                                                                              {% csrf_token %}
+                                                                                                <input type="hidden" name="form" value="delete">
+                                                                                                <input type="hidden" value="{{company.pk}}" name="company_pk">
+                                                                                          </form>
+                                                                              {% endfor %}
+                                            </tbody>
+                                        </table>
+
+                                    </div>
+                                                            </div>
+                                                            <div>
+                                                            </div>
+                                                    </div>
+
+                                            </div>
                                         </div>
                                     </div>
                                     </div>
@@ -758,6 +827,25 @@
               <div class="mt-2 d-flex flex-sm-row flex-column justify-content-center">
                 <a type="reset" class="btn btn-light mb-1 mr-sm-1 text-white" data-dismiss="modal" aria-label="Close">Закрыть</a>
                 <input type="submit" class="btn btn-danger mb-1" data-toggle="modal"  form="delete-branch{{br.pk}}" data-target="#deleteFormBranch{{br.pk}}" value="Удалить компанию">
+            </div>
+              </div>
+
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+    {% for br in company_members %}
+     <div class="modal text-left" id="deleteFormMember{{br.member.pk}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+          <div class="modal-content">
+
+              <div class="modal-body">
+                  <div class="swal2-icon swal2-warning swal2-animate-warning-icon" style="display: flex;"><span class="swal2-icon-text">!</span></div>
+                  <h4 class="modal-title text-center" >Вы действительно хотите удалить партнера?</h4>
+                  <p class="text text-center">Данное действие невозможно отменить.</p>
+              <div class="mt-2 d-flex flex-sm-row flex-column justify-content-center">
+                <a type="reset" class="btn btn-light mb-1 mr-sm-1 text-white" data-dismiss="modal" aria-label="Close">Закрыть</a>
+                <input type="submit" class="btn btn-danger mb-1" data-toggle="modal"  form="delete-member{{br.member.pk}}" data-target="#deleteFormMember{{br.member.pk}}" value="Удалить компанию">
             </div>
               </div>
 

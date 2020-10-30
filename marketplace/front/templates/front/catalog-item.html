@@ -26,6 +26,7 @@
 
             <form action="{% url 'mailer' %}" class="contact-page-form def-form" method="post">
                 {% csrf_token %}
+                 <input type="hidden" name="form" value="consult">
                 <div class="row">
                     <div class="col-md-6 col-12">
                         <label for="name">Имя*</label>
@@ -55,6 +56,49 @@
     </div>
 </div>
 
+<!-- Modal call -->
+{% for service in services %}
+<div class="modal fade" id="call-modal-service{{service.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <img src="{% static 'front/img/icons/modal-close.svg' %}" alt="">
+        </button>
+        <div class="modal-body">
+            <h3>Оставить заявку на {{service.name}}</h3>
+            <form action="{% url 'mailer' %}" class="contact-page-form def-form" method="post">
+                {% csrf_token %}
+                <input type="hidden" name="form" value="service-call">
+                <input type="hidden" name="service" value="{{service.name}}">
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <label for="name">Имя*</label>
+                        <input type="text" id="name" required="" name="name" placeholder="Напишите ваше имя">
+                    </div>
+                    <div class="col-md-6 col-12">
+                        <label for="phone">Телефон*</label>
+                        <input type="text" id="phone" required="" class="phone" name="phone" placeholder="Напишите ваш телефон">
+                    </div>
+                    <div class="col-12">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" placeholder="Напишите ваш email">
+                    </div>
+                    <div class="col-12">
+                        <label for="review">Комментарий</label>
+                        <textarea name="text" id="review" rows="5" placeholder="Ваш комментарий"></textarea>
+                    </div>
+                    <input type="hidden" name="companyemail" value="{{ company.info.email }}">
+                    <input type="hidden" name="compid" value="{{ company.pk }}">
+                    <div class="col-md-12 col-12">
+                        <button type="submit" class="button">Отправить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+{% endfor %}
 <section>
     <div class="container">
         <div class="catalog-item-header">
@@ -65,21 +109,24 @@
                 <img src="/media/{{ company.files.banner }}" onerror="this.onerror=null;this.src='{% static 'front/img/product/1.png' %}';" alt="">
 
                 <div class="info">
-                    <h3>{{ company.info.name }}</h3>{% for company_category in company.categories.all %}
-                    <p class="catalog-item-category">  {{ company_category.category.name }}</p>
-                    {% endfor %}
+                    <h3>{{ company.info.name }}</h3>
+                    <p class="catalog-item-category">
+                        {% if company_category.category.name %}
+                        {{company_category.category.name}}
+                        {% else %}
+                        Категория не выбрана
+                        {% endif %}
+                    </p>
                 </div>
 
-                <p class="catalog-item-id">Id: 0000100</p>
-  {% for tarif in company.tarifes.all %}
-            {% if tarif.tarif.name == 'PREMIUM' %}
-         <div class="catalog-item-premium active">premium</div>
-                {% else %}
-         <div class="catalog-item-premium ">premium</div>
-                   {% endif %}
+                <p class="catalog-item-id">Id: {{company.info.fake_id}}</p>
+                {% for tarif in company.tarifes.all %}
+                    {% if tarif.tarif.name == 'PREMIUM' %}
+                        <div class="catalog-item-premium active">premium</div>
+                    {% else %}
+                        <div class="catalog-item-premium ">premium</div>
+                    {% endif %}
                 {% endfor%}
-
-
             </div>
         </div>
 
@@ -89,9 +136,11 @@
 
                 <p class="text">{{company.info.description}} </p>
                 <div class="button my-4" data-toggle="modal" data-target="#call-modal">Оставить заявку на консультацию</div>
-                <a href="" class="cataog-item-character">Характеристика 1</a>
-                <a href="" class="cataog-item-character">Характеристика 1</a>
-                <a href="" class="cataog-item-character">Характеристика 1</a>
+                {% if company_properties %}
+                {% for property in company_properties %}
+                <a href="" class="cataog-item-character">{{ property.name }} </a>
+                {% endfor %}
+                {% endif %}
             </div>
 
             <div class="catalog-item-contact">
@@ -173,7 +222,7 @@
                                 <p class="catalog-item-service-desc">{{ service.description }}</p>
                             </div>
                             <div class="catalog-item-service-footer">
-                                <a href="" class="button">Оставить заявку</a>
+                                 <div class="button my-4" data-toggle="modal" data-target="#call-modal-service{{service.pk}}">Оставить заявку </div>
                                 <p class="catalog-item-service-title">{{ service.price }} тг. </p>
                             </div>
                         </div>
@@ -302,26 +351,22 @@
 
 
 
-
+{% if company_members %}
 <section>
     <div class="container">
         <h2>Партнеры компании</h2>
         <div class="catalog-item-partners-div">
-            <a href="" class="catalog-item-partners-item">
-                <img src="{% static 'front/img/product/3.png' %}" alt="">
+            {% for company_member in company_members %}
+            <a href="{% url 'Catalog-item' company_member.member.pk %}" class="catalog-item-partners-item">
+                <img src="/media/{{ company_member.member.files.picture }}" onerror="this.onerror=null;this.src='{% static 'front/img/product/1.png' %}';" alt="">
             </a>
-            <a href="" class="catalog-item-partners-item">
-                <img src="{% static 'front/img/product/3.png' %}" alt="">
-            </a>
-            <a href="" class="catalog-item-partners-item">
-                <img src="{% static 'front/img/product/3.png' %}" alt="">
-            </a>
-            
+             {% endfor %}
         </div>
+
     </div>
 </section>
-
-
+{% endif %}
+{% if same_companies %}
 <section>
     <div class="container">
         <h2>Похожие компании</h2>
@@ -329,23 +374,23 @@
             <!-- Swiper -->
             <div class="swiper-container view1 catalog-item-services">
                 <div class="swiper-wrapper">
-                    {% for c in companies %}
+                    {% for c in same_companies %}
+                    {% if c.company == company %}
+                    {% else %}
                     <div class="swiper-slide">
                         <div class="product-item" data-tilt data-tilt-perspective="5000">
                             <a href="" class="product-img">
-                                <img src="{% static 'front/img/product/1.png' %}" alt="">
+                                <img src="/media/{{ company.files.picture }}" onerror="this.onerror=null;this.src='{% static 'front/img/product/1.png' %}';"  alt="">
                             </a>
                             <div class="product-body">
-                                <a href="{% url 'Catalog-item' c.pk %}" class="product-name">{{c.info.name}}</a>
+                                <a href="{% url 'Catalog-item' c.company.pk %}" class="product-name">{{c.company.info.name}}</a>
                                 {% for company_category in company.categories.all %} <a href="?filter-category={{ company_category.pk }}" class="product-cotegory">
-                                 {{ company_category.category.name }}
-                                </a>
-                                  {% endfor %}
+                                 {{ company_category.category.name }} </a> {% endfor %}
                                 <!-- макс сим. - 100 -->
-                                <p class="product-desc">{{c.info.description}}</p>
+                                <p class="product-desc">{{c.company.info.description}}</p>
                             </div>
                             <div class="product-footer">
-                                <a href="" class="button">Подробнее</a>
+                                <a href="{% url 'Catalog-item' c.company.pk %}" class="button">Подробнее</a>
                                 <button class="like-btn favorite">
                                     <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
                                     <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
@@ -353,6 +398,7 @@
                             </div>
                         </div>
                     </div>
+                    {% endif %}
      {% endfor %}
                 </div>
 
@@ -366,7 +412,7 @@
         </div>
     </div>
 </section>
-
+{% endif %}
 
 
 {% block footer %}

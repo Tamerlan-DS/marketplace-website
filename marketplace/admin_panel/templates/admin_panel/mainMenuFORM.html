@@ -43,8 +43,6 @@
                 {% if user.card.role == 'ADMINISTRATOR' %}
                 <li class="nav-item"><a href="{% url 'tarif-add' %}"><i class="menu" data-icon="desktop"></i><span class="menu-title" data-i18n="Dashboard">Создать тариф</span></a>
                 </li>
-                <li class="nav-item"><a href="{% url 'my-balance' %}"><i class="menu" data-icon="desktop"></i><span class="menu-title" data-i18n="Dashboard">Баланс</span></a>
-                </li>
                 {% endif %}
                 {% if user.card.role == 'ADMINISTRATOR' or user.card.role == 'MODERATOR' %}
                 <li class=" navigation-header"><span>Страницы</span>

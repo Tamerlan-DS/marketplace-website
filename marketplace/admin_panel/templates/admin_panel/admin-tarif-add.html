@@ -76,11 +76,18 @@
                                                         <div class="col-12">
                                                             <div class="form-group">
                                                                 <div class="controls">
+                                                                     <label>Описание</label>
+                                                              <textarea type="text" placeholder="Описание" class="form-control" name="description">{{tar.description}}</textarea>
+                                                                  </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-12">
+                                                            <div class="form-group">
+                                                                <div class="controls">
                                                                      <label>Время действия в днях</label>
                                                               <input type="text" id="tarif_time" class="form-control" name="timeleft" placeholder="Время действия в днях">
                                                               </div>
                                                             </div>
-
                                                         </div>
 
 
@@ -148,11 +155,15 @@
                                                                 </div>
                                                                 <label>Цена:</label>
                                                                 <div class="form-group">
-                                                                  <input type="text" placeholder="Описание" class="form-control"  name="price" value="{{tar.price}}">
+                                                                  <input type="text" placeholder="Цена" class="form-control"  name="price" value="{{tar.price}}">
+                                                                </div>
+                                                                  <label>Описание:</label>
+                                                                <div class="form-group">
+                                                                    <textarea type="text" placeholder="Описание" class="form-control" name="description">{{tar.description}}</textarea>
                                                                 </div>
                                                                   <label>Срок:</label>
                                                                 <div class="form-group">
-                                                                  <input type="text" placeholder="Цена" class="form-control" name="timeleft" value="{{tar.timeleft}}">
+                                                                  <input type="text" placeholder="Срок" class="form-control" name="timeleft" value="{{tar.timeleft}}">
                                                                 </div>
 
                                                               </div>

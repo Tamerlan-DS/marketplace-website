@@ -63,9 +63,13 @@
                                                     <th>Статус</th>
                                                     <th>Править</th>
                                                     <th>Тариф</th>
+                                                    {% if user.card.role == 'ADMINISTRATOR' %}
+                                                    <th>Пополнить баланс</th>
+                                                    {% endif %}
                                                 </tr>
                                             </thead>
                                             <tbody>
+
                                                   {% for company in companies %}
                                                   <tr>
                                                     <td>{{ company.pk }}</td>
@@ -88,11 +92,24 @@
                                                       <td><span class="badge badge-light-dark ">{{ company.status }}</span></td>
                                                       {% endif %}
                                                       <td><a href="{% url 'company-edit' company.pk %}"><i class="bx bx-edit-alt"></i></a></td>
-                                                      <td><a href="{% url 'tarif' company.pk %}">
-                                                          {{company.tarifes}}
-                                                          Изменить тариф
-                                                      </a>
-                                                      </td>
+                                                           <td><a href="{% url 'tarif' company.pk %}">{% if company.tarifes.get %}
+                                                               {%for tarif in company.tarifes.all%}
+                                                               {% if tarif.tarif.name == 'PREMIUM' %}
+                                                               <p class="warning">{{ tarif.tarif.name }}</p>
+                                                               {% elif tarif.tarif.name == 'STANDART' %}
+                                                               <p class="danger">{{ tarif.tarif.name }}</p>
+                                                               {% else %}
+                                                               <p class="danger">{{ tarif.tarif.name }}</p>
+                                                               {% endif %}
+                                                               {% endfor %}
+                                                               {% else %}
+                                                               Выбрать тариф
+                                                               {% endif %}
+                                                           </a></td>
+
+                                                      {% if user.card.role == 'ADMINISTRATOR' %}
+                                                        <td><a href="{% url 'balance-charge' company.owner.pk %}">{{company.owner.balance.value}}</a></td>
+                                                      {% endif %}
                                                 </tr>
                                                   {% endfor %}
                                             </tbody>
