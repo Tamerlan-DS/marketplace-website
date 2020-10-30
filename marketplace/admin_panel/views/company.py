@@ -1,12 +1,12 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404 , HttpResponse
 from company.helper import *
 from company.models import Company, Category, CompanyCategory, news, Reviews, Services, branches, Subscribes, CompanyFiles, File, Property, city, CompanyMembers
 from admin_panel.models import Card
 from django.contrib.auth.decorators import login_required
 from admin_panel.decorators import *
 from company_panel.models import Balance, Invoice
-from datetime import datetime, timedelta
-
+from datetime import date,datetime, timedelta
+from array import array
 
 @login_required
 @user_is_moder
@@ -612,8 +612,9 @@ def BalanceView(request):
                     print(user.balance.value)
                     user.balance.value -= tarif_price
                     print(user.balance.value)
-                    company.exp_date += d
+                    company.exp_date = date.today() + d
                     company.charged =True
+                    company.status = company.StatusChoices.ACCEPTED
                     company.save()
                     user.balance.save()
                 else:
@@ -633,13 +634,26 @@ def BalanceView(request):
     return render(request, 'admin_panel/admin-balance.html', context=context)
 
 
-def Charge(company_tarif,user):
-    tarif_price = company_tarif.tarif.price
-    if user.balance.value > tarif_price:
-        user.balance.value = user.balance.value - tarif_price
-        user.save()
-
-    return
+def CheckForExpDate(request):
+    companies = Company.objects.all()
+    company_pkshki = []
+    updated_companies = []
+    for company in companies:
+        if company.exp_date and date.today() > company.exp_date and company.charged:
+            company.status = company.StatusChoices.PENDING
+            company.charged = False
+            company_pkshki.append(company.pk)
+            company.save()
+    for pkshka in company_pkshki:
+        if pkshka:
+            try:
+                updated_companies.append(Company.objects.get(pk=pkshka))
+            except Company.DoesNotExist:
+                continue
+    context = {
+        'companies': updated_companies,
+    }
+    return render(request, 'admin_panel/test/updated_tarifes.html', context=context)
 
 
 @login_required

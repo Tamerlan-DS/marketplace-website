@@ -21,6 +21,8 @@ class CompanyInfo(models.Model):
     fake_id = models.IntegerField(default=0, null=True)
     emailclicks = models.IntegerField(default=0, null=True)
     serviceRequestclicks = models.IntegerField(default=0, null=True)
+    phoneViewClicks = models.IntegerField(default=0, null=True)
+    addressVievClicks = models.IntegerField(default=0, null=True)
 
     def save(self, *args, **kwargs):
         self.search_info = self.name + self.description + self.short_description
