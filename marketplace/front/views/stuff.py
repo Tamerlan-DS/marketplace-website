@@ -116,7 +116,7 @@ def mailerView(request):
                       )
             return redirect('Catalog-item', comp_id)
 
-    return redirect('Catalog-item',comp_id)
+    return redirect('Catalog')
 
 def SubscribeView(request):
     if request.method == 'POST':
