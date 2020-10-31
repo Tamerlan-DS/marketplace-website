@@ -27,7 +27,12 @@ def search_company(
     ).all()
 
     if categories:
-        qs = qs.filter(categories__category__in=categories)
+        for category in categories:
+            if category.parent:
+                qs = qs.filter(Q(categories__category=category) | Q(categories__category=category.parent))
+            else:
+                qs = qs.filter(categories__category=category)
+
     if properties:
         qs = qs.filter(categories__properties__in=properties)
     if city:

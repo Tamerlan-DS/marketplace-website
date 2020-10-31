@@ -56,8 +56,8 @@
                             </div>
                         {% for child in category.childs.all %}
                             <div>
-                                <input type="checkbox" id="{{ category.pk }}" name="filter-category" value="{{ category.pk }}">
-                                <label for="{{ category.pk }}">   {{ child.name }} </label>
+                                <input type="checkbox" id="{{ child.pk }}" name="filter-category" value="{{ child.pk }}">
+                                <label for="{{ child.pk }}">   {{ child.name }} </label>
                             </div>
                         {% endfor %}
                         </div>

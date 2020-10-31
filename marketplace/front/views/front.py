@@ -34,7 +34,6 @@ def FrontPageView(request):
                     response = JsonResponse({
                         "error": 1
                     })
-                    print('azazazaza')
                     return response
                 except Subscribes.DoesNotExist:
                     Subscribes.objects.create(email=email)
