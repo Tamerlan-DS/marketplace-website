@@ -41,13 +41,13 @@ def forcompanyEditView(request):
     }
     if request.method == 'POST':
         type = request.POST['form']
-        if type == 'info' and request.POST['email']:
+        if type == 'info':
             name = request.POST['name']
             short_description = request.POST['short_description']
             description = request.POST['description']
             city = request.POST['city']
             phone = request.POST['phone']
-            email = request.POST['email']
+
             site = request.POST['site']
             worktime = request.POST['worktime']
             adress = request.POST['adress']
@@ -64,7 +64,6 @@ def forcompanyEditView(request):
             company_info.city = city
             company_info.region = r_name
             company_info.phone = phone
-            company_info.email = email
             company_info.worktime = worktime
             company_info.adress = adress
             company_info.site = site
@@ -103,12 +102,29 @@ def forcompanyEditView(request):
                                     company_fk=company.pk)
             return redirect('edit')
 
-        if type == 'files':
+        if type == 'files_banner':
             files = company.files
-            files.picture = request.FILES.get('picture')
             files.banner = request.FILES.get('banner')
             files.save()
 
+            return redirect('edit')
+
+        if type == 'files_logo':
+            files = company.files
+            files.picture = request.FILES.get('picture')
+            files.save()
+            return redirect('edit')
+
+        if type == 'banner_delete':
+            files = company.files
+            files.banner.delete()
+            files.save()
+            return redirect('edit')
+
+        if type == 'logo_delete':
+            files = company.files
+            files.picture.delete()
+            files.save()
             return redirect('edit')
 
         if type == 'files_core':
@@ -212,14 +228,12 @@ def moderationEditView(request,company_id):
     }
     if request.method == 'POST':
         type = request.POST['form']
-        if type == 'info' and request.POST['email']:
-            print('post zashel')
+        if type == 'info':
             name = request.POST['name']
             short_description = request.POST['short_description']
             description = request.POST['description']
             city = request.POST['city']
             phone = request.POST['phone']
-            email = request.POST['email']
             site = request.POST['site']
             worktime = request.POST['worktime']
             adress = request.POST['adress']
@@ -237,7 +251,6 @@ def moderationEditView(request,company_id):
             company_info.city = city
             company_info.region = r_name
             company_info.phone = phone
-            company_info.email = email
             company_info.worktime = worktime
             company_info.adress = adress
             company_info.site = site

@@ -42,19 +42,25 @@
             <div class="col-md-6 col-12">
                 <h3>Оставить заявку</h3>
 
-                <form action="" class="contact-page-form def-form">
+                <form action="{% url 'mailer' %}"  method="post" class="contact-page-form def-form">
+                    {% csrf_token %}
+                 <input type="hidden" name="form" value="call_request">
                     <div class="row">
                         <div class="col-md-6 col-12">
                             <label for="name">Имя</label>
                             <input type="text" required="" name="name" placeholder="Напишите ваше имя">
                         </div>
                         <div class="col-md-6 col-12">
+                            <label for="phone">Телефон</label>
+                            <input type="text" required="" name="phone" placeholder="Напишите ваш телефон">
+                        </div>
+                        <div class="col-md-12 col-12">
                             <label for="email">Email</label>
                             <input type="email" required="" name="email" placeholder="Напишите ваш email">
                         </div>
                         <div class="col-md-12 col-12">
                             <label for="message">Комментарии</label>
-                            <textarea name="message" id="" rows="5" placeholder="Ваш комметарии"></textarea>
+                            <textarea name="text" id="" rows="5" placeholder="Ваш комметарии"></textarea>
                         </div>
                         <div class="col-md-12 col-12">
                             <button type="submit" class="button">Отправить</button>
@@ -73,7 +79,7 @@
 
         <p class="text">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет необходимо предоставить исходные данные, по которым наши копирайтеры составят правильный текст, который будет содержать в себе основную информацию</p>
 
-        <a href="" class="button">Подробнее</a>
+        <a href="{% url 'for-members' %}" class="button">Подробнее</a>
     </div>
 </section>
 

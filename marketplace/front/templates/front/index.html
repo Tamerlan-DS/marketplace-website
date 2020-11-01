@@ -23,8 +23,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-7 col-12">
-                <h1>
-                    Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам</h1>
+                <h1>Онлайн сервис по поиску строительных компаний в Казахстане</h1>
             </div>
             <div class="col-12">
                 <div class="main-banner-form">
@@ -37,7 +36,7 @@
                             <select class="custom-select mr-sm-2" id="inlineFormCustomSelect1" name="filter-category">
                                 {% for category in filteredcategories %}
                                     <option value="{{ category.pk }}">
-                                {{ category.name }}1
+                                {{ category.name }}
                                     </option>
                                 {% endfor %}
                               </select>
@@ -101,7 +100,7 @@
                 </div>
                 <div class="product-footer">
                     <a href="{% url 'Catalog-item' company.pk %}" class="button">Подробнее</a>
-                    <button class="like-btn favorite">
+                    <button class="like-btn favorite" id="like{{company.pk}}" value="{{company.pk}}">
                         <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
                         <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
                     </button>
@@ -215,6 +214,5 @@
     $('#subscribe-modal').modal('show')
     </script>
     {% endif %}
-
 </body>
 </html>

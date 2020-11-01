@@ -15,3 +15,4 @@ from .reCompany_files import *
 from .reCompany_info import *
 from .redactingCompanies import *
 from .companyMessages import *
+from .verificationCode import *

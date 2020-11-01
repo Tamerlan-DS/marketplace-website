@@ -38,7 +38,7 @@
                                             <div class="card">
                                                 <div class="card-header pb-1">
                                                     <div class="card-title">
-                                                        <h4 class="text-center">Регистрация</h4>
+                                                        <h4 class="text-center">Регистрация </h4>
                                                     </div>
                                                 </div>
                                                 <div class="text-center">
@@ -54,6 +54,9 @@
                                                                         <div class="controls">
                                                                             <label>Логин</label>
                                                                             <input type="text" class="form-control" name = "username" placeholder="Логин" value="{{username}}" required data-validation-required-message="This login field is required">
+                                                                            {% if error == 1 %}
+                                                                             <div class="help-block"><ul role="alert"><li>Данный Логин уже используется</li></ul></div>
+                                                                            {% endif %}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -61,6 +64,15 @@
                                                     <div class="form-group mb-50">
                                                         <label for="firstname">Название компании</label>
                                                         <input type="text" class="form-control" id="firstname" placeholder="Название компании" name="name"/>
+                                                    </div>
+                                                    <div class="form-group mb-50">
+                                                        <label for="email">Email</label>
+                                                        <input type="email" class="form-control" id="email" placeholder="Email" name="email"/>
+                                                        {% if error == 3 %}
+                                                        <div class="help-block"><ul role="alert"><li>Данный Email уже используется</li></ul></div>
+                                                        {% elif error == 4 %}
+                                                        <div class="help-block"><ul role="alert"><li>Данный Email уже проходит верификацию</li></ul></div>
+                                                        {% endif %}
                                                     </div>
 
                                                     <div class="form-group mb-50">
@@ -70,6 +82,9 @@
                                                     <div class="form-group mb-2">
                                                         <label class="text-bold-600" for="exampleInputPassword1">Повторите пароль</label>
                                                         <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Повторите пароль" name="re_password"/>
+                                                        {% if error == 2 %}
+                                                         <div class="help-block"><ul role="alert"><li>Пароли не совпадают</li></ul></div>
+                                                        {% endif %}
                                                     </div>
                                                 </div>
 

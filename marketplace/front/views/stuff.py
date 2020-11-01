@@ -1,11 +1,12 @@
 from django.shortcuts import render,redirect
-from company.models import Company, Category, Subscribes,  News, CompanyInfo, region
+from company.models import Company, Category, Subscribes,  News, CompanyInfo, region,VerificationCodes
 from admin_panel.models import Card
 from company.helper import *
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
 from django.core.mail import send_mail
 from company_panel.models import Balance, Invoice
+import random
 
 def blacklistPageView(request):
     regions = region.objects.all()
@@ -64,6 +65,37 @@ def RegisterView(request):
      }
     return render(request, 'front/auth-register.html', context=context)
 
+def verificationView(request,company_id):
+    regions = region.objects.all()
+    context = {
+        'regions': regions,
+        "companypk" : company_id,
+    }
+    verifications = VerificationCodes.objects.all()
+    try:
+        company = Company.objects.get(pk=company_id)
+    except Company.DoesNotExist:
+        company = None
+    if request.method == 'POST':
+        print('post prishel')
+        code = request.POST['code']
+        try:
+            verification = VerificationCodes.objects.get(code=code)
+            if company != None:
+                email = verification.email
+                company.info.email = email
+                company.info.save()
+                verification.delete()
+                return redirect('panel')
+            else:
+                context['error'] = 0
+                return render(request, 'front/verification.html', context=context)
+        except VerificationCodes.DoesNotExist:
+            context['error'] = 1
+            return render(request, 'front/verification.html', context=context)
+
+    return render(request, 'front/verification.html', context=context)
+
 def mailerView(request):
     if request.method == 'POST':
         type = request.POST['form']
@@ -85,7 +117,7 @@ def mailerView(request):
                       'Email: ' + email + '\n' +
                       text
                       ,
-                      'ttopbild@mail.ru',
+                      'info@topbuild.kz',
                       [company_email],
                       fail_silently=False,
                       )
@@ -110,11 +142,45 @@ def mailerView(request):
                       'Услуга: ' + service + '\n' +
                       text
                       ,
-                      'ttopbild@mail.ru',
+                      'info@topbuild.kz',
                       [company_email],
                       fail_silently=False,
                       )
             return redirect('Catalog-item', comp_id)
+        if type == 'call_request':
+            name = request.POST['name']
+            phone = request.POST['phone']
+            email = request.POST['email']
+            text = request.POST['text']
+            send_mail('Заявка на звонок',
+                      'Имя отправителя: ' + name + '\n' +
+                      'Телефон: ' + phone + '\n' +
+                      'Email: ' + email + '\n' +
+                      text
+                      ,
+                      'info@topbuild.kz',
+                      ['dias2001@inbox.ru'],
+                      fail_silently=False,
+                      )
+            return redirect('FrontPage')
+        if type == 'send_review':
+            name = request.POST['name']
+            phone = request.POST['phone']
+            email = request.POST['email']
+            rating = request.POST['rating']
+            text = request.POST['text']
+            send_mail('Отзыв',
+                      'Имя отправителя: ' + name + '\n' +
+                      'Телефон: ' + phone + '\n' +
+                      'Email: ' + email + '\n' +
+                      'Оценка: ' + rating + '\n' +
+                      text
+                      ,
+                      'info@topbuild.kz',
+                      ['dias2001@inbox.ru'],
+                      fail_silently=False,
+                      )
+            return redirect('FrontPage')
 
     return redirect('Catalog')
 
@@ -147,6 +213,19 @@ def forMembersPageView(request):
      }
     return render(request, 'front/for-members.html', context=context)
 
+def politicsPageView(request):
+    regions = region.objects.all()
+    context = {
+        'regions': regions,
+     }
+    return render(request, 'front/politics.html', context=context)
+def dogovorPageView(request):
+    regions = region.objects.all()
+    context = {
+        'regions': regions,
+     }
+    return render(request, 'front/dogovor.html', context=context)
+
 
 def companyRegisterView(request):
     if request.method == 'POST':
@@ -154,6 +233,7 @@ def companyRegisterView(request):
         name = request.POST['name']
         password = request.POST['password']
         re_password = request.POST['re_password']
+        email = request.POST['email']
         context = {
             'username': username,
             'name': name,
@@ -164,15 +244,38 @@ def companyRegisterView(request):
                 context['error'] = 1
                 return render(request, 'front/auth-register.html', context=context)
             except User.DoesNotExist:
-                user = User.objects.create_user(username=username, password=password)
-                user.save()
-                balance = Balance.objects.create(owner=user)
-                balance.save()
-                card = Card(owner=user, role=Card.RoleChoices.COMPANY_OWNER)
-                card.save()
-                create_company(user, name)
+                try:
+                    company = CompanyInfo.objects.get(email=email)
+                    context['error'] = 3
+                    return render(request, 'front/auth-register.html', context=context)
+                except CompanyInfo.DoesNotExist:
+                    generated_code = random.randint(1000000, 9999999)
+                    try:
+                        verification = VerificationCodes.objects.get(email=email)
+                        context['error'] = 4
+                        return render(request, 'front/auth-register.html', context=context)
+                    except VerificationCodes.DoesNotExist:
+                        verification = None
+                        print(VerificationCodes.objects.all())
+                        VerificationCodes.objects.create(code=generated_code, email=email)
+                        send_mail('Подтверждение Email',
+                                  'Ваш код верификации: ' + str(generated_code),
+                                  'info@topbuild.kz',
+                                  [email],
+                                  fail_silently=True,
+                                  )
+                        user = User.objects.create_user(username=username, password=password)
+                        user.save()
+                        balance = Balance.objects.create(owner=user)
+                        balance.save()
+                        card = Card(owner=user, role=Card.RoleChoices.COMPANY_OWNER)
+                        card.save()
+                        create_company(user, name)
+                        company = Company.objects.get(owner=user)
 
-                return redirect('panel')
+                        return redirect('verification', company.pk)
+
+
         else:
             context['error'] = 2
             return render(request, 'front/auth-register.html', context=context)

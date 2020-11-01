@@ -879,7 +879,7 @@ option{
     z-index: 2;
     width: 100%;
     height: 150px;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
 }
 
@@ -1503,6 +1503,18 @@ footer{
     color: #000000;
 }
 
+.catalog-item-contact button{
+    border: none;
+    background: transparent;
+    border-bottom: 2px solid #ffce00;
+    border-right: 2px solid #ffce00;
+    font-family: IBM Plex Sans;
+    font-size: 16px;
+    line-height: 149.8%;
+    color: #000000;
+    outline:none;
+}
+
 .catalog-item-file{
     display: grid;
     grid-gap: 20px;
@@ -1583,7 +1595,7 @@ footer{
 }
 
 .catalog-item-service-footer{
-    padding: 10px 10px;
+    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1810,8 +1822,8 @@ footer{
 .catalog-filter-body.active{
     height: auto;
     opacity: 1;
-    z-index: 2;
-    transform: translateY(0px);
+    z-index: 10;
+    transform: translateY(0px) translateZ(30px);
 }
 
 .catalog-filter-body-inner{
@@ -2519,4 +2531,47 @@ footer{
     .no-search {
         padding-top: 0px;
     }
+}
+
+
+.star-rating {
+    display: flex;
+    margin-bottom: 50px;
+}
+
+.star-rating svg path{
+    fill: #F78211;
+}
+
+.star-rating span{
+    cursor: pointer;
+    position: relative;
+    display: block;
+    width: 40px;
+    height: 40px;
+    margin: 0px 10px;
+}
+
+.star-rating svg{
+    width: 100%;
+    height: 100%;
+}
+
+.star-rating span::after{
+    content: "";
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    background: url("../img/icons/star-rating.svg") center no-repeat;
+    background-size: contain;
+    transform: scale(2);
+    opacity: 0;
+    transition: all 0.2s ease;
+}
+
+.star-rating .active::after{
+    transform: scale(1);
+    opacity: 1;
 }

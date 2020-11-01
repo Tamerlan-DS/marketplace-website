@@ -14,6 +14,7 @@ urlpatterns = [
     path('black-list', blacklistPageView, name='black-list'),
     path('favourites', favouritesPageView, name='favourites'),
     path('auth-register', RegisterView, name='auth-register'),
+    path('verification/<int:company_id>', verificationView, name='verification'),
     path('mailer', mailerView, name='mailer'),
     path('subscribe', SubscribeView, name='subscribe'),
 
@@ -27,6 +28,9 @@ urlpatterns = [
     path('for-clients',forClientsPageView, name='for-clients'),
     path('for-members',forMembersPageView, name='for-members'),
     path('company-register',companyRegisterView, name='companyRegister'),
+    path('politics',politicsPageView, name='politics'),
+    path('dogovor',dogovorPageView, name='dogovor'),
+
 
 
 

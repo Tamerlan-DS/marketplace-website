@@ -37,16 +37,6 @@
                 </ul>
             </div>
             <div>
-                <p class="footer-title">Главная </p>
-                <ul class="footer-menu">
-                    <li><a href="">Оплата</a></li>
-                    <li><a href="">Доставка</a></li>
-                    <li><a href="">Гарантии</a></li>
-                    <li><a href="">Сервис</a></li>
-                    <li><a href="">Политика конфиденциальности</a></li>
-                </ul>
-            </div>
-            <div>
                 <p class="footer-title">Контакты</p>
                 <ul class="footer-menu">
                     <li><a>г. Нур-Султан Район  Жумабаева 25/3</a></li>
@@ -57,9 +47,8 @@
 
                 <p class="footer-title">Обратная связь</p>
                 <ul class="footer-menu">
-                    <li><a href="">Заказать обратный звонок</a></li>
-                    <li><a href="">Оставьте отзыв и помогите
-                        нам стать лучше</a></li>
+                    <li><a href="" data-toggle="modal" data-target="#call-modal-request">Заказать обратный звонок</a></li>
+                    <li><a href="" data-toggle="modal" data-target="#call-modal-review">Оставьте отзыв и помогите нам стать лучше</a></li>
                 </ul>
             </div>
         </div>
@@ -69,11 +58,12 @@
             </div>
 
             <div>
-                <a href="" class="text text-center text-white">Политика конфиденциальности</a>
+                <a href="{% url 'politics' %}" class="text text-center text-white">Политика конфиденциальности</a>
+                <a href="{% url 'dogovor' %}" class="text text-center text-white">Договор оферты</a>
             </div>
 
             <div>
-                <a href="" class="text text-md-right text-center text-white">Создание сайтов</a>
+                <a href="https://factum.agency/" target="_blank" class="text text-md-right text-center text-white">Создание сайтов</a>
             </div>
         </div>
     </div>
@@ -101,6 +91,106 @@
     </div>
 </div>
 </footer>
+
+<div class="modal fade" id="call-modal-request" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-body">
+            <h3>Оставить заявку на обратный звонок</h3>
+            <form action="{% url 'mailer' %}" class="contact-page-form def-form" method="post">
+                {% csrf_token %}
+                 <input type="hidden" name="form" value="call_request">
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <label for="name">Имя*</label>
+                        <input type="text" required="" name="name" placeholder="Напишите ваше имя">
+                    </div>
+                    <div class="col-md-6 col-12" >
+                        <label for="name">Телефон*</label>
+                        <input type="text" class="phone" name="phone" placeholder="Напишите ваш телефон">
+                    </div>
+                    <div class="col-12">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" placeholder="Напишите ваш email">
+                    </div>
+                    <div class="col-12">
+                        <label for="review">Комментарий</label>
+                        <textarea name="text" id="" rows="5" placeholder="Ваш комментарий"></textarea>
+                    </div>
+                    <div class="col-md-12 col-12">
+                        <button type="submit" class="button">Отправить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
+<div class="modal fade" id="call-modal-review" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-body">
+            <h3>Оставить отзыв сервису TopBuild</h3>
+            <form action="{% url 'mailer' %}" class="contact-page-form def-form" method="post">
+                {% csrf_token %}
+                 <input type="hidden" name="form" value="send_review">
+                <div class="row">
+                    <div class="col-md-6 col-12">
+                        <label for="name">Имя*</label>
+                        <input type="text" required name="name" placeholder="Напишите ваше имя">
+                    </div>
+                    <div class="col-md-6 col-12" >
+                        <label for="name">Телефон</label>
+                        <input type="text" class="phone" name="phone" placeholder="Напишите ваш телефон">
+                    </div>
+                    <div class="col-12">
+                        <label for="email">Email</label>
+                        <input type="email" name="email" placeholder="Напишите ваш email">
+                    </div>
+                    <div class="col-12">
+                                  <label for="rating">Оцените компанию</label>
+                                    <div class="star-rating">
+                                        <span data-rating="1" class="disactive">
+                                            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M30.6125 16.7147L23.9993 2.6075L17.3882 16.7147L2.53519 18.9869L13.2843 30.0212L10.7534 45.5593L24.0004 38.2273L37.247 45.5611L34.7161 30.0232L45.467 18.9872L30.6125 16.7147ZM46.7262 17.1565C47.9362 17.3428 48.4222 18.819 47.5722 19.6923L36.8522 30.6967L39.3862 46.2539C39.5902 47.5017 38.2602 48.4111 37.1802 47.8102L24.0002 40.5133L10.8203 47.8082C9.73027 48.4151 8.41228 47.4877 8.61428 46.2519L11.1483 30.6947L0.428297 19.6903C-0.421701 18.819 0.0622983 17.3428 1.2743 17.1565L16.0303 14.8992L22.6422 0.790177C23.1362 -0.263392 24.8622 -0.263392 25.3562 0.790177L31.9702 14.8992L46.7262 17.1565Z"/>
+                                            </svg>
+                                        </span>
+                                        <span data-rating="2" class="disactive">
+                                            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M30.6125 16.7147L23.9993 2.6075L17.3882 16.7147L2.53519 18.9869L13.2843 30.0212L10.7534 45.5593L24.0004 38.2273L37.247 45.5611L34.7161 30.0232L45.467 18.9872L30.6125 16.7147ZM46.7262 17.1565C47.9362 17.3428 48.4222 18.819 47.5722 19.6923L36.8522 30.6967L39.3862 46.2539C39.5902 47.5017 38.2602 48.4111 37.1802 47.8102L24.0002 40.5133L10.8203 47.8082C9.73027 48.4151 8.41228 47.4877 8.61428 46.2519L11.1483 30.6947L0.428297 19.6903C-0.421701 18.819 0.0622983 17.3428 1.2743 17.1565L16.0303 14.8992L22.6422 0.790177C23.1362 -0.263392 24.8622 -0.263392 25.3562 0.790177L31.9702 14.8992L46.7262 17.1565Z"/>
+                                            </svg>
+                                        </span>
+                                        <span data-rating="3" class="disactive">
+                                            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M30.6125 16.7147L23.9993 2.6075L17.3882 16.7147L2.53519 18.9869L13.2843 30.0212L10.7534 45.5593L24.0004 38.2273L37.247 45.5611L34.7161 30.0232L45.467 18.9872L30.6125 16.7147ZM46.7262 17.1565C47.9362 17.3428 48.4222 18.819 47.5722 19.6923L36.8522 30.6967L39.3862 46.2539C39.5902 47.5017 38.2602 48.4111 37.1802 47.8102L24.0002 40.5133L10.8203 47.8082C9.73027 48.4151 8.41228 47.4877 8.61428 46.2519L11.1483 30.6947L0.428297 19.6903C-0.421701 18.819 0.0622983 17.3428 1.2743 17.1565L16.0303 14.8992L22.6422 0.790177C23.1362 -0.263392 24.8622 -0.263392 25.3562 0.790177L31.9702 14.8992L46.7262 17.1565Z"/>
+                                            </svg>
+                                        </span>
+                                        <span data-rating="4" class="disactive">
+                                            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M30.6125 16.7147L23.9993 2.6075L17.3882 16.7147L2.53519 18.9869L13.2843 30.0212L10.7534 45.5593L24.0004 38.2273L37.247 45.5611L34.7161 30.0232L45.467 18.9872L30.6125 16.7147ZM46.7262 17.1565C47.9362 17.3428 48.4222 18.819 47.5722 19.6923L36.8522 30.6967L39.3862 46.2539C39.5902 47.5017 38.2602 48.4111 37.1802 47.8102L24.0002 40.5133L10.8203 47.8082C9.73027 48.4151 8.41228 47.4877 8.61428 46.2519L11.1483 30.6947L0.428297 19.6903C-0.421701 18.819 0.0622983 17.3428 1.2743 17.1565L16.0303 14.8992L22.6422 0.790177C23.1362 -0.263392 24.8622 -0.263392 25.3562 0.790177L31.9702 14.8992L46.7262 17.1565Z"/>
+                                            </svg>
+                                        </span>
+                                        <span data-rating="5" class="disactive">
+                                            <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd" d="M30.6125 16.7147L23.9993 2.6075L17.3882 16.7147L2.53519 18.9869L13.2843 30.0212L10.7534 45.5593L24.0004 38.2273L37.247 45.5611L34.7161 30.0232L45.467 18.9872L30.6125 16.7147ZM46.7262 17.1565C47.9362 17.3428 48.4222 18.819 47.5722 19.6923L36.8522 30.6967L39.3862 46.2539C39.5902 47.5017 38.2602 48.4111 37.1802 47.8102L24.0002 40.5133L10.8203 47.8082C9.73027 48.4151 8.41228 47.4877 8.61428 46.2519L11.1483 30.6947L0.428297 19.6903C-0.421701 18.819 0.0622983 17.3428 1.2743 17.1565L16.0303 14.8992L22.6422 0.790177C23.1362 -0.263392 24.8622 -0.263392 25.3562 0.790177L31.9702 14.8992L46.7262 17.1565Z"/>
+                                            </svg>
+                                        </span>
+                                        <input type="hidden" name="rating" class="rating-value" value="1">
+                                    </div>
+                            </div>
+                    <div class="col-12">
+                        <label for="review">Комментарий</label>
+                        <textarea name="text"rows="5" placeholder="Ваш комментарий"></textarea>
+                    </div>
+                    <div class="col-md-12 col-12">
+                        <button type="submit" class="button">Отправить</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    </div>
+</div>
 <script>
 function Dassubscribe(){
     var sub_email = document.getElementById('sub_email').value

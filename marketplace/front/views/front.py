@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from company.models import Company, Category, Subscribes, News, CompanyInfo, City, region
 from django.http import HttpResponse, HttpResponseRedirect, JsonResponse
+from django.contrib import auth
 
 def FrontPageView(request):
     if request.user.is_authenticated:

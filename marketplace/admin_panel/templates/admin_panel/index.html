@@ -44,6 +44,7 @@
             <div class="content-body">
                 <!-- Dashboard Ecommerce Starts -->
                 <section id="dashboard-ecommerce">
+                     {% if user.card.role == 'COMPANY_OWNER' %}
                     <div class="row">
                         <div class="col-xl-12 col-12 dashboard-users">
                             <div class="row  ">
@@ -111,6 +112,102 @@
                             </div>
                         </div>
                     </div>
+                    {%endif%}
+                      {% if user.card.role == 'ADMINISTRATOR'  %}
+                        <div class="row">
+                            <div class="col-xl-12 col-12 dashboard-users">
+                                <div class="row  ">
+                                    <!-- Statistics Cards Starts -->
+                                    <div class="col-12">
+                                        <div class="row">
+                                            <div class="col-sm-12 col-md-4 col-12 dashboard-users-success">
+                                                <div class="card text-center">
+                                                    <div class="card-content">
+                                                        <div class="card-body py-1">
+                                                            <div class="badge-circle badge-circle-lg badge-circle-light-success mx-auto mb-50">
+                                                                <i class="bx bx-briefcase-alt font-medium-5"></i>
+                                                            </div>
+                                                            <div class="text-muted line-ellipsis">Общее количество заявок</div>
+                                                            <h3 class="mb-0">{{emailclicks}}</h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-4 col-12 dashboard-users-danger">
+                                                <div class="card text-center">
+                                                    <div class="card-content">
+                                                        <div class="card-body py-1">
+                                                            <div class="badge-circle badge-circle-lg badge-circle-light-danger mx-auto mb-50">
+                                                                <i class="bx bx-user font-medium-5"></i>
+                                                            </div>
+                                                            <div class="text-muted line-ellipsis">Общее количество заявок на услуги</div>
+                                                            <h3 class="mb-0">{{serviceRequestclicks}}</h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                             <div class="col-sm-12 col-md-4 col-12 dashboard-users-danger">
+                                                <div class="card text-center">
+                                                    <div class="card-content">
+                                                        <div class="card-body py-1">
+                                                            <div class="badge-circle badge-circle-lg badge-circle-light-danger mx-auto mb-50">
+                                                                <i class="bx bx-user font-medium-5"></i>
+                                                            </div>
+                                                            <div class="text-muted line-ellipsis">Общее количество кликов на номер</div>
+                                                            <h3 class="mb-0">{{phoneViewClicks}}</h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                             <div class="col-sm-12 col-md-4 col-12 dashboard-users-danger">
+                                                <div class="card text-center">
+                                                    <div class="card-content">
+                                                        <div class="card-body py-1">
+                                                            <div class="badge-circle badge-circle-lg badge-circle-light-danger mx-auto mb-50">
+                                                                <i class="bx bx-user font-medium-5"></i>
+                                                            </div>
+                                                            <div class="text-muted line-ellipsis">Общее количество кликов на адрес</div>
+                                                            <h3 class="mb-0">{{addressVievClicks}}</h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-4 col-12 dashboard-users-danger">
+                                                <div class="card text-center">
+                                                    <div class="card-content">
+                                                        <div class="card-body py-1">
+                                                            <div class="badge-circle badge-circle-lg badge-circle-light-danger mx-auto mb-50">
+                                                                <i class="bx bx-user font-medium-5"></i>
+                                                            </div>
+                                                            <div class="text-muted line-ellipsis">Сумма всех оплат</div>
+                                                            <h3 class="mb-0 sumall">{{invoices_sum}} тг.</h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-4 col-12 dashboard-users-danger">
+                                                <div class="card text-center">
+                                                    <div class="card-content">
+                                                        <div class="card-body py-1">
+                                                            <div class="badge-circle badge-circle-lg badge-circle-light-danger mx-auto mb-50">
+                                                                <i class="bx bx-user font-medium-5"></i>
+                                                            </div>
+                                                            <div class="text-muted line-ellipsis">Количество компаний на сервисе</div>
+                                                            <h3 class="mb-0">{{company_number}}</h3>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <!-- Revenue Growth Chart Starts -->
+                                </div>
+                            </div>
+                        </div>
+                      {% endif %}
                       <!-- table Transactions start -->
                       <section id="table-transactions">
                         <div class="card">

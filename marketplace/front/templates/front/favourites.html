@@ -36,26 +36,24 @@
 <section>
     <div class="container">
         <div class="view2 product-div">
-            {{cookies}}
         {% for company in companies %}
-            {% if company.pk == cookies %}
 
-            <div class="product-item premium" data-tilt data-tilt-perspective="5000">
-                <a href="" class="product-img">
-                    <img src="{% static 'front/img/product/1.png' %}" alt="">
+
+            <div class="product-item premium" data-tilt data-tilt-perspective="5000" id="{{company.pk}}" style="display: none">
+                 <a href="{% url 'Catalog-item' company.pk %}" class="product-img">
+                    <img src="/media/{{ company.files.picture }}" onerror="this.onerror=null;this.src='{% static 'front/img/product/1.png' %}';" alt="">
                 </a>
-                <div class="product-body">
-                    <a href="" class="product-name"></a>
-                    <a href="" class="product-cotegory">Строительство жилых домов</a>
-
-
+               <div class="product-body">
+                    <a href="{% url 'Catalog-item' company.pk %}" class="product-name">{{ company.info.name }}</a>
+                    {% for company_category in company.categories.all %} <a class="product-cotegory">
+                     {{ company_category.category.name }}
+                    </a>
+                      {% endfor %}
                     <!-- макс сим. - 100 -->
-                    <p class="product-desc">Это текст о компании. Он необходим для дальнейшего продвижения Вашего сайта. Вам будет...</p>
-
-
+                    <p class="product-desc">{{ company.info.short_description }}</p>
                     <div class="product-footer">
-                        <a href="" class="button">Подробнее</a>
-                        <button class="like-btn favorite active">
+                        <a href="{% url 'Catalog-item' company.pk %}" class="button">Подробнее</a>
+                        <button class="like-btn favorite" value="{{ company.pk }}">
                             <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
                             <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
                         </button>
@@ -63,7 +61,6 @@
                 </div>
             </div>
 
-            {% endif %}
         {% endfor %}
 
             </div>
@@ -83,5 +80,9 @@
 {% block jsLoad %}
 {% include 'front/jsLoader.html' %}
 {% endblock jsLoad %}
+<script>
+        var z = document.getElementById('1')
+    z.style.display = "grid";
+</script>
 </body>
 </html>

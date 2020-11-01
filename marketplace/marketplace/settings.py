@@ -129,9 +129,9 @@ MEDIA_ROOT = '/home/t/topbuild/topbuild.beget.tech/public_html/media'
 
 LOGIN_URL = 'login'
 
-EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_HOST = 'smtp.beget.com'
 EMAIL_PORT = 465
-EMAIL_HOST_USER = 'ttopbild@mail.ru'
-EMAIL_HOST_PASSWORD = 'topbuildMailPassword'
+EMAIL_HOST_USER = 'info@topbuild.kz'
+EMAIL_HOST_PASSWORD = 'Fcrfhjgnjv123'
 EMAIL_USE_TSL = True
 EMAIL_USE_SSL = True
