@@ -269,7 +269,7 @@ def companyRegisterView(request):
                         company = Company.objects.get(owner=user)
                         send_mail('Подтверждение Email',
                                   'Ваш код верификации: ' + str(
-                                      generated_code) + '\n' + 'Ссылка для верификации: ' + "http://topbuild.beget.tech/verification/" + company.pk,
+                                      generated_code) + '\n' + 'Ссылка для верификации: ' + "http://topbuild.beget.tech/verification/" + str(company.pk),
                                   'info@topbuild.kz',
                                   [email],
                                   fail_silently=True,
