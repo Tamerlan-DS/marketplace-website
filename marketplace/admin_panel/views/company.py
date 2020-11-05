@@ -13,7 +13,6 @@ from array import array
 def companyView(request):
     companies = Company.objects.all()
     tarif = CompanyTarif.objects.all()
-    print(tarif)
     context = {
         'companies': companies,
         'tarif': tarif,
@@ -190,11 +189,8 @@ def companyEditView(request, company_id):
             re_password = request.POST['password']
             if password == re_password:
                 user = User.objects.get(username=company.owner.username)
-                print(user.password)
-                print(user.username)
                 user.set_password(password)
                 user.save()
-                print(user.password)
                 context['error'] = 'Пароль успешно изменен!'
                 return render(request, 'admin_panel/admin-company-edit.html', context=context)
 
@@ -506,7 +502,6 @@ def TarifView(request,company_id):
         if type == 'edit':
             company_tarifes = CompanyTarif.objects.filter(company=company)
             tarif_id = request.POST.getlist('tarif')
-            print(tarif_id)
             for company_tarif in company_tarifes:
                 company_tarif.delete()
             for tarify in tarif_id:
@@ -609,9 +604,7 @@ def BalanceView(request):
                 d = timedelta(days=local_time)
                 tarif_price = tarif.tarif.price
                 if user.balance.value >= tarif_price:
-                    print(user.balance.value)
                     user.balance.value -= tarif_price
-                    print(user.balance.value)
                     company.exp_date = date.today() + d
                     company.charged =True
                     company.status = company.StatusChoices.ACCEPTED
