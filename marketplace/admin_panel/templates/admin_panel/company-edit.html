@@ -252,10 +252,10 @@
                                                                             <input type="hidden" name="form" value="category">
                                                                             <select class="form-control" id="accountSelect"  name="categories" >
                                                                                 <option value="{{categori.category.pk}}" selected>Выбранная: {% for categor in categori %}{{categor.category.name}} {% endfor %}</option>
-                                                                                 {% for category in categories %}
-                                                                                <option value="{{ category.pk }}" >
-                                                                                                 {{ category }}
-                                                                                          </option>
+                                                                                {% for category in parents %}
+                                                                                    <option value="{{ category.pk }}">
+                                                                                        {{ category.name }}
+                                                                                    </option>
                                                                                 {% endfor %}
                                                                             </select>
                                                                     </div>

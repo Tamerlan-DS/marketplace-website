@@ -18,7 +18,7 @@ def forcompanyEditView(request):
     cities = City.objects.all()
     services = Services.objects.all()
     categories = Category.objects.all()
-
+    parents = categories.filter(parent__isnull=True)
     branche = Branches.objects.all()
     try:
         company_members = CompanyMembers.objects.filter(company=company)
@@ -33,6 +33,7 @@ def forcompanyEditView(request):
         'company_categories': company_categories,
         'company_members': company_members,
         'services': services,
+        'parents': parents,
         'branches': branche,
         'cities': cities,
         'company_files': company_fily,
@@ -141,6 +142,7 @@ def forcompanyEditView(request):
                 File.objects.create(company_files=file, file=post_file, note=note)
                 context['error_file'] = 1
                 return render(request, 'admin_panel/company-edit.html', context=context)
+
         if type == 'delete':
             company.delete()
             return redirect('panel')
