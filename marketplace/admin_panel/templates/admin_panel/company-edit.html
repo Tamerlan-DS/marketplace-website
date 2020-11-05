@@ -132,7 +132,7 @@
                                                                     <div class="form-group">
                                                                         <div class="controls">
                                                                             <label>Название</label>
-                                                                            <input type="text" class="form-control" name = "name" placeholder="Название" value="{{ company.info.name }}" required data-validation-required-message="This name field is required">
+                                                                            <input type="text" class="form-control" name = "name" placeholder="Название" value="{{ company.info.name }}" required data-validation-required-message="This name field is required" maxlength="50">
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -141,7 +141,7 @@
                                                                     <div class="form-group">
                                                                         <div class="controls">
                                                                             <label>Описание</label>
-                                                                            <input type="text" class="form-control"  name = "description" placeholder="Описание" value="{{company.info.description}}" required data-validation-required-message="This discription field is required">
+                                                                            <textarea type="text" class="form-control"  name = "description" placeholder="Описание" required data-validation-required-message="This discription field is required" >{{company.info.description}}</textarea>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -150,7 +150,7 @@
                                                                     <div class="form-group">
                                                                         <div class="controls">
                                                                             <label>Краткое описание</label>
-                                                                            <input type="text" class="form-control" name = "short_description" placeholder="Краткое описание" value="{{company.info.short_description}}" required data-validation-required-message="This short discription field is required">
+                                                                            <input type="text" class="form-control" name = "short_description" placeholder="Краткое описание" value="{{company.info.short_description}}" required data-validation-required-message="This short discription field is required" maxlength="100">
                                                                         </div>
                                                                     </div>
                                                                 </div>

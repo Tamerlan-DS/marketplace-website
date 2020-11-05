@@ -79,7 +79,6 @@ def verificationView(request,company_id):
     except Company.DoesNotExist:
         company = None
     if request.method == 'POST':
-        print('post prishel')
         code = request.POST['code']
         try:
             verification = VerificationCodes.objects.get(code=code)
