@@ -178,7 +178,7 @@ def companyEditView(request, company_id):
                 context['error_file'] = 0
                 return render(request, 'admin_panel/admin-company-edit.html', context=context)
             else:
-                File.objects.create(company_files=file,file=post_file,note=note)
+                File.objects.create(company_files=file,file=post_file,note=note, file_name=post_file)
                 context['error_file'] = 1
                 return render(request, 'admin_panel/admin-company-edit.html', context=context)
         if type == 'delete':
