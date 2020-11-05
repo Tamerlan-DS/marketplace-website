@@ -258,12 +258,7 @@ def companyRegisterView(request):
                         verification = None
                         print(VerificationCodes.objects.all())
                         VerificationCodes.objects.create(code=generated_code, email=email)
-                        send_mail('Подтверждение Email',
-                                  'Ваш код верификации: ' + str(generated_code),
-                                  'info@topbuild.kz',
-                                  [email],
-                                  fail_silently=True,
-                                  )
+
                         user = User.objects.create_user(username=username, password=password)
                         user.save()
                         balance = Balance.objects.create(owner=user)
@@ -272,7 +267,13 @@ def companyRegisterView(request):
                         card.save()
                         create_company(user, name)
                         company = Company.objects.get(owner=user)
-
+                        send_mail('Подтверждение Email',
+                                  'Ваш код верификации: ' + str(
+                                      generated_code) + '\n' + 'Ссылка для верификации: ' + "http://topbuild.beget.tech/verification/" + company.pk,
+                                  'info@topbuild.kz',
+                                  [email],
+                                  fail_silently=True,
+                                  )
                         return redirect('verification', company.pk)
 
 
