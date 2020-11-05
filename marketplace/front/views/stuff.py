@@ -4,6 +4,7 @@ from admin_panel.models import Card
 from company.helper import *
 from django.http import HttpResponse, HttpResponseRedirect
 from django.views.decorators.csrf import csrf_exempt
+from admin_panel.decorators import *
 from django.core.mail import send_mail
 from company_panel.models import Balance, Invoice
 import random
@@ -65,6 +66,7 @@ def RegisterView(request):
      }
     return render(request, 'front/auth-register.html', context=context)
 
+@isVerification_valid
 def verificationView(request,company_id):
     regions = region.objects.all()
     context = {
@@ -256,9 +258,6 @@ def companyRegisterView(request):
                         return render(request, 'front/auth-register.html', context=context)
                     except VerificationCodes.DoesNotExist:
                         verification = None
-                        print(VerificationCodes.objects.all())
-                        VerificationCodes.objects.create(code=generated_code, email=email)
-
                         user = User.objects.create_user(username=username, password=password)
                         user.save()
                         balance = Balance.objects.create(owner=user)
@@ -267,6 +266,7 @@ def companyRegisterView(request):
                         card.save()
                         create_company(user, name)
                         company = Company.objects.get(owner=user)
+                        VerificationCodes.objects.create(company=company,code=generated_code, email=email)
                         send_mail('Подтверждение Email',
                                   'Ваш код верификации: ' + str(
                                       generated_code) + '\n' + 'Ссылка для верификации: ' + "http://topbuild.beget.tech/verification/" + str(company.pk),
