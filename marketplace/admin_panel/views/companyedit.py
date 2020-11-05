@@ -13,7 +13,6 @@ def forcompanyEditView(request):
     company_id = request.user.pk
     company = get_object_or_404(Company, owner=request.user)
     categori = CompanyCategory.objects.filter(company=company)
-    print(categori)
     company_fily = File.objects.filter(company_files=company.files)
     redacting_comp = redactingCompanies.objects.all()
     cities = City.objects.all()
@@ -254,18 +253,15 @@ def moderationEditView(request,company_id):
             company_info.worktime = worktime
             company_info.adress = adress
             company_info.site = site
-            print('taks')
             if status == '0':
                 company.status = company.StatusChoices.ACCEPTED
             elif status == '1':
                 company.status = company.StatusChoices.PENDING
             elif status == '2':
                 company.status = company.StatusChoices.BANNED
-            print('4toto slu4ilos!')
             company_info.save()
             redactCompany.delete()
             company.save()
-            print('4toto slu4ilos!2')
             return redirect('moder-companies')
             # return render(request, 'admin_panel/admin-company-edit.html', context=context)
 

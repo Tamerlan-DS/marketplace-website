@@ -10,6 +10,7 @@
       <list>
         <option value="$MODULE_DIR$/marketplace/sandbox/templates" />
         <option value="$MODULE_DIR$/marketplace/admin_panel/templates" />
+        <option value="$MODULE_DIR$/marketplace/front/templates" />
       </list>
     </option>
   </component>

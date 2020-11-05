@@ -4,7 +4,7 @@ from company.models import Company, Category, CompanyCategory, news, Reviews, Se
 from admin_panel.models import Card
 from django.contrib.auth.decorators import login_required
 from admin_panel.decorators import *
-from company_panel.models import Balance, Invoice
+from company_panel.models import Balance, Invoice   
 from datetime import date,datetime, timedelta
 from array import array
 
