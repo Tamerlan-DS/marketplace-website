@@ -11,6 +11,10 @@ class CompanyFiles(models.Model):
     banner = models.ImageField(upload_to='company_files/banners', blank=True)
 
 
+def make_upload_path(instance, filename):
+    return u'instructions/%s' % filename
+
+
 class File(models.Model):
     company_files = models.ForeignKey(CompanyFiles,
                                           on_delete=models.CASCADE,
@@ -18,7 +22,6 @@ class File(models.Model):
                                       )
     file = models.FileField(upload_to=make_upload_path,null=True,blank=True)
     note = models.CharField(max_length=255, blank=True)
-
 
 class Image(models.Model):
     company_files = models.ForeignKey(CompanyFiles,
