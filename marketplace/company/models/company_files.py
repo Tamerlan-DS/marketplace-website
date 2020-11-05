@@ -12,7 +12,7 @@ class CompanyFiles(models.Model):
 
 
 def make_upload_path(instance, filename):
-    return u'instructions/%s' % filename
+    return u'company_files/files%s' % filename.encode('utf8')
 
 
 class File(models.Model):
