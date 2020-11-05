@@ -19,7 +19,10 @@ def serviceEditView(request,service_id):
             img = request.FILES.get('image')
             company_pk = int(request.POST['company_pk'])
             services.name = name
-            services.image = img
+            if img is None:
+                services.image = services.image
+            else:
+                services.image = img
             services.description = description
             services.price = price
             services.save()
@@ -40,7 +43,10 @@ def serviceUserEditView(request,service_id):
             img = request.FILES.get('image')
             company_pk = int(request.POST['company_pk'])
             services.name = name
-            services.image = img
+            if img is None:
+                services.image = services.image
+            else:
+                services.image = img
             services.description = description
             services.price = price
             services.save()
