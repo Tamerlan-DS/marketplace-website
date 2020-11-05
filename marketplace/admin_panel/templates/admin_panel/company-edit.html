@@ -159,7 +159,7 @@
                                                                     <div class="form-group">
                                                                         <div class="controls">
                                                                             <label>Телефон</label>
-                                                                            <input type="text" class="form-control" required placeholder="Phone number" value="{{ company.info.phone }}" name="phone" required>
+                                                                            <input type="text" class="form-control phone"  required placeholder="Phone number" value="{{ company.info.phone }}" name="phone" required>
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -196,7 +196,7 @@
                                                                 <div class="col-12">
                                                                 <div class="form-group">
                                                                     <label>Время работы: </label>
-                                                                    <input type="text" class="form-control" placeholder="Время работы:" value="{{ company.info.worktime }}" name="worktime" required>
+                                                                    <input type="text" class="form-control time" placeholder="Время работы:" value="{{ company.info.worktime }}" name="worktime" required>
                                                                 </div>
                                                                 </div>
 
@@ -420,7 +420,7 @@
                                                             <div class="col-6">
                                                                 <div class="form-group">
                                                                     <label>Телефон</label>
-                                                                    <input type="text" class="form-control" placeholder="Телефон" name="phone" required>
+                                                                    <input type="text" class="form-control phone" placeholder="Телефон" name="phone" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-6">
@@ -432,7 +432,7 @@
                                                             <div class="col-6">
                                                                 <div class="form-group">
                                                                     <label>Время работы</label>
-                                                                    <input type="text" class="form-control" placeholder="Время работы" name="worktime" required>
+                                                                    <input type="text" class="form-control time" placeholder="Время работы" name="worktime" required>
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -510,7 +510,7 @@
                                                             <div class="col-6">
                                                                 <div class="form-group">
                                                                     <label>Телефон</label>
-                                                                    <input type="text" class="form-control" value="{{cit.phone}}"name="phone" required>
+                                                                    <input type="text" class="form-control phone" value="{{cit.phone}}"name="phone" required>
                                                                 </div>
                                                             </div>
                                                             <div class="col-6">
@@ -522,7 +522,7 @@
                                                             <div class="col-6">
                                                                 <div class="form-group">
                                                                     <label>Время работы</label>
-                                                                    <input type="text" class="form-control" value="{{cit.worktime}}" name="worktime" required>
+                                                                    <input type="text" class="form-control time" value="{{cit.worktime}}" name="worktime" required>
                                                                 </div>
                                                             </div>
                                                               </div>
@@ -881,6 +881,8 @@
     {% block jsLoader %}
     {% include 'admin_panel/jsLoader.html' %}
     {% endblock jsLoader %}
+
+
 
 </body>
 <!-- END: Body-->
