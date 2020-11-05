@@ -18,7 +18,11 @@ def forcompanyEditView(request):
     cities = City.objects.all()
     services = Services.objects.all()
     categories = Category.objects.all()
-    parents = categories.filter(parent__isnull=True)
+    parents = categories.filter(parent__isnull=False)
+    try:
+        category = CompanyCategory.objects.get(company=company)
+    except CompanyCategory.DoesNotExist:
+        category = None
     branche = Branches.objects.all()
     try:
         company_members = CompanyMembers.objects.filter(company=company)
@@ -38,6 +42,7 @@ def forcompanyEditView(request):
         'cities': cities,
         'company_files': company_fily,
         'categori': categori,
+        'category': category,
     }
     if request.method == 'POST':
         type = request.POST['form']
