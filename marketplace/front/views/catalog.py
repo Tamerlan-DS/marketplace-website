@@ -10,6 +10,7 @@ def catalogPageView(request):
     search_query = request.GET.get('search', None)
     city = request.GET.get('city', None)
     regiona = request.GET.get('region', None)
+    property = request.GET.get('properties', None)
     properties = Property.objects.all()
     category_ids = request.GET.getlist('filter-category', [])
     categories = Category.objects.filter(Q(id__in=category_ids) | Q(parent__id__in=category_ids))
@@ -18,12 +19,14 @@ def catalogPageView(request):
         categories=categories,
         city=city,
         region=regiona,
+        properties=property,
     )
     company_number = search_company(
         search_text=search_query,
         categories=categories,
         city=city,
         region=regiona,
+        properties=property,
     ).count()
     paginator = Paginator(companies, 20)
 

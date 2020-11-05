@@ -63,10 +63,9 @@
                         </div>
                         {% endfor %}
                     </div>
-                    <select data-placeholder="Характеристики..." multiple class="chosen-select" tabindex="8">
-                        <option value=""></option>
+                    <select data-placeholder="Характеристики..." multiple class="chosen-select" name="properties" tabindex="8">
                         {% for property in properties %}
-                        <option>{{ property.name }}</option>
+                        <option value="{{property.pk}}">{{ property.name }}</option>
                         {% endfor %}
                       </select>
 

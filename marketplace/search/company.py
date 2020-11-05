@@ -34,7 +34,7 @@ def search_company(
                 qs = qs.filter(categories__category=category)
 
     if properties:
-        qs = qs.filter(categories__properties__in=properties)
+        qs = qs.filter(categories__category__properties__in=properties)
     if city:
         qs = qs.filter(info__city=city)
     if region:
