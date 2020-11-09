@@ -108,7 +108,7 @@
                     <p class="product-desc">{{ company.info.short_description }}</p>
                     <div class="product-footer">
                         <a href="{% url 'Catalog-item' company.pk %}" class="button">Подробнее</a>
-                        <button class="like-btn favorite" value="{{ company.pk }}">
+                        <button class="like-btn favorite {% for item in request.session.favourites %}{% if item.id == company.pk|stringformat:"i" %} active {% endif %} {% endfor %}" value="{{ company.pk }}">
                             <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
                             <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
                         </button>
@@ -164,6 +164,40 @@
 {% include 'front/jsLoader.html' %}
 {% endblock jsLoad %}
 
+<script>
+$(".favorite").click( function() {
+    var id = $(this).attr("id");
+    if ($(this).hasClass("active")) {
+         $(this).removeClass("active");
+         $.ajax({
+            type: "POST",
+            url: "{% url 'favourites-remove' %}",
+            data: {
+                "type": "Company",
+                "url_from": "{{request.path}}",
+                "id": id,
+                "csrfmiddlewaretoken": "{{ csrf_token }}",
+            },
+
+        });
+    }
+    else{
+       $(this).addClass("active");
+        $.ajax({
+            type: "POST",
+            url: "{% url 'favourites-add' %}",
+            data: {
+                "type": "Company",
+                "url_from": "{{request.path}}",
+                "id": id,
+                "csrfmiddlewaretoken": "{{ csrf_token }}",
+            },
+
+        });
+    }
+
+})
+</script>
   {% block footer %}
     {% include 'front/footerForm.html' %}
     {% endblock footer %}

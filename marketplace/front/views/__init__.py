@@ -3,6 +3,7 @@ from .error import *
 from .news import *
 from .front import *
 from .stuff import *
+from .favourites import *
 from django.shortcuts import render
 from company.models import Company
 

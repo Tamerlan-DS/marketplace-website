@@ -23,24 +23,6 @@ def blacklistPageView(request):
     }
     return render(request, 'front/black-list.html',context=context)
 
-@csrf_exempt
-def favouritesPageView(request):
-    regions = region.objects.all()
-    companies = Company.objects.all()
-    arr = request.POST.get('arr[]')
-
-    if request.user.is_authenticated:
-        username = request.user.username
-    else:
-        username = 'anon'
-    context = {
-        'username': username,
-        'regions': regions,
-        'companies': companies,
-        'cookies': arr,
-    }
-    return render(request, 'front/favourites.html',context=context)
-
 
 def mobileSearchPageView(request):
     regions = region.objects.all()

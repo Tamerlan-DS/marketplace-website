@@ -12,7 +12,11 @@ urlpatterns = [
     path('default', defaultPageView, name='default'),
     path('error', errorPageView, name='error'),
     path('black-list', blacklistPageView, name='black-list'),
+
     path('favourites', favouritesPageView, name='favourites'),
+    path('favourites-delete', remove_from_favourites, name='favourites-remove'),
+    path('favourites-add', add_to_favourites, name='favourites-add'),
+
     path('auth-register', RegisterView, name='auth-register'),
     path('verification/<int:company_id>', verificationView, name='verification'),
     path('mailer', mailerView, name='mailer'),
@@ -30,9 +34,5 @@ urlpatterns = [
     path('company-register',companyRegisterView, name='companyRegister'),
     path('politics',politicsPageView, name='politics'),
     path('dogovor',dogovorPageView, name='dogovor'),
-
-
-
-
 
 ]

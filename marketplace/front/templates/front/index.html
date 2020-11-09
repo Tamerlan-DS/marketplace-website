@@ -24,6 +24,7 @@
         <div class="row">
             <div class="col-md-7 col-12">
                 <h1>Онлайн сервис по поиску строительных компаний в Казахстане</h1>
+                <p>{{ request.session.favourites }}</p>
             </div>
             <div class="col-12">
                 <div class="main-banner-form">
@@ -94,13 +95,13 @@
                     <a href="{% url 'Catalog-item' company.pk %}" class="product-cotegory">  {% for company_category in company.categories.all %}
                              {{ company_category.category.name }}
                     {% endfor %}</a>
-
                     <!-- макс сим. - 100 -->
                     <p class="product-desc">{{ company.info.short_description }}</p>
                 </div>
                 <div class="product-footer">
                     <a href="{% url 'Catalog-item' company.pk %}" class="button">Подробнее</a>
-                    <button class="like-btn favorite" id="like{{company.pk}}" value="{{company.pk}}">
+                    <button class="like-btn favorite {% for item in request.session.favourites %}{% if item.id == company.pk|stringformat:"i" %} active {% endif %} {% endfor %}"
+                            id="{{company.pk}}" value="{{company.pk}}">
                         <img src="{% static 'front/img/icons/favourite.svg' %}" class="no-active">
                         <img src="{% static 'front/img/icons/favourite1.svg' %}" class="active">
                     </button>
@@ -208,7 +209,42 @@
 {% block jsLoad %}
 {% include 'front/jsLoader.html' %}
 {% endblock jsLoad %}
+<script>
 
+
+$(".favorite").click( function() {
+    var id = $(this).attr("id");
+    if ($(this).hasClass("active")) {
+         $(this).removeClass("active");
+         $.ajax({
+            type: "POST",
+            url: "{% url 'favourites-remove' %}",
+            data: {
+                "type": "Company",
+                "url_from": "{{request.path}}",
+                "id": id,
+                "csrfmiddlewaretoken": "{{ csrf_token }}",
+            },
+
+        });
+    }
+    else{
+       $(this).addClass("active");
+        $.ajax({
+            type: "POST",
+            url: "{% url 'favourites-add' %}",
+            data: {
+                "type": "Company",
+                "url_from": "{{request.path}}",
+                "id": id,
+                "csrfmiddlewaretoken": "{{ csrf_token }}",
+            },
+
+        });
+    }
+
+})
+</script>
     {% if error == 0 %}
     <script>
     $('#subscribe-modal').modal('show')

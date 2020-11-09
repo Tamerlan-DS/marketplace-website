@@ -27,17 +27,6 @@ $(function() {
 });
 
 
-$(".favorite").click( function() {
-    $(this).toggleClass("active");
-    if ($(this).attr("isActive")) {
-         $(this).removeAttr("isActive");
-    }
-    else{
-       $(this).attr("isActive", 1);
-    }
-
-})
-
 
 $(".catalog-filter-more-search").click( function(){
   $(".catalog-filter-body").toggleClass("active")
