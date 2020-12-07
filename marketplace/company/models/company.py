@@ -6,6 +6,7 @@ class Tarif(models.Model):
     price = models.FloatField(default=0)
     timeleft = models.IntegerField(default=0)
     description = models.TextField(default="")
+    short_description = models.TextField(default="")
     date = models.DateField(null=True)
 
 class Company(models.Model):

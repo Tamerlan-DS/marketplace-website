@@ -91,7 +91,7 @@ $(".favorite").click( function() {
          $(this).removeClass("active");
          $.ajax({
             type: "POST",
-            url: "{% url 'favourites-remove' %}",
+            url: "{% url 'favourites-remove' %}/",
             data: {
                 "type": "Company",
                 "url_from": "{{request.path}}",
