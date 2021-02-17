@@ -12,7 +12,6 @@ def serviceEditView(request,service_id):
     if request.method == 'POST':
         type = request.POST['form']
         if type == 'edit':
-            print('post prishel')
             name = request.POST['name']
             description = request.POST['description']
             price = request.POST['price']

@@ -45,14 +45,14 @@
                 </li>
                 {% endif %}
                 {% if user.card.role == 'ADMINISTRATOR' or user.card.role == 'MODERATOR' %}
-                <li class=" navigation-header"><span>Страницы</span>
-                </li>
-                <li class="nav-item"><a href="#"><i class="menu" data-icon="users"></i><span class="menu-title" data-i18n="User">Новости</span></a>
-                <ul class="menu-content">
-                <li><a href="{% url 'admin-news' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Список новостей</span></a>
-                <li><a href="{% url 'news-add' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Добавить новость</span></a>
-                </ul>
-                </li>
+                    <li class=" navigation-header"><span>Страницы</span>
+                    </li>
+                    <li class="nav-item"><a href="#"><i class="menu" data-icon="users"></i><span class="menu-title" data-i18n="User">Новости</span></a>
+                    <ul class="menu-content">
+                    <li><a href="{% url 'admin-news' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Список новостей</span></a>
+                    <li><a href="{% url 'news-add' %}"><i class="bx bx-right-arrow-alt"></i><span class="menu-item" data-i18n="List">Добавить новость</span></a>
+                    </ul>
+                    </li>
                  {% endif %}
                 {% if user.card.role == 'ADMINISTRATOR' %}
                 <li class=" nav-item"><a href="#"><i class="menu" data-icon="users"></i><span class="menu-title" data-i18n="User">Пользователи</span></a>
