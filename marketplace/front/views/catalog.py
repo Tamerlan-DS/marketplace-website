@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from company.models import Company, Category, CompanyCategory, Reviews, Services, Branches, Property, File, region, CompanyMembers
 from django.http import HttpResponse, HttpResponseRedirect
-from django.core.paginator import Paginator
+    from django.core.paginator import Paginator
 from search.company import search_company
 from django.db.models import Q
 from admin_panel.decorators import *

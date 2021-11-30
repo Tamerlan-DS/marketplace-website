@@ -11,10 +11,10 @@ class Category(models.Model):
                                related_name="childs",
                                )
     name = models.CharField(max_length=255)
-    status = models.CharField(max_length=255,
-                              choices=StatusChoices.choices,
-                              default=StatusChoices.ACTIVE
-                              )
+        status = models.CharField(max_length=255,
+                                  choices=StatusChoices.choices,
+                                  default=StatusChoices.ACTIVE
+                                  )
 
     def __str__(self):
         if self.parent:
